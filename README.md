@@ -1,10 +1,10 @@
-Espnet3
+slimEspnets
 
-独立的 ESPnet3 框架。本项目基于 [ESPnet](https://espnet.github.io/espnet/)，旨在提供一个更轻量、更现代化的语音处理库。
+独立的 ESPnet 框架。本项目基于 [ESPnet](https://espnet.github.io/espnet/)，旨在提供一个更轻量、更现代化的语音处理库。
 
 ## 简介
 
-本项目从官方 ESPnet 仓库中提取了 `egs3`和`espnet3` 模块，并进行了独立打包。它移除了对旧版本代码的依赖，专注于提供简洁、高效的语音识别（ASR）、语音合成（TTS）等任务的训练和推理流程。
+本项目从官方 ESPnet 仓库中提取了 `egs3`、`espnet3` 和 `tools` 模块，并进行了独立打包。它移除了对旧版本代码的依赖，专注于提供简洁、高效的语音识别（ASR）、语音合成（TTS）等任务的训练和推理流程。
 
 本项目以 pytorch lighning 为核心，外部封装独立的数据处理。
 
@@ -19,12 +19,13 @@ Espnet3
 Espnet
 
 ├── egs/			# 各种数据集及相关模式的实战用例
-
+├── egs3/			    # 原备份（将来删除）
+├── espnet2/			# 原备份（将来删除）
+├── espnet3/			# 原备份（将来删除）
 ├── espnet/			# 所有模式的底层实现
-
 ├── tasks/			# 每种模式实战的操作流程
-
-└── tools/			# 工具
+├── tool/			# 所有模式的底层实现
+└── tools/			    # 原备份（将来删除）
 
 ## 安装
 
@@ -77,33 +78,33 @@ Espnet
     ```bash
     $ uv pip install torch==2.9.1 torchaudio==2.9.1 --index-url https://download.pytorch.org/whl/cu128
     ```
-4.  安装ESPnet3
+4.  安装slimESPnet
 
     克隆仓库：
     ```bash
     $ cd ~
-    $ git clone https://github.com/jeffchen0325/espnet3.git
+    $ git clone https://github.com/jeffchen0325/slimESPnet.git
     ```
-    安装ESPnet3
+    安装slimESPnet
     ```bash
-    $ cd <ESPnet3-root>
+    $ cd <slimESPnet-root>
     $ uv pip install -e .[all]    
     ```
-    检查ESPnet版本
+    检查slimESPnet版本
     ```bash
-    $ uv pip show espnet3
+    $ uv pip show slimESPnet
     ```
     或
     ```bash
-    $ cd <ESPnet3-root>/tools
+    $ cd <slimESPnet-root>/tool
     $ python3 check_install.py
     ```
 
 ## 🚀 快速开始
 
 以下是一个简单的示例，展示如何运行一个基础的 ASR 实验：
-```bash
-$ bash ~/espnet3/tools/installers/install_warp-transducer.sh    # ASR模型依赖
-$ cd espnet3/egs3/mini_an4/asr
+```bashs
+$ bash ~/slimEspnet/tools/installers/install_warp-transducer.sh    # ASR模型依赖
+$ cd espnet/egs/mini_an4/asr
 $ python3 run.py dry_run=True
 ```
