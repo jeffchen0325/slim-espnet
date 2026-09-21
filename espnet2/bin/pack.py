@@ -2,7 +2,7 @@
 import argparse
 from typing import Type
 
-from espnet3.utils.pack_funcs import pack
+from espnet2.main_funcs.pack_funcs import pack
 
 
 class PackedContents:

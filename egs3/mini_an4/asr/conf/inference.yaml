@@ -46,9 +46,9 @@ dataset:
 #                    MODEL AND OUTPUT                    #
 ##########################################################
 model:
-  _target_: espnet3.bin.asr_inference.Speech2Text
+  _target_: espnet2.bin.asr_inference.Speech2Text
   asr_train_config: ${exp_dir}/config.yaml
-  asr_model_file: ${exp_dir}/last.ckpt
+  asr_model_file: ${exp_dir}/epoch0_step1_valid.loss.ckpt
   beam_size: 1
   ctc_weight: 0.3
 

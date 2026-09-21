@@ -8,7 +8,7 @@ from typing import Tuple  # noqa: H301
 
 import torch
 
-from espnet2.models.asr.transducer.beam_search_transducer_streaming import (
+from espnet2.asr.transducer.beam_search_transducer_streaming import (
     BeamSearchTransducerStreaming,
 )
 from espnet2.legacy.nets.batch_beam_search import BatchBeamSearch, BatchHypothesis
@@ -229,7 +229,7 @@ class BatchBeamSearchOnline(BatchBeamSearch):
                 )
             else:
                 ret = self.process_one_block(
-                    h, block_is_final, maxlen - self.process_idx, maxlenratio
+                    h, block_is_final, maxlen - self.process_idx, minlen, maxlenratio
                 )
             logging.debug("Finished processing chunk: %d", self.processed_block)
             self.processed_block += 1

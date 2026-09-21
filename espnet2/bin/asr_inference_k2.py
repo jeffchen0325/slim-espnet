@@ -17,8 +17,8 @@ from espnet2.fst.lm_rescore import nbest_am_lm_scores
 from espnet2.legacy.utils.cli_utils import get_commandline_args
 from espnet2.tasks.asr import ASRTask
 from espnet2.tasks.lm import LMTask
-from espnet2.tokenizers.build_tokenizer import build_tokenizer
-from espnet2.tokenizers.token_id_converter import TokenIDConverter
+from espnet2.text.build_tokenizer import build_tokenizer
+from espnet2.text.token_id_converter import TokenIDConverter
 from espnet2.torch_utils.device_funcs import to_device
 from espnet2.torch_utils.set_all_random_seed import set_all_random_seed
 from espnet2.utils import config_argparse
@@ -429,14 +429,22 @@ class k2Speech2Text:
 
         Args:
             model_tag (Optional[str]): Model tag of the pretrained models.
-                Currently, the tags of espnet2.model_zoo are supported.
+                Currently, the tags of espnet_model_zoo are supported.
 
         Returns:
             Speech2Text: Speech2Text instance.
 
         """
         if model_tag is not None:
-            from espnet2.model_zoo.downloader import ModelDownloader
+            try:
+                from espnet_model_zoo.downloader import ModelDownloader
+
+            except ImportError:
+                logging.error(
+                    "`espnet_model_zoo` is not installed. "
+                    "Please install via `pip install -U espnet_model_zoo`."
+                )
+                raise
             d = ModelDownloader()
             kwargs.update(**d.download_and_unpack(model_tag))
 

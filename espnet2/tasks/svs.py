@@ -10,45 +10,45 @@ import torch
 import yaml
 from typeguard import typechecked
 
-from espnet2.models.gan_svs.joint import JointScore2Wav
-from espnet2.models.gan_svs.vits import VITS
+from espnet2.gan_svs.joint import JointScore2Wav
+from espnet2.gan_svs.vits import VITS
 from espnet2.layers.abs_normalize import AbsNormalize
 from espnet2.layers.global_mvn import GlobalMVN
-from espnet2.models.svs.abs_svs import AbsSVS
-from espnet2.models.svs.discrete.toksing import TokSing
-from espnet2.models.svs.discrete_svs_espnet_model import ESPnetDiscreteSVSModel
-from espnet2.models.svs.espnet_model import ESPnetSVSModel
-from espnet2.models.svs.feats_extract.score_feats_extract import (
+from espnet2.svs.abs_svs import AbsSVS
+from espnet2.svs.discrete.toksing import TokSing
+from espnet2.svs.discrete_svs_espnet_model import ESPnetDiscreteSVSModel
+from espnet2.svs.espnet_model import ESPnetSVSModel
+from espnet2.svs.feats_extract.score_feats_extract import (
     FrameScoreFeats,
     SyllableScoreFeats,
 )
-from espnet2.models.svs.naive_rnn.naive_rnn import NaiveRNN
-from espnet2.models.svs.naive_rnn.naive_rnn_dp import NaiveRNNDP
+from espnet2.svs.naive_rnn.naive_rnn import NaiveRNN
+from espnet2.svs.naive_rnn.naive_rnn_dp import NaiveRNNDP
 
 # TODO(Yuning): Models to be added
-from espnet2.models.svs.singing_tacotron.singing_tacotron import singing_tacotron
-from espnet2.models.svs.xiaoice.XiaoiceSing import XiaoiceSing
+from espnet2.svs.singing_tacotron.singing_tacotron import singing_tacotron
+from espnet2.svs.xiaoice.XiaoiceSing import XiaoiceSing
 
 # from espnet2.svs.encoder_decoder.transformer.transformer import Transformer
 # from espnet2.svs.mlp_singer.mlp_singer import MLPSinger
 # from espnet2.svs.glu_transformer.glu_transformer import GLU_Transformer
 from espnet2.tasks.abs_task import AbsTask
-from espnet2.models.abs_espnet_model import AbsESPnetModel
+from espnet2.train.abs_espnet_model import AbsESPnetModel
 from espnet2.train.class_choices import ClassChoices
 from espnet2.train.collate_fn import CommonCollateFn
 from espnet2.train.preprocessor import SVSPreprocessor
 from espnet2.train.trainer import Trainer
-from espnet2.models.tts.feats_extract.abs_feats_extract import AbsFeatsExtract
-from espnet2.models.tts.feats_extract.dio import Dio
-from espnet2.models.tts.feats_extract.energy import Energy
-from espnet2.models.tts.feats_extract.linear_spectrogram import LinearSpectrogram
-from espnet2.models.tts.feats_extract.log_mel_fbank import LogMelFbank
-from espnet2.models.tts.feats_extract.log_spectrogram import LogSpectrogram
-from espnet2.models.tts.feats_extract.ying import Ying
+from espnet2.tts.feats_extract.abs_feats_extract import AbsFeatsExtract
+from espnet2.tts.feats_extract.dio import Dio
+from espnet2.tts.feats_extract.energy import Energy
+from espnet2.tts.feats_extract.linear_spectrogram import LinearSpectrogram
+from espnet2.tts.feats_extract.log_mel_fbank import LogMelFbank
+from espnet2.tts.feats_extract.log_spectrogram import LogSpectrogram
+from espnet2.tts.feats_extract.ying import Ying
 
 # from espnet2.svs.xiaoice.XiaoiceSing import XiaoiceSing_noDP
 # from espnet2.svs.bytesing.bytesing import ByteSing
-from espnet2.models.tts.utils import ParallelWaveGANPretrainedVocoder
+from espnet2.tts.utils import ParallelWaveGANPretrainedVocoder
 from espnet2.utils.get_default_kwargs import get_default_kwargs
 from espnet2.utils.griffin_lim import Spectrogram2Waveform
 from espnet2.utils.nested_dict_action import NestedDictAction

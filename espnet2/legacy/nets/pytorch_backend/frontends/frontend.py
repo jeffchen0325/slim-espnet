@@ -7,8 +7,8 @@ import torch
 import torch.nn as nn
 from torch_complex.tensor import ComplexTensor
 
-from espnet2.models.enh.layers.dnn_beamformer import DNN_Beamformer
-from espnet2.models.enh.layers.dnn_wpe import DNN_WPE
+from espnet2.enh.layers.dnn_beamformer import DNN_Beamformer
+from espnet2.enh.layers.dnn_wpe import DNN_WPE
 
 
 class Frontend(nn.Module):

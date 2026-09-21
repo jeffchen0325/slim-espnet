@@ -9,9 +9,9 @@ from typing import List, Optional
 from typeguard import typechecked
 
 from espnet2.legacy.utils.cli_utils import get_commandline_args
-from espnet2.tokenizers.build_tokenizer import build_tokenizer
-from espnet2.tokenizers.cleaner import TextCleaner
-from espnet2.tokenizers.phoneme_tokenizer import g2p_choices
+from espnet2.text.build_tokenizer import build_tokenizer
+from espnet2.text.cleaner import TextCleaner
+from espnet2.text.phoneme_tokenizer import g2p_choices
 from espnet2.utils.types import str2bool, str_or_none
 
 

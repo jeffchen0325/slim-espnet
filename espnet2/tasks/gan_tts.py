@@ -11,26 +11,26 @@ import numpy as np
 import torch
 from typeguard import typechecked
 
-from espnet2.models.gan_tts.abs_gan_tts import AbsGANTTS
-from espnet2.models.gan_tts.espnet_model import ESPnetGANTTSModel
-from espnet2.models.gan_tts.jets import JETS
-from espnet2.models.gan_tts.joint import JointText2Wav
-from espnet2.models.gan_tts.vits import VITS
+from espnet2.gan_tts.abs_gan_tts import AbsGANTTS
+from espnet2.gan_tts.espnet_model import ESPnetGANTTSModel
+from espnet2.gan_tts.jets import JETS
+from espnet2.gan_tts.joint import JointText2Wav
+from espnet2.gan_tts.vits import VITS
 from espnet2.layers.abs_normalize import AbsNormalize
 from espnet2.layers.global_mvn import GlobalMVN
 from espnet2.layers.utterance_mvn import UtteranceMVN
 from espnet2.tasks.abs_task import AbsTask, optim_classes
-from espnet2.tokenizers.phoneme_tokenizer import g2p_choices
+from espnet2.text.phoneme_tokenizer import g2p_choices
 from espnet2.train.class_choices import ClassChoices
 from espnet2.train.collate_fn import CommonCollateFn
 from espnet2.train.gan_trainer import GANTrainer
 from espnet2.train.preprocessor import CommonPreprocessor
-from espnet2.models.tts.feats_extract.abs_feats_extract import AbsFeatsExtract
-from espnet2.models.tts.feats_extract.dio import Dio
-from espnet2.models.tts.feats_extract.energy import Energy
-from espnet2.models.tts.feats_extract.linear_spectrogram import LinearSpectrogram
-from espnet2.models.tts.feats_extract.log_mel_fbank import LogMelFbank
-from espnet2.models.tts.feats_extract.log_spectrogram import LogSpectrogram
+from espnet2.tts.feats_extract.abs_feats_extract import AbsFeatsExtract
+from espnet2.tts.feats_extract.dio import Dio
+from espnet2.tts.feats_extract.energy import Energy
+from espnet2.tts.feats_extract.linear_spectrogram import LinearSpectrogram
+from espnet2.tts.feats_extract.log_mel_fbank import LogMelFbank
+from espnet2.tts.feats_extract.log_spectrogram import LogSpectrogram
 from espnet2.utils.get_default_kwargs import get_default_kwargs
 from espnet2.utils.nested_dict_action import NestedDictAction
 from espnet2.utils.types import int_or_none, str2bool, str_or_none

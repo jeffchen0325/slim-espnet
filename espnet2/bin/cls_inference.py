@@ -14,7 +14,7 @@ from espnet2.fileio.datadir_writer import DatadirWriter
 from espnet2.legacy.nets.pytorch_backend.transformer.subsampling import TooShortUttError
 from espnet2.legacy.utils.cli_utils import get_commandline_args
 from espnet2.tasks.cls import CLSTask
-from espnet2.tokenizers.token_id_converter import TokenIDConverter
+from espnet2.text.token_id_converter import TokenIDConverter
 from espnet2.torch_utils.device_funcs import to_device
 from espnet2.torch_utils.set_all_random_seed import set_all_random_seed
 from espnet2.utils import config_argparse

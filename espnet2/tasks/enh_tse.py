@@ -5,9 +5,9 @@ import numpy as np
 import torch
 from typeguard import typechecked
 
-from espnet2.models.enh.espnet_model_tse import ESPnetExtractionModel
-from espnet2.models.enh.extractor.abs_extractor import AbsExtractor
-from espnet2.models.enh.extractor.td_speakerbeam_extractor import TDSpeakerBeamExtractor
+from espnet2.enh.espnet_model_tse import ESPnetExtractionModel
+from espnet2.enh.extractor.abs_extractor import AbsExtractor
+from espnet2.enh.extractor.td_speakerbeam_extractor import TDSpeakerBeamExtractor
 from espnet2.tasks.abs_task import AbsTask
 from espnet2.tasks.enh import (
     criterion_choices,

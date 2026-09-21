@@ -14,19 +14,19 @@ import numpy as np
 import torch
 from typeguard import typechecked
 
-from espnet2.models.asr.encoder.abs_encoder import AbsEncoder
-from espnet2.models.asr.encoder.hubert_encoder import (  # noqa: H301
+from espnet2.asr.encoder.abs_encoder import AbsEncoder
+from espnet2.asr.encoder.hubert_encoder import (  # noqa: H301
     FairseqHubertPretrainEncoder,
     TorchAudioHuBERTPretrainEncoder,
 )
-from espnet2.models.asr.frontend.abs_frontend import AbsFrontend
-from espnet2.models.asr.frontend.default import DefaultFrontend
-from espnet2.models.asr.frontend.windowing import SlidingWindow
-from espnet2.models.asr.preencoder.abs_preencoder import AbsPreEncoder
-from espnet2.models.asr.preencoder.sinc import LightweightSincConvs
-from espnet2.models.asr.specaug.abs_specaug import AbsSpecAug
-from espnet2.models.asr.specaug.specaug import SpecAug
-from espnet2.models.hubert.espnet_model import (
+from espnet2.asr.frontend.abs_frontend import AbsFrontend
+from espnet2.asr.frontend.default import DefaultFrontend
+from espnet2.asr.frontend.windowing import SlidingWindow
+from espnet2.asr.preencoder.abs_preencoder import AbsPreEncoder
+from espnet2.asr.preencoder.sinc import LightweightSincConvs
+from espnet2.asr.specaug.abs_specaug import AbsSpecAug
+from espnet2.asr.specaug.specaug import SpecAug
+from espnet2.hubert.espnet_model import (
     HubertPretrainModel,
     TorchAudioHubertPretrainModel,
 )
@@ -34,9 +34,9 @@ from espnet2.layers.abs_normalize import AbsNormalize
 from espnet2.layers.global_mvn import GlobalMVN
 from espnet2.layers.utterance_mvn import UtteranceMVN
 from espnet2.tasks.abs_task import AbsTask
-from espnet2.tokenizers.phoneme_tokenizer import g2p_choices
+from espnet2.text.phoneme_tokenizer import g2p_choices
 from espnet2.torch_utils.initialize import initialize
-from espnet2.models.abs_espnet_model import AbsESPnetModel
+from espnet2.train.abs_espnet_model import AbsESPnetModel
 from espnet2.train.class_choices import ClassChoices
 from espnet2.train.collate_fn import HuBERTCollateFn
 from espnet2.train.preprocessor import CommonPreprocessor

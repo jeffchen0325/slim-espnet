@@ -10,13 +10,13 @@ import numpy as np
 import torch
 from typeguard import typechecked
 
-from espnet2.models.asr.encoder.contextual_block_conformer_encoder import (  # noqa: H301
+from espnet2.asr.encoder.contextual_block_conformer_encoder import (  # noqa: H301
     ContextualBlockConformerEncoder,
 )
-from espnet2.models.asr.encoder.contextual_block_transformer_encoder import (  # noqa: H301
+from espnet2.asr.encoder.contextual_block_transformer_encoder import (  # noqa: H301
     ContextualBlockTransformerEncoder,
 )
-from espnet2.models.asr.frontend.s3prl import S3prlFrontend
+from espnet2.asr.frontend.s3prl import S3prlFrontend
 from espnet2.fileio.datadir_writer import DatadirWriter
 from espnet2.legacy.nets.batch_beam_search_online import BatchBeamSearchOnline
 from espnet2.legacy.nets.beam_search import Hypothesis
@@ -27,8 +27,8 @@ from espnet2.legacy.nets.scorers.length_bonus import LengthBonus
 from espnet2.legacy.utils.cli_utils import get_commandline_args
 from espnet2.tasks.lm import LMTask
 from espnet2.tasks.st import STTask
-from espnet2.tokenizers.build_tokenizer import build_tokenizer
-from espnet2.tokenizers.token_id_converter import TokenIDConverter
+from espnet2.text.build_tokenizer import build_tokenizer
+from espnet2.text.token_id_converter import TokenIDConverter
 from espnet2.torch_utils.device_funcs import to_device
 from espnet2.torch_utils.set_all_random_seed import set_all_random_seed
 from espnet2.utils import config_argparse

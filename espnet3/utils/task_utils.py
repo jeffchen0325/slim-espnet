@@ -3,28 +3,27 @@
 import sys
 from argparse import Namespace
 from pathlib import Path
-from typing import TYPE_CHECKING, Dict, Union
-from contextlib import contextmanager
+from typing import Dict, Union
 
-from hydra.utils import get_class
+from hydra.utils import get_class, instantiate
 from omegaconf import DictConfig, OmegaConf
 from typeguard import typechecked
 
-from espnet3.utils.yaml_no_alias_safe_dump import yaml_no_alias_safe_dump
+from espnet2.train.abs_espnet_model import AbsESPnetModel
+from espnet2.train.preprocessor import AbsPreprocessor
+from espnet2.utils.yaml_no_alias_safe_dump import yaml_no_alias_safe_dump
 
-if TYPE_CHECKING:
-    from espnet3.models.abs_espnet_model import AbsESPnetModel
 
-
-@contextmanager
-def _dummy_argv():
-    """Temporarily replace sys.argv for ESPnet config initialization."""
-    original_argv = sys.argv
-    sys.argv = ["dummy.py"]
-    try:
-        yield
-    finally:
-        sys.argv = original_argv
+def _is_abs_preprocessor_config(preprocess_config) -> bool:
+    """Return True when the config targets an ESPnet AbsPreprocessor."""
+    if not isinstance(preprocess_config, dict) or "_target_" not in preprocess_config:
+        return False
+    partial_preprocessor = instantiate(preprocess_config, _partial_=True)
+    return (
+        hasattr(partial_preprocessor, "func")
+        and isinstance(partial_preprocessor.func, type)
+        and issubclass(partial_preprocessor.func, AbsPreprocessor)
+    )
 
 
 def get_task_class(task_path: str):
@@ -37,13 +36,17 @@ def get_task_class(task_path: str):
 
 
 @typechecked
-def get_espnet_model(task: str, config: Union[Dict, DictConfig]) -> "AbsESPnetModel":
+def get_espnet_model(task: str, config: Union[Dict, DictConfig]) -> AbsESPnetModel:
     """Build and return an ESPnet model from the given task and config."""
     ez_task = get_task_class(task)
 
     # workaround for calling get_default_config
-    with _dummy_argv():
+    original_argv = sys.argv
+    sys.argv = ["dummy.py"]
+    try:
         default_config = ez_task.get_default_config()
+    finally:
+        sys.argv = original_argv
 
     if OmegaConf.is_config(config):
         default_config.update(OmegaConf.to_container(config, resolve=True))
@@ -61,13 +64,14 @@ def save_espnet_config(
     ez_task = get_task_class(task)
 
     # workaround for calling get_default_config
-    with _dummy_argv():
-        default_config = ez_task.get_default_config()
+    original_argv = sys.argv
+    sys.argv = ["dummy.py"]
+    default_config = ez_task.get_default_config()
+    sys.argv = original_argv
 
-    resolved_config = (
-        OmegaConf.to_container(config, resolve=True)
-        if OmegaConf.is_config(config)
-        else config
+    resolved_config = OmegaConf.to_container(
+        OmegaConf.create(config) if not OmegaConf.is_config(config) else config,
+        resolve=True,
     )
 
     # set model config at the root level
@@ -79,10 +83,17 @@ def save_espnet_config(
     # set the preprocessor config at the root level
     dataset_config = resolved_config.get("dataset")
     if dataset_config is not None and "preprocessor" in dataset_config:
-        preprocess_config = dataset_config.pop("preprocessor")
-        if "_target_" in preprocess_config:
-            preprocess_config.pop("_target_")
-        default_config.update(preprocess_config)
+        preprocess_config = dataset_config["preprocessor"]
+        has_split_configs = isinstance(preprocess_config, dict) and any(
+            key in preprocess_config and isinstance(preprocess_config[key], dict)
+            for key in ("train", "valid", "test")
+        )
+        if not has_split_configs and _is_abs_preprocessor_config(preprocess_config):
+            dataset_config.pop("preprocessor")
+            preprocess_config = dict(preprocess_config)
+            if "_target_" in preprocess_config:
+                preprocess_config.pop("_target_")
+            default_config.update(preprocess_config)
 
     default_config.update(resolved_config)
 

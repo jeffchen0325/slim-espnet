@@ -10,7 +10,7 @@ from hydra.utils import instantiate
 from omegaconf import DictConfig, ListConfig, OmegaConf
 from typeguard import typechecked
 
-from espnet3.torch_utils.initialize import initialize
+from espnet2.torch_utils.initialize import initialize
 from espnet3.components.callbacks.default_callbacks import get_default_callbacks
 from espnet3.components.modeling.lightning_module import ESPnetLightningModule
 

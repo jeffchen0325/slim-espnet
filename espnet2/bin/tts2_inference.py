@@ -21,8 +21,8 @@ from espnet2.legacy.utils.cli_utils import get_commandline_args
 from espnet2.tasks.tts2 import TTS2Task
 from espnet2.torch_utils.device_funcs import to_device
 from espnet2.torch_utils.set_all_random_seed import set_all_random_seed
-from espnet2.models.tts2.fastspeech2 import FastSpeech2Discrete
-from espnet2.models.tts.utils import DurationCalculator
+from espnet2.tts2.fastspeech2 import FastSpeech2Discrete
+from espnet2.tts.utils import DurationCalculator
 from espnet2.utils import config_argparse
 from espnet2.utils.types import str2bool, str2triple_str, str_or_none
 
@@ -216,7 +216,7 @@ class Text2Speech:
 
         Args:
             model_tag (Optional[str]): Model tag of the pretrained models.
-                Currently, the tags of espnet2.model_zoo are supported.
+                Currently, the tags of espnet_model_zoo are supported.
             vocoder_tag (Optional[str]): Vocoder tag of the pretrained vocoders.
                 Currently, the tags of parallel_wavegan are supported, which should
                 start with the prefix "parallel_wavegan/".
@@ -226,7 +226,15 @@ class Text2Speech:
 
         """
         if model_tag is not None:
-            from espnet2.model_zoo.downloader import ModelDownloader
+            try:
+                from espnet_model_zoo.downloader import ModelDownloader
+
+            except ImportError:
+                logging.error(
+                    "`espnet_model_zoo` is not installed. "
+                    "Please install via `pip install -U espnet_model_zoo`."
+                )
+                raise
             d = ModelDownloader()
             kwargs.update(**d.download_and_unpack(model_tag))
 

@@ -13,7 +13,7 @@ from mir_eval.separation import bss_eval_sources
 from pystoi import stoi
 from typeguard import typechecked
 
-from espnet2.models.enh.loss.criterions.time_domain import SISNRLoss
+from espnet2.enh.loss.criterions.time_domain import SISNRLoss
 from espnet2.fileio.datadir_writer import DatadirWriter
 from espnet2.fileio.sound_scp import SoundScpReader
 from espnet2.legacy.utils.cli_utils import get_commandline_args
@@ -71,7 +71,7 @@ def scoring(
 
     if use_dnsmos:
         if dnsmos_args["mode"] == "local":
-            from espnet2.models.enh.layers.dnsmos import DNSMOS_local
+            from espnet2.enh.layers.dnsmos import DNSMOS_local
 
             if not Path(dnsmos_args["primary_model"]).exists():
                 raise ValueError(
@@ -94,7 +94,7 @@ def scoring(
             logging.warning("Using local DNSMOS models for evaluation")
 
         elif dnsmos_args["mode"] == "web":
-            from espnet2.models.enh.layers.dnsmos import DNSMOS_web
+            from espnet2.enh.layers.dnsmos import DNSMOS_web
 
             if not dnsmos_args["auth_key"]:
                 raise ValueError(

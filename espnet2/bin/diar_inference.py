@@ -13,9 +13,9 @@ import torch.nn.functional as F
 from tqdm import trange
 from typeguard import typechecked
 
-from espnet2.models.enh.loss.criterions.tf_domain import FrequencyDomainMSE
-from espnet2.models.enh.loss.criterions.time_domain import SISNRLoss
-from espnet2.models.enh.loss.wrappers.pit_solver import PITSolver
+from espnet2.enh.loss.criterions.tf_domain import FrequencyDomainMSE
+from espnet2.enh.loss.criterions.time_domain import SISNRLoss
+from espnet2.enh.loss.wrappers.pit_solver import PITSolver
 from espnet2.fileio.npy_scp import NpyScpWriter
 from espnet2.fileio.sound_scp import SoundScpWriter
 from espnet2.legacy.utils.cli_utils import get_commandline_args
@@ -349,14 +349,22 @@ class DiarizeSpeech:
 
         Args:
             model_tag (Optional[str]): Model tag of the pretrained models.
-                Currently, the tags of espnet2.model_zoo are supported.
+                Currently, the tags of espnet_model_zoo are supported.
 
         Returns:
             DiarizeSpeech: DiarizeSpeech instance.
 
         """
         if model_tag is not None:
-            from espnet2.model_zoo.downloader import ModelDownloader
+            try:
+                from espnet_model_zoo.downloader import ModelDownloader
+
+            except ImportError:
+                logging.error(
+                    "`espnet_model_zoo` is not installed. "
+                    "Please install via `pip install -U espnet_model_zoo`."
+                )
+                raise
             d = ModelDownloader()
             kwargs.update(**d.download_and_unpack(model_tag))
 

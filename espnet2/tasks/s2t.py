@@ -6,69 +6,69 @@ import numpy as np
 import torch
 from typeguard import typechecked
 
-from espnet2.models.asr.ctc import CTC
-from espnet2.models.asr.decoder.abs_decoder import AbsDecoder
-from espnet2.models.asr.decoder.hugging_face_transformers_decoder import (  # noqa: H301
+from espnet2.asr.ctc import CTC
+from espnet2.asr.decoder.abs_decoder import AbsDecoder
+from espnet2.asr.decoder.hugging_face_transformers_decoder import (  # noqa: H301
     HuggingFaceTransformersDecoder,
 )
-from espnet2.models.asr.decoder.mlm_decoder import MLMDecoder
-from espnet2.models.asr.decoder.rnn_decoder import RNNDecoder
-from espnet2.models.asr.decoder.s4_decoder import S4Decoder
-from espnet2.models.asr.decoder.transformer_decoder import (
+from espnet2.asr.decoder.mlm_decoder import MLMDecoder
+from espnet2.asr.decoder.rnn_decoder import RNNDecoder
+from espnet2.asr.decoder.s4_decoder import S4Decoder
+from espnet2.asr.decoder.transformer_decoder import (
     DynamicConvolution2DTransformerDecoder,
     DynamicConvolutionTransformerDecoder,
     LightweightConvolution2DTransformerDecoder,
     LightweightConvolutionTransformerDecoder,
     TransformerDecoder,
 )
-from espnet2.models.asr.decoder.whisper_decoder import OpenAIWhisperDecoder
-from espnet2.models.asr.encoder.abs_encoder import AbsEncoder
-from espnet2.models.asr.encoder.branchformer_encoder import BranchformerEncoder
-from espnet2.models.asr.encoder.conformer_encoder import ConformerEncoder
-from espnet2.models.asr.encoder.contextual_block_conformer_encoder import (
+from espnet2.asr.decoder.whisper_decoder import OpenAIWhisperDecoder
+from espnet2.asr.encoder.abs_encoder import AbsEncoder
+from espnet2.asr.encoder.branchformer_encoder import BranchformerEncoder
+from espnet2.asr.encoder.conformer_encoder import ConformerEncoder
+from espnet2.asr.encoder.contextual_block_conformer_encoder import (
     ContextualBlockConformerEncoder,
 )
-from espnet2.models.asr.encoder.contextual_block_transformer_encoder import (
+from espnet2.asr.encoder.contextual_block_transformer_encoder import (
     ContextualBlockTransformerEncoder,
 )
-from espnet2.models.asr.encoder.e_branchformer_encoder import EBranchformerEncoder
-from espnet2.models.asr.encoder.hubert_encoder import (
+from espnet2.asr.encoder.e_branchformer_encoder import EBranchformerEncoder
+from espnet2.asr.encoder.hubert_encoder import (
     FairseqHubertEncoder,
     FairseqHubertPretrainEncoder,
     TorchAudioHuBERTPretrainEncoder,
 )
-from espnet2.models.asr.encoder.longformer_encoder import LongformerEncoder
-from espnet2.models.asr.encoder.rnn_encoder import RNNEncoder
-from espnet2.models.asr.encoder.transformer_encoder import TransformerEncoder
-from espnet2.models.asr.encoder.transformer_encoder_multispkr import (
+from espnet2.asr.encoder.longformer_encoder import LongformerEncoder
+from espnet2.asr.encoder.rnn_encoder import RNNEncoder
+from espnet2.asr.encoder.transformer_encoder import TransformerEncoder
+from espnet2.asr.encoder.transformer_encoder_multispkr import (
     TransformerEncoder as TransformerEncoderMultiSpkr,
 )
-from espnet2.models.asr.encoder.vgg_rnn_encoder import VGGRNNEncoder
-from espnet2.models.asr.encoder.wav2vec2_encoder import FairSeqWav2Vec2Encoder
-from espnet2.models.asr.encoder.whisper_encoder import OpenAIWhisperEncoder
-from espnet2.models.asr.frontend.abs_frontend import AbsFrontend
-from espnet2.models.asr.frontend.default import DefaultFrontend
-from espnet2.models.asr.frontend.fused import FusedFrontends
-from espnet2.models.asr.frontend.s3prl import S3prlFrontend
-from espnet2.models.asr.frontend.whisper import WhisperFrontend
-from espnet2.models.asr.frontend.windowing import SlidingWindow
-from espnet2.models.asr.postencoder.abs_postencoder import AbsPostEncoder
-from espnet2.models.asr.postencoder.hugging_face_transformers_postencoder import (
+from espnet2.asr.encoder.vgg_rnn_encoder import VGGRNNEncoder
+from espnet2.asr.encoder.wav2vec2_encoder import FairSeqWav2Vec2Encoder
+from espnet2.asr.encoder.whisper_encoder import OpenAIWhisperEncoder
+from espnet2.asr.frontend.abs_frontend import AbsFrontend
+from espnet2.asr.frontend.default import DefaultFrontend
+from espnet2.asr.frontend.fused import FusedFrontends
+from espnet2.asr.frontend.s3prl import S3prlFrontend
+from espnet2.asr.frontend.whisper import WhisperFrontend
+from espnet2.asr.frontend.windowing import SlidingWindow
+from espnet2.asr.postencoder.abs_postencoder import AbsPostEncoder
+from espnet2.asr.postencoder.hugging_face_transformers_postencoder import (
     HuggingFaceTransformersPostEncoder,
 )
-from espnet2.models.asr.preencoder.abs_preencoder import AbsPreEncoder
-from espnet2.models.asr.preencoder.linear import LinearProjection
-from espnet2.models.asr.preencoder.sinc import LightweightSincConvs
-from espnet2.models.asr.specaug.abs_specaug import AbsSpecAug
-from espnet2.models.asr.specaug.specaug import SpecAug
+from espnet2.asr.preencoder.abs_preencoder import AbsPreEncoder
+from espnet2.asr.preencoder.linear import LinearProjection
+from espnet2.asr.preencoder.sinc import LightweightSincConvs
+from espnet2.asr.specaug.abs_specaug import AbsSpecAug
+from espnet2.asr.specaug.specaug import SpecAug
 from espnet2.layers.abs_normalize import AbsNormalize
 from espnet2.layers.global_mvn import GlobalMVN
 from espnet2.layers.utterance_mvn import UtteranceMVN
-from espnet2.models.s2t.espnet_model import ESPnetS2TModel
+from espnet2.s2t.espnet_model import ESPnetS2TModel
 from espnet2.tasks.abs_task import AbsTask
-from espnet2.tokenizers.phoneme_tokenizer import g2p_choices
+from espnet2.text.phoneme_tokenizer import g2p_choices
 from espnet2.torch_utils.initialize import initialize
-from espnet2.models.abs_espnet_model import AbsESPnetModel
+from espnet2.train.abs_espnet_model import AbsESPnetModel
 from espnet2.train.class_choices import ClassChoices
 from espnet2.train.collate_fn import CommonCollateFn
 from espnet2.train.preprocessor import AbsPreprocessor, S2TPreprocessor

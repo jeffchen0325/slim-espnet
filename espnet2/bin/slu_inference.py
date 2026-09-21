@@ -10,13 +10,13 @@ import torch
 import torch.quantization
 from typeguard import typechecked
 
-from espnet2.models.asr.transducer.beam_search_transducer import (
+from espnet2.asr.transducer.beam_search_transducer import (
     BeamSearchTransducer,
 )
-from espnet2.models.asr.transducer.beam_search_transducer import (
+from espnet2.asr.transducer.beam_search_transducer import (
     ExtendedHypothesis as ExtTransHypothesis,
 )
-from espnet2.models.asr.transducer.beam_search_transducer import Hypothesis as TransHypothesis
+from espnet2.asr.transducer.beam_search_transducer import Hypothesis as TransHypothesis
 from espnet2.fileio.datadir_writer import DatadirWriter
 from espnet2.legacy.nets.batch_beam_search import BatchBeamSearch
 from espnet2.legacy.nets.batch_beam_search_online_sim import BatchBeamSearchOnlineSim
@@ -28,8 +28,8 @@ from espnet2.legacy.nets.scorers.length_bonus import LengthBonus
 from espnet2.legacy.utils.cli_utils import get_commandline_args
 from espnet2.tasks.lm import LMTask
 from espnet2.tasks.slu import SLUTask
-from espnet2.tokenizers.build_tokenizer import build_tokenizer
-from espnet2.tokenizers.token_id_converter import TokenIDConverter
+from espnet2.text.build_tokenizer import build_tokenizer
+from espnet2.text.token_id_converter import TokenIDConverter
 from espnet2.torch_utils.device_funcs import to_device
 from espnet2.torch_utils.set_all_random_seed import set_all_random_seed
 from espnet2.utils import config_argparse
@@ -398,14 +398,22 @@ class Speech2Understand:
 
         Args:
             model_tag (Optional[str]): Model tag of the pretrained models.
-                Currently, the tags of espnet2.model_zoo are supported.
+                Currently, the tags of espnet_model_zoo are supported.
 
         Returns:
             Speech2Understand: Speech2Understand instance.
 
         """
         if model_tag is not None:
-            from espnet2.model_zoo.downloader import ModelDownloader
+            try:
+                from espnet_model_zoo.downloader import ModelDownloader
+
+            except ImportError:
+                logging.error(
+                    "`espnet_model_zoo` is not installed. "
+                    "Please install via `pip install -U espnet_model_zoo`."
+                )
+                raise
             d = ModelDownloader()
             kwargs.update(**d.download_and_unpack(model_tag))
 

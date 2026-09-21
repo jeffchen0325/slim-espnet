@@ -14,20 +14,20 @@ import yaml
 from tqdm import trange
 from typeguard import typechecked
 
-from espnet2.models.enh.diffusion_enh import ESPnetDiffusionModel
-from espnet2.models.enh.loss.criterions.tf_domain import FrequencyDomainMSE
-from espnet2.models.enh.loss.criterions.time_domain import SISNRLoss
-from espnet2.models.enh.loss.wrappers.pit_solver import PITSolver
-from espnet2.models.enh.separator.bsrnn_separator import BSRNNSeparator
-from espnet2.models.enh.separator.tfgridnetv3_separator import TFGridNetV3
-from espnet2.models.enh.separator.uses_separator import USESSeparator
+from espnet2.enh.diffusion_enh import ESPnetDiffusionModel
+from espnet2.enh.loss.criterions.tf_domain import FrequencyDomainMSE
+from espnet2.enh.loss.criterions.time_domain import SISNRLoss
+from espnet2.enh.loss.wrappers.pit_solver import PITSolver
+from espnet2.enh.separator.bsrnn_separator import BSRNNSeparator
+from espnet2.enh.separator.tfgridnetv3_separator import TFGridNetV3
+from espnet2.enh.separator.uses_separator import USESSeparator
 from espnet2.fileio.sound_scp import SoundScpWriter
 from espnet2.legacy.utils.cli_utils import get_commandline_args
 from espnet2.tasks.enh import EnhancementTask
 from espnet2.tasks.enh_s2t import EnhS2TTask
 from espnet2.torch_utils.device_funcs import to_device
 from espnet2.torch_utils.set_all_random_seed import set_all_random_seed
-from espnet2.models.abs_espnet_model import AbsESPnetModel
+from espnet2.train.abs_espnet_model import AbsESPnetModel
 from espnet2.utils import config_argparse
 from espnet2.utils.types import str2bool, str2triple_str, str_or_none
 
@@ -429,14 +429,22 @@ class SeparateSpeech:
 
         Args:
             model_tag (Optional[str]): Model tag of the pretrained models.
-                Currently, the tags of espnet2.model_zoo are supported.
+                Currently, the tags of espnet_model_zoo are supported.
 
         Returns:
             SeparateSpeech: SeparateSpeech instance.
 
         """
         if model_tag is not None:
-            from espnet2.model_zoo.downloader import ModelDownloader
+            try:
+                from espnet_model_zoo.downloader import ModelDownloader
+
+            except ImportError:
+                logging.error(
+                    "`espnet_model_zoo` is not installed. "
+                    "Please install via `pip install -U espnet_model_zoo`."
+                )
+                raise
             d = ModelDownloader()
             kwargs.update(**d.download_and_unpack(model_tag))
 

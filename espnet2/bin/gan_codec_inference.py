@@ -17,8 +17,8 @@ from packaging.version import parse as V  # noqa
 from typeguard import typechecked
 
 from espnet2.fileio.npy_scp import NpyScpWriter
-from espnet2.models.gan_codec.dac import DAC
-from espnet2.models.gan_codec.soundstream import SoundStream
+from espnet2.gan_codec.dac import DAC
+from espnet2.gan_codec.soundstream import SoundStream
 from espnet2.legacy.utils.cli_utils import get_commandline_args
 from espnet2.tasks.gan_codec import GANCodecTask
 from espnet2.torch_utils.device_funcs import to_device
@@ -144,14 +144,22 @@ class AudioCoding:
 
         Args:
             model_tag (Optional[str]): Model tag of the pretrained models.
-                Currently, the tags of espnet2.model_zoo are supported.
+                Currently, the tags of espnet_model_zoo are supported.
 
         Returns:
             AudioCoding: AudioCoding instance.
 
         """
         if model_tag is not None:
-            from espnet2.model_zoo.downloader import ModelDownloader
+            try:
+                from espnet_model_zoo.downloader import ModelDownloader
+
+            except ImportError:
+                logging.error(
+                    "`espnet_model_zoo` is not installed. "
+                    "Please install via `pip install -U espnet_model_zoo`."
+                )
+                raise
             d = ModelDownloader()
             kwargs.update(**d.download_and_unpack(model_tag))
 

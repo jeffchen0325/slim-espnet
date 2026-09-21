@@ -10,7 +10,7 @@ try:
 except ImportError:
     jiwer = None
 
-from espnet3.tokenizers.cleaner import TextCleaner
+from espnet2.text.cleaner import TextCleaner
 from espnet3.components.metrics.base_metric import BaseMetric
 
 

@@ -24,8 +24,8 @@ from espnet2.legacy.nets.scorer_interface import BatchScorerInterface
 from espnet2.legacy.nets.scorers.length_bonus import LengthBonus
 from espnet2.legacy.utils.cli_utils import get_commandline_args
 from espnet2.tasks.s2st import S2STTask
-from espnet2.tokenizers.build_tokenizer import build_tokenizer
-from espnet2.tokenizers.token_id_converter import TokenIDConverter
+from espnet2.text.build_tokenizer import build_tokenizer
+from espnet2.text.token_id_converter import TokenIDConverter
 from espnet2.torch_utils.device_funcs import to_device
 from espnet2.torch_utils.set_all_random_seed import set_all_random_seed
 from espnet2.utils import config_argparse

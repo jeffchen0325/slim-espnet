@@ -11,6 +11,8 @@ import math
 
 import torch
 
+from espnet2.asr.frontend.cnn import dim_1_layer_norm
+
 
 def _pre_hook(
     state_dict,
@@ -31,26 +33,6 @@ def _pre_hook(
     k = prefix + "pe"
     if k in state_dict:
         state_dict.pop(k)
-
-
-def _dim_1_layer_norm(x, eps=1e-05, gamma=None, beta=None):
-    """Local copy of dim_1_layer_norm to avoid reverse dependency on frontend.cnn.
-
-    Original source: espnet2/models/asr/frontend/cnn.py
-    Functional LayerNorm on dim=1 for (B, D, T) tensors without transposing.
-    """
-
-    B, D, T = x.shape
-    mean = torch.mean(x, 1, keepdim=True)
-    variance = torch.mean((x - mean) ** 2, 1, keepdim=True)
-
-    x = (x - mean) * torch.rsqrt(variance + eps)
-
-    if gamma is not None:
-        x = x * gamma.view(1, -1, 1)
-        if beta is not None:
-            x = x + beta.view(1, -1, 1)
-    return x
 
 
 class PositionalEncoding(torch.nn.Module):
@@ -508,7 +490,7 @@ class ConvolutionalPositionalEmbedding(torch.nn.Module):
             # manually normalize if the conv is not parameterized
             # with weight norm
             if self.weight_norm is None or self.weight_norm == "none":
-                x = _dim_1_layer_norm(x)
+                x = dim_1_layer_norm(x)
 
         x = x.transpose(-2, -1)
 

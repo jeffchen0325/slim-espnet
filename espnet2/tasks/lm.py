@@ -6,16 +6,16 @@ import numpy as np
 import torch
 from typeguard import typechecked
 
-from espnet2.models.lm.abs_model import AbsLM
-from espnet2.models.lm.espnet_model import ESPnetLanguageModel
-from espnet2.models.lm.espnet_model_multitask import ESPnetMultitaskLanguageModel
-from espnet2.models.lm.huggingface_pretrained_opt_lm import HuggingfaceOPTModel
-from espnet2.models.lm.seq_rnn_lm import SequentialRNNLM
-from espnet2.models.lm.transformer_lm import TransformerLM
+from espnet2.lm.abs_model import AbsLM
+from espnet2.lm.espnet_model import ESPnetLanguageModel
+from espnet2.lm.espnet_model_multitask import ESPnetMultitaskLanguageModel
+from espnet2.lm.huggingface_pretrained_opt_lm import HuggingfaceOPTModel
+from espnet2.lm.seq_rnn_lm import SequentialRNNLM
+from espnet2.lm.transformer_lm import TransformerLM
 from espnet2.tasks.abs_task import AbsTask
-from espnet2.tokenizers.phoneme_tokenizer import g2p_choices
+from espnet2.text.phoneme_tokenizer import g2p_choices
 from espnet2.torch_utils.initialize import initialize
-from espnet2.models.abs_espnet_model import AbsESPnetModel
+from espnet2.train.abs_espnet_model import AbsESPnetModel
 from espnet2.train.class_choices import ClassChoices
 from espnet2.train.collate_fn import CommonCollateFn
 from espnet2.train.preprocessor import CommonPreprocessor

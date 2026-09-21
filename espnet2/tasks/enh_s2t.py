@@ -7,11 +7,11 @@ import numpy as np
 import torch
 from typeguard import typechecked
 
-from espnet2.models.asr.ctc import CTC
-from espnet2.models.asr.espnet_model import ESPnetASRModel
-from espnet2.models.diar.espnet_model import ESPnetDiarizationModel
-from espnet2.models.enh.espnet_enh_s2t_model import ESPnetEnhS2TModel
-from espnet2.models.enh.espnet_model import ESPnetEnhancementModel
+from espnet2.asr.ctc import CTC
+from espnet2.asr.espnet_model import ESPnetASRModel
+from espnet2.diar.espnet_model import ESPnetDiarizationModel
+from espnet2.enh.espnet_enh_s2t_model import ESPnetEnhS2TModel
+from espnet2.enh.espnet_model import ESPnetEnhancementModel
 from espnet2.tasks.abs_task import AbsTask
 from espnet2.tasks.asr import ASRTask
 from espnet2.tasks.asr import decoder_choices as asr_decoder_choices_
@@ -40,7 +40,7 @@ from espnet2.tasks.st import extra_asr_decoder_choices as st_extra_asr_decoder_c
 from espnet2.tasks.st import extra_mt_decoder_choices as st_extra_mt_decoder_choices_
 from espnet2.tasks.st import postencoder_choices as st_postencoder_choices_
 from espnet2.tasks.st import preencoder_choices as st_preencoder_choices_
-from espnet2.tokenizers.phoneme_tokenizer import g2p_choices
+from espnet2.text.phoneme_tokenizer import g2p_choices
 from espnet2.torch_utils.initialize import initialize
 from espnet2.train.collate_fn import CommonCollateFn
 from espnet2.train.preprocessor import (

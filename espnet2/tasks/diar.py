@@ -5,21 +5,21 @@ import numpy as np
 import torch
 from typeguard import typechecked
 
-from espnet2.models.asr.encoder.abs_encoder import AbsEncoder
-from espnet2.models.asr.encoder.conformer_encoder import ConformerEncoder
-from espnet2.models.asr.encoder.rnn_encoder import RNNEncoder
-from espnet2.models.asr.encoder.transformer_encoder import TransformerEncoder
-from espnet2.models.asr.frontend.abs_frontend import AbsFrontend
-from espnet2.models.asr.frontend.default import DefaultFrontend
-from espnet2.models.asr.frontend.s3prl import S3prlFrontend
-from espnet2.models.asr.frontend.windowing import SlidingWindow
-from espnet2.models.asr.specaug.abs_specaug import AbsSpecAug
-from espnet2.models.asr.specaug.specaug import SpecAug
-from espnet2.models.diar.attractor.abs_attractor import AbsAttractor
-from espnet2.models.diar.attractor.rnn_attractor import RnnAttractor
-from espnet2.models.diar.decoder.abs_decoder import AbsDecoder
-from espnet2.models.diar.decoder.linear_decoder import LinearDecoder
-from espnet2.models.diar.espnet_model import ESPnetDiarizationModel
+from espnet2.asr.encoder.abs_encoder import AbsEncoder
+from espnet2.asr.encoder.conformer_encoder import ConformerEncoder
+from espnet2.asr.encoder.rnn_encoder import RNNEncoder
+from espnet2.asr.encoder.transformer_encoder import TransformerEncoder
+from espnet2.asr.frontend.abs_frontend import AbsFrontend
+from espnet2.asr.frontend.default import DefaultFrontend
+from espnet2.asr.frontend.s3prl import S3prlFrontend
+from espnet2.asr.frontend.windowing import SlidingWindow
+from espnet2.asr.specaug.abs_specaug import AbsSpecAug
+from espnet2.asr.specaug.specaug import SpecAug
+from espnet2.diar.attractor.abs_attractor import AbsAttractor
+from espnet2.diar.attractor.rnn_attractor import RnnAttractor
+from espnet2.diar.decoder.abs_decoder import AbsDecoder
+from espnet2.diar.decoder.linear_decoder import LinearDecoder
+from espnet2.diar.espnet_model import ESPnetDiarizationModel
 from espnet2.layers.abs_normalize import AbsNormalize
 from espnet2.layers.global_mvn import GlobalMVN
 from espnet2.layers.label_aggregation import LabelAggregate

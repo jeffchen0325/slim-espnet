@@ -8,31 +8,31 @@ import numpy as np
 import torch
 from typeguard import typechecked
 
-from espnet3.models.asr.frontend.abs_frontend import AbsFrontend
-from espnet3.models.asr.frontend.default import DefaultFrontend
-from espnet3.models.asr.frontend.windowing import SlidingWindow
-from espnet3.models.asr.specaug.abs_specaug import AbsSpecAug
-from espnet3.models.asr.specaug.specaug import SpecAug
-from espnet3.models.asr_transducer.decoder.abs_decoder import AbsDecoder
-from espnet3.models.asr_transducer.decoder.mega_decoder import MEGADecoder
-from espnet3.models.asr_transducer.decoder.rnn_decoder import RNNDecoder
-from espnet3.models.asr_transducer.decoder.rwkv_decoder import RWKVDecoder
-from espnet3.models.asr_transducer.decoder.stateless_decoder import StatelessDecoder
-from espnet3.models.asr_transducer.encoder.encoder import Encoder
-from espnet3.models.asr_transducer.espnet_transducer_model import ESPnetASRTransducerModel
-from espnet3.models.asr_transducer.joint_network import JointNetwork
-from espnet3.layers.abs_normalize import AbsNormalize
-from espnet3.layers.global_mvn import GlobalMVN
-from espnet3.layers.utterance_mvn import UtteranceMVN
-from espnet3.tasks.abs_task import AbsTask
-from espnet3.tokenizers.phoneme_tokenizer import g2p_choices
-from espnet3.train.class_choices import ClassChoices
-from espnet3.train.collate_fn import CommonCollateFn
-from espnet3.train.preprocessor import CommonPreprocessor
-from espnet3.train.trainer import Trainer
-from espnet3.utils.get_default_kwargs import get_default_kwargs
-from espnet3.utils.nested_dict_action import NestedDictAction
-from espnet3.utils.types import float_or_none, int_or_none, str2bool, str_or_none
+from espnet2.asr.frontend.abs_frontend import AbsFrontend
+from espnet2.asr.frontend.default import DefaultFrontend
+from espnet2.asr.frontend.windowing import SlidingWindow
+from espnet2.asr.specaug.abs_specaug import AbsSpecAug
+from espnet2.asr.specaug.specaug import SpecAug
+from espnet2.asr_transducer.decoder.abs_decoder import AbsDecoder
+from espnet2.asr_transducer.decoder.mega_decoder import MEGADecoder
+from espnet2.asr_transducer.decoder.rnn_decoder import RNNDecoder
+from espnet2.asr_transducer.decoder.rwkv_decoder import RWKVDecoder
+from espnet2.asr_transducer.decoder.stateless_decoder import StatelessDecoder
+from espnet2.asr_transducer.encoder.encoder import Encoder
+from espnet2.asr_transducer.espnet_transducer_model import ESPnetASRTransducerModel
+from espnet2.asr_transducer.joint_network import JointNetwork
+from espnet2.layers.abs_normalize import AbsNormalize
+from espnet2.layers.global_mvn import GlobalMVN
+from espnet2.layers.utterance_mvn import UtteranceMVN
+from espnet2.tasks.abs_task import AbsTask
+from espnet2.text.phoneme_tokenizer import g2p_choices
+from espnet2.train.class_choices import ClassChoices
+from espnet2.train.collate_fn import CommonCollateFn
+from espnet2.train.preprocessor import CommonPreprocessor
+from espnet2.train.trainer import Trainer
+from espnet2.utils.get_default_kwargs import get_default_kwargs
+from espnet2.utils.nested_dict_action import NestedDictAction
+from espnet2.utils.types import float_or_none, int_or_none, str2bool, str_or_none
 
 frontend_choices = ClassChoices(
     name="frontend",

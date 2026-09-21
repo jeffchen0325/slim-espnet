@@ -4,7 +4,7 @@ import torch
 from torch_complex.tensor import ComplexTensor
 from typeguard import typechecked
 
-from espnet2.torch_utils.complex_utils import to_complex
+from espnet2.enh.layers.complex_utils import to_complex
 from espnet2.layers.inversible_interface import InversibleInterface
 from espnet2.legacy.nets.pytorch_backend.nets_utils import make_pad_mask
 
