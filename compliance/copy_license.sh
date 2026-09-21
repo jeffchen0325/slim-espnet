@@ -11,7 +11,7 @@ PROJECT_ROOT="${SCRIPT_DIR}/.."
 # 格式: "PKG_NAME|PKG_VERSION|TAG|REPO_URL"
 # ==========================================
 DEPENDENCIES=(
-    "espnet|202604|v.202604|https://github.com/espnet/espnet"
+    "espnet|202609|v.202609|https://github.com/espnet/espnet"
     "espnet_model_zoo|202111|v0.1.7|https://github.com/espnet/espnet_model_zoo"
 )
 

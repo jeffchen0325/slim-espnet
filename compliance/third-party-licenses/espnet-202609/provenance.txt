@@ -1,0 +1,7 @@
+Package: espnet
+Version: 202609
+Source Repo: https://github.com/espnet/espnet
+Tag: v.202609
+Commit SHA: 1945ec2ed224fc3a93b27ccdd88bc873a224e903
+Retrieved At: 2026-09-21T13:53:13Z
+Method: git clone --depth 1 --branch v.202609

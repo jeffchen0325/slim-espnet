@@ -3,5 +3,5 @@ Version: 202111
 Source Repo: https://github.com/espnet/espnet_model_zoo
 Tag: v0.1.7
 Commit SHA: 7e956cf2ec8e0aba12f344f911f4ca9fd8a12da9
-Retrieved At: 2026-06-19T15:00:29Z
+Retrieved At: 2026-09-21T13:53:14Z
 Method: git clone --depth 1 --branch v0.1.7
