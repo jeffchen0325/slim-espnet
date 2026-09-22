@@ -13,7 +13,7 @@ such as:
 
 It supports:
 
-1. Tag notation (``mini_an4/asr``) -> ``egs3.mini_an4.asr.dataset``.
+1. Tag notation (``mini_an4/asr``) -> ``egs.mini_an4.asr.dataset``.
 2. Direct dotted module paths.
 3. Local recipe datasets when ``data_src`` is omitted.
 """
@@ -36,9 +36,9 @@ def _to_plain_dict(config: Any) -> dict[str, Any]:
     return dict(config)
 
 
-# Dataset modules follow the convention: egs3.<tag>.dataset
-# e.g. "mini_an4/asr" -> "egs3.mini_an4.asr.dataset"
-_RECIPE_NAMESPACE = "egs3"
+# Dataset modules follow the convention: egs.<tag>.dataset
+# e.g. "mini_an4/asr" -> "egs.mini_an4.asr.dataset"
+_RECIPE_NAMESPACE = "egs"
 _DATASET_SUBMODULE = "dataset"
 _DATA_SRC_KEY = "data_src"
 _DATA_SRC_ARGS_KEY = "data_src_args"
@@ -56,16 +56,16 @@ def resolve_dataset_module_name(ref: str) -> str:
 
     Returns:
         Fully qualified module path following
-        ``egs3.<recipe>.<task>.dataset``.
+        ``egs.<recipe>.<task>.dataset``.
 
     Notes:
         Hyphens are normalized to underscores to match Python module naming.
 
     Examples:
         >>> resolve_dataset_module_name("mini_an4/asr")
-        'egs3.mini_an4.asr.dataset'
+        'egs.mini_an4.asr.dataset'
         >>> resolve_dataset_module_name("my-recipe/asr")
-        'egs3.my_recipe.asr.dataset'
+        'egs.my_recipe.asr.dataset'
     """
     # Normalize each path segment to a Python module-safe name.
     normalized = ".".join(part.replace("-", "_") for part in ref.split("/"))
@@ -87,7 +87,7 @@ def _load_local_dataset_module(recipe_dir: str | Path | None):
         ImportError: If Python cannot construct an import spec for the file.
 
     Examples:
-        >>> module = _load_local_dataset_module("egs3/mini_an4/asr")
+        >>> module = _load_local_dataset_module("egs/mini_an4/asr")
         >>> hasattr(module, "Dataset")
         True
     """
@@ -125,7 +125,7 @@ def load_dataset_module(
         data_src: Dataset source reference. Supported forms:
             - ``None``: load local ``recipe_dir/dataset`` module.
             - tag form: ``mini_an4/asr``.
-            - module path form: ``egs3.mini_an4.asr.dataset``.
+            - module path form: ``egs.mini_an4.asr.dataset``.
         recipe_dir: Recipe root directory used for local module loading.
 
     Returns:
@@ -145,7 +145,7 @@ def load_dataset_module(
         >>> hasattr(module, "DatasetBuilder")
         True
         >>> local = load_dataset_module(
-        ...     data_src=None, recipe_dir="egs3/mini_an4/asr"
+        ...     data_src=None, recipe_dir="egs/mini_an4/asr"
         ... )
         >>> hasattr(local, "Dataset")
         True
@@ -161,7 +161,7 @@ def load_dataset_module(
         return _load_local_dataset_module(recipe_dir)
     if _is_tag(data_src):
 
-        # Tag mode: "mini_an4/asr" -> "egs3.mini_an4.asr.dataset"
+        # Tag mode: "mini_an4/asr" -> "egs.mini_an4.asr.dataset"
         return import_module(resolve_dataset_module_name(data_src))
 
     # Module path mode: import as-is.
@@ -236,13 +236,13 @@ def instantiate_dataset_reference(
 
     Examples:
         >>> cfg = {"data_src": "mini_an4/asr", "data_src_args": {"split": "train"}}
-        >>> ds = instantiate_dataset_reference(cfg, recipe_dir="egs3/mini_an4/asr")
+        >>> ds = instantiate_dataset_reference(cfg, recipe_dir="egs/mini_an4/asr")
         >>> hasattr(ds, "__len__")
         True
 
         Local dataset module loading (no data_src):
         >>> cfg = {"data_src_args": {"split": "test"}}
-        >>> _ = instantiate_dataset_reference(cfg, recipe_dir="egs3/mini_an4/asr")
+        >>> _ = instantiate_dataset_reference(cfg, recipe_dir="egs/mini_an4/asr")
     """
     data_src, data_src_args = parse_dataset_reference_config(config)
     module = load_dataset_module(data_src=data_src, recipe_dir=recipe_dir)

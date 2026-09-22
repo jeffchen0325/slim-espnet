@@ -1,4 +1,4 @@
-"""ESPnet Task class."""
+"""ESPnet-3 Task class."""
 
 import sys
 from argparse import Namespace
@@ -9,9 +9,9 @@ from hydra.utils import get_class, instantiate
 from omegaconf import DictConfig, OmegaConf
 from typeguard import typechecked
 
-from espnet.train.abs_espnet_model import AbsESPnetModel
-from espnet.train.preprocessor import AbsPreprocessor
-from espnet.utils.yaml_no_alias_safe_dump import yaml_no_alias_safe_dump
+from espnet2.train.abs_espnet_model import AbsESPnetModel
+from espnet2.train.preprocessor import AbsPreprocessor
+from espnet2.utils.yaml_no_alias_safe_dump import yaml_no_alias_safe_dump
 
 
 def _is_abs_preprocessor_config(preprocess_config) -> bool:
@@ -27,7 +27,7 @@ def _is_abs_preprocessor_config(preprocess_config) -> bool:
 
 
 def get_task_class(task_path: str):
-    """Get the ESPnet Task class from the given task path."""
+    """Get the ESPnet-2 Task class from the given task path."""
     try:
         ez_task = get_class(task_path)
     except Exception as e:

@@ -1,4 +1,4 @@
-"""Publication helpers for espnet."""
+"""Publication helpers for ESPnet3."""
 
 from __future__ import annotations
 
@@ -21,9 +21,10 @@ from huggingface_hub.errors import HfHubHTTPError
 from hydra.utils import instantiate
 from omegaconf import DictConfig, ListConfig, OmegaConf
 
-from espnet.components.modeling.lightning_module import build_model_summary
-from espnet.utils.logging_utils import get_git_metadata
-from espnet.utils.task_utils import get_espnet_model
+import espnet2
+from espnet3.components.modeling.lightning_module import build_model_summary
+from espnet3.utils.logging_utils import get_git_metadata
+from espnet3.utils.task_utils import get_espnet_model
 
 logger = logging.getLogger(__name__)
 

@@ -7,6 +7,7 @@ import logging
 from typing import List, Dict, Any, Sequence
 from dataclasses import dataclass, field 
 from omegaconf import OmegaConf
+from pathlib import Path
 
 from espnet.utils.config_utils import (
     load_and_merge_config,
@@ -41,10 +42,10 @@ class DefaultConfigs:
     #stages: List[str] = field(default_factory=lambda: ["all"])
     stages: List[str] = field(default_factory=lambda: [
         "create_dataset", "train_tokenizer", "collect_stats", "train", "infer", "measure"])
-    training_config: str = "conf/training_asr_transducer.yaml"
-    inference_config: str = "conf/inference.yaml"
-    metrics_config: str = "conf/metrics.yaml"
-    publication_config: str = "conf/publication.yaml"
+    training_config: Path = "conf/training_asr_transducer.yaml"
+    inference_config: Path = "conf/inference.yaml"
+    metrics_config: Path = "conf/metrics.yaml"
+    publication_config: Path = "conf/publication.yaml"
     dry_run: bool = False
     extra_args: Dict[str, Any] = field(default_factory=dict)
 
