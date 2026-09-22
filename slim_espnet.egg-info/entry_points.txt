@@ -1,3 +1,0 @@
-[console_scripts]
-espnet = espnet2.bin.cli:main
-espnet-mcp = espnet2.bin.mcp_server:main
