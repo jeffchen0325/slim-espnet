@@ -60,7 +60,7 @@ version = {file = "version.txt"}
 readme = {file = ["README.md"], content-type = "text/markdown"}
 
 [tool.setuptools.packages.find]
-include = ["espnet", "espnet.*", "tasks", "tasks.*"]
+include = ["egs", "egs.*", "espnet", "espnet.*", "tasks", "tasks.*"]
 
 [tool.setuptools.package-data]
 tasks = ["tasks/**/*.yaml"]
