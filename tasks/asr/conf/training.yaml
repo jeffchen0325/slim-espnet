@@ -119,8 +119,8 @@ tokenizer:
 ##########################################################
 # Training model definition.
 # If `task` is set, this block is passed to `get_espnet_model(task, model_conf)`.
-# Thus, you can reuse ESPnet2-style model configs here by setting `task` and
-# filling this block with the per-model config that ESPnet2 used.
+# Thus, you can reuse espnet-style model configs here by setting `task` and
+# filling this block with the per-model config that espnet used.
 # If `task` is not set, this block is instantiated directly via Hydra.
 model:
 
@@ -134,7 +134,7 @@ optimizer:
   weight_decay: 0.000001
 
 scheduler:
-  _target_: espnet2.schedulers.warmup_lr.WarmupLR
+  _target_: espnet.schedulers.warmup_lr.WarmupLR
   warmup_steps: 15000
 
 # Used only in the single optimizer path.
@@ -216,7 +216,7 @@ parallel:
 ##########################################################
 dataloader:
   collate_fn:
-    _target_: espnet2.train.collate_fn.CommonCollateFn
+    _target_: espnet.train.collate_fn.CommonCollateFn
     int_pad_value: -1
   # Training dataloader / iterator settings.
   train:
@@ -226,7 +226,7 @@ dataloader:
     total_shards: 1
     dist_world_size: 1
     iter_factory:
-      _target_: espnet2.iterators.sequence_iter_factory.SequenceIterFactory
+      _target_: espnet.iterators.sequence_iter_factory.SequenceIterFactory
       shuffle: true
       collate_fn: ${dataloader.collate_fn}
       batches:
@@ -244,7 +244,7 @@ dataloader:
     total_shards: 1
     dist_world_size: 1
     iter_factory:
-      _target_: espnet2.iterators.sequence_iter_factory.SequenceIterFactory
+      _target_: espnet.iterators.sequence_iter_factory.SequenceIterFactory
       shuffle: false
       collate_fn: ${dataloader.collate_fn}
       batches:

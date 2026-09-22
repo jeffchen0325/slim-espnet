@@ -81,10 +81,10 @@ These are deliberate; each is marked `[DEVIATION]` in the training config.
 - **`batch_bins` is not egs2's `35000000`.** The unit differs: egs2 bins on raw
   samples as a global budget, espnet bins on `feats_shape` (frames x 80) per
   GPU. The derivation is written out in the training config.
-- **`num_workers: 4`** rather than espnet2's default of 1; a batch holds several
+- **`num_workers: 4`** rather than espnet's default of 1; a batch holds several
   hundred separate file reads, and one worker starves the GPUs.
 - **`model_conf.sym_space` is set to the SentencePiece word-boundary marker**
-  (U+2581), which egs2 leaves at espnet2's `<space>` default. `ErrorCalculator`
+  (U+2581), which egs2 leaves at espnet's `<space>` default. `ErrorCalculator`
   rebuilds word boundaries by replacing `sym_space` before splitting on
   whitespace; with a BPE/unigram vocabulary `<space>` never appears, so the
   replacement is a no-op and the training-time `valid/wer` degenerates into a

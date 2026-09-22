@@ -204,10 +204,10 @@ class SPGISpeechDataset(TorchDataset):
         if self._hf_cache is not None:
             row = self._hf_cache[int(idx)]
             array, _sr = sf.read(str(row["audio_path"]))
-            # No "utt_id". espnet2's CommonPreprocessor tokenizes "text" into an
+            # No "utt_id". espnet's CommonPreprocessor tokenizes "text" into an
             # np.ndarray but passes keys it does not recognise through UNCHANGED,
             # so a str reaches the collate function, which assumes every value is
-            # an array (espnet2/train/collate_fn.py:404, `data[0][key].dtype`):
+            # an array (espnet/train/collate_fn.py:404, `data[0][key].dtype`):
             #   AttributeError: 'str' object has no attribute 'dtype'
             # This kills training on the FIRST batch if utt_id is added here,
             # and collect_stats goes through the same path and fails the same way.

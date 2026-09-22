@@ -111,7 +111,7 @@ dataset:
   # egs2 asr.sh builds this from --token_type/--nbpe and the trained model.
   # Without it the raw `text` string reaches the model untokenized.
   preprocessor:
-    _target_: espnet2.train.preprocessor.CommonPreprocessor
+    _target_: espnet.train.preprocessor.CommonPreprocessor
     train: true
     fs: 16000
     token_type: bpe
@@ -159,7 +159,7 @@ model:
   normalize_conf:
     stats_file: ${stats_dir}/train/feats_stats.npz
 
-  # egs2: init: none  ->  espnet2 parses "none" as None, i.e. no re-init.
+  # egs2: init: none  ->  espnet parses "none" as None, i.e. no re-init.
   # Written as null here because espnet would pass the literal string "none"
   # to initialize() and raise ValueError: Unknown initialization: none.
   init:
@@ -205,11 +205,11 @@ model:
     lsm_weight: 0.1
     length_normalized_loss: false
 
-    # [DEVIATION] SentencePiece word boundary, not espnet2's "<space>" default.
+    # [DEVIATION] SentencePiece word boundary, not espnet's "<space>" default.
     # egs2 does not set sym_space, but leaving it at the default makes the
     # training-time valid/wer meaningless for any BPE vocabulary.
     #
-    # ErrorCalculator (espnet2/legacy/nets/e2e_asr_common.py) rebuilds word
+    # ErrorCalculator (espnet/legacy/nets/e2e_asr_common.py) rebuilds word
     # boundaries by replacing sym_space with a real space before splitting on
     # whitespace. This recipe's vocabulary is unigram-5000, where boundaries are
     # marked "\u2581" and "<space>" never appears -- so the replacement is a
@@ -256,7 +256,7 @@ optimizer:
   weight_decay: 0.0
 
 scheduler:
-  _target_: espnet2.schedulers.warmup_lr.WarmupLR
+  _target_: espnet.schedulers.warmup_lr.WarmupLR
   warmup_steps: 25000
 
 scheduler_interval: step
@@ -290,7 +290,7 @@ parallel:
 # BATCH_BINS IS NOT egs2's 35000000 -- THE UNIT CHANGED.
 #
 # egs2 bins on `speech_shape` (raw samples, 16000 per second) and splits each
-# batch element-wise across ranks (espnet2/tasks/abs_task.py
+# batch element-wise across ranks (espnet/tasks/abs_task.py
 # build_sequence_iter_factory: `batches = [b[rank::world_size] for b in ...]`),
 # so its batch_bins is a GLOBAL budget:
 #     35,000,000 / 16,000 = 2187.5 s of audio per optimizer step's batch.
@@ -306,7 +306,7 @@ parallel:
 # Rule when changing num_device: keep batch_bins * num_device constant, or
 # rescale warmup_steps by the same factor.
 #
-# [DEVIATION] num_workers is 4, not espnet2's default of 1 that egs2 leaves in
+# [DEVIATION] num_workers is 4, not espnet's default of 1 that egs2 leaves in
 # place. A batch here holds several hundred utterances, each a separate file
 # read, so a single worker starves the GPUs on most filesystems. Raise it if
 # the GPUs still stall on I/O; this changes throughput only -- batch_bins,
@@ -320,13 +320,13 @@ parallel:
 # text_shape file here; its key set must match feats_shape exactly.
 dataloader:
   collate_fn:
-    _target_: espnet2.train.collate_fn.CommonCollateFn
+    _target_: espnet.train.collate_fn.CommonCollateFn
     int_pad_value: -1
   train:
     total_shards: 1
     dist_world_size: ${num_device}
     iter_factory:
-      _target_: espnet2.iterators.sequence_iter_factory.SequenceIterFactory
+      _target_: espnet.iterators.sequence_iter_factory.SequenceIterFactory
       shuffle: true
       num_workers: 4
       collate_fn: ${dataloader.collate_fn}
@@ -340,7 +340,7 @@ dataloader:
     total_shards: 1
     dist_world_size: ${num_device}
     iter_factory:
-      _target_: espnet2.iterators.sequence_iter_factory.SequenceIterFactory
+      _target_: espnet.iterators.sequence_iter_factory.SequenceIterFactory
       shuffle: false
       num_workers: 4
       collate_fn: ${dataloader.collate_fn}
@@ -362,7 +362,7 @@ trainer:
   check_val_every_n_epoch: 1
   log_every_n_steps: 100
 
-  # egs2: max_epoch 35, accum_grad 4, grad_clip 5 (espnet2 default; egs2 does
+  # egs2: max_epoch 35, accum_grad 4, grad_clip 5 (espnet default; egs2 does
   # not set it in this file).
   max_epochs: 35
   accumulate_grad_batches: 4

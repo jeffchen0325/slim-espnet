@@ -13,7 +13,7 @@ def build_output(data, model_output, idx):
     Args:
         data: The raw dataset sample. `SPGISpeechDataset.__getitem__` returns
             only `speech` and `text` -- see below on `utt_id`.
-        model_output: `espnet2.bin.asr_inference.Speech2Text.__call__` output,
+        model_output: `espnet.bin.asr_inference.Speech2Text.__call__` output,
             an n-best list of `(text, token, token_int, hypothesis)` tuples, so
             `[0][0]` is the best hypothesis text.
         idx: Index of the sample within its test set.
@@ -22,7 +22,7 @@ def build_output(data, model_output, idx):
         dict with `utt_id`, `hyp` and `ref`.
 
     NOTE ON utt_id. SPGISpeech utterance ids are deliberately NOT in the
-    dataset sample: espnet2's CommonPreprocessor is @typechecked as returning
+    dataset sample: espnet's CommonPreprocessor is @typechecked as returning
     Dict[str, np.ndarray] and passes unknown keys through unchanged, so a string
     `utt_id` aborts collect_stats and training with
         TypeCheckError: value of key 'utt_id' of the return value (dict)

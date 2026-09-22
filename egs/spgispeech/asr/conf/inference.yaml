@@ -78,12 +78,12 @@ dataset:
 # published number for this reason ALONE, independent of training length.
 #
 # asr_train_config is espnet's exp/<tag>/config.yaml, which is written in
-# espnet2 ASRTask layout (token_list / frontend / encoder / decoder /
+# espnet ASRTask layout (token_list / frontend / encoder / decoder /
 # normalize / model_conf at top level) and so is readable by Speech2Text as-is.
 # Its internal paths (token_list, bpemodel, normalize stats_file) are relative,
 # and run.py executes from the recipe dir, so they resolve.
 model:
-  _target_: espnet2.bin.asr_inference.Speech2Text
+  _target_: espnet.bin.asr_inference.Speech2Text
   asr_train_config: ${exp_dir}/config.yaml
   # Weight average over the top-10 valid/acc checkpoints, written by
   # AverageCheckpointsCallback (keep_nbest_models: 10). This is the checkpoint

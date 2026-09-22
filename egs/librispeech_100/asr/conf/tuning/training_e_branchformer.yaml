@@ -40,7 +40,7 @@ dataset:
     - data_src_args:
         split: dev-other
   preprocessor:
-    _target_: espnet2.train.preprocessor.CommonPreprocessor
+    _target_: espnet.train.preprocessor.CommonPreprocessor
     train: true
     token_type: bpe
     token_list: ${tokenizer.save_path}/tokens.txt
@@ -145,7 +145,7 @@ optimizer:
   weight_decay: 0.000001
 
 scheduler:
-  _target_: espnet2.schedulers.warmup_lr.WarmupLR
+  _target_: espnet.schedulers.warmup_lr.WarmupLR
   warmup_steps: 15000
 
 ##########################################################
