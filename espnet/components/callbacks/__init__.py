@@ -1,1 +1,1 @@
-"""Callback components for ESPnet3."""
+"""Callback components for espnet."""

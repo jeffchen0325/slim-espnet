@@ -1,4 +1,4 @@
-"""Structured specs for optimization configuration in ESPnet3."""
+"""Structured specs for optimization configuration in espnet."""
 
 from dataclasses import dataclass
 from typing import Any, Optional
@@ -10,7 +10,7 @@ import torch
 class OptimizationStep:
     """Describe one optimizer update emitted by the model.
 
-    ESPnet3 keeps the model return contract as `(loss, stats, weight)`. In the
+    espnet keeps the model return contract as `(loss, stats, weight)`. In the
     single-optimizer path, `loss` is a plain tensor. In the multiple-optimizer
     path, `loss` becomes either one `OptimizationStep` or a list of them so the
     training loop knows which named optimizer should consume each loss.
@@ -205,7 +205,7 @@ class OptimizerRuntimeState:
     """Track custom runtime counters for one named optimizer.
 
     Lightning already checkpoints optimizer and scheduler `state_dict()` values.
-    This dataclass exists only for extra ESPnet3 runtime state that Lightning
+    This dataclass exists only for extra espnet runtime state that Lightning
     does not manage for named multi-optimizer training:
     - `accum_counter`: how many backward passes have been accumulated since the
       last optimizer step,

@@ -1,4 +1,4 @@
-"""Training entrypoint for ESPnet3 systems."""
+"""Training entrypoint for espnet systems."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from hydra.utils import instantiate
 from omegaconf import DictConfig, OmegaConf
 
 from espnet.components.modeling.lightning_module import ESPnetLightningModule
-from espnet.components.trainers.trainer import ESPnet3LightningTrainer
+from espnet.components.trainers.trainer import espnetLightningTrainer
 from espnet.parallel.parallel import set_parallel
 from espnet.utils.task_utils import get_espnet_model, save_espnet_config
 
@@ -28,10 +28,10 @@ def _instantiate_model(config: DictConfig) -> Any:
     return instantiate(config.model)
 
 
-def _build_trainer(config: DictConfig) -> ESPnet3LightningTrainer:
+def _build_trainer(config: DictConfig) -> espnetLightningTrainer:
     model = _instantiate_model(config)
     lit_model = ESPnetLightningModule(model, config)
-    trainer = ESPnet3LightningTrainer(
+    trainer = espnetLightningTrainer(
         model=lit_model,
         exp_dir=config.exp_dir,
         config=config.trainer,

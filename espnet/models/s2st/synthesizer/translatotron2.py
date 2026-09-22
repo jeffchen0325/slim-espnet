@@ -1,7 +1,7 @@
 # Copyright 2022 Carnegie Mellon University (Jiatong Shi)
 #  Apache 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
 
-"""Translatotron2 related modules for espnet3."""
+"""Translatotron2 related modules for espnet."""
 
 from typing import Optional
 

@@ -1,4 +1,4 @@
-"""Configuration helpers and OmegaConf resolvers for ESPnet3."""
+"""Configuration helpers and OmegaConf resolvers for espnet."""
 
 import logging
 import re
@@ -73,11 +73,11 @@ def self_name(path):
     return path
 
 
-OMEGACONF_ESPNET3_RESOLVER = {
+OMEGACONF_espnet_RESOLVER = {
     "load_line": load_line,
     "self_name": self_name,
 }
-for name, resolver in OMEGACONF_ESPNET3_RESOLVER.items():
+for name, resolver in OMEGACONF_espnet_RESOLVER.items():
     OmegaConf.register_new_resolver(name, resolver)
     logging.info(f"Registered ESPnet-3 OmegaConf Resolver: {name}")
 

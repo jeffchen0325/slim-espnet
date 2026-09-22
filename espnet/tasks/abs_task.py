@@ -253,7 +253,7 @@ class AbsTask(ABC):
         >>> cls.check_task_requirements()
         If your model is defined as following,
 
-        >>> from espnet3.models.abs_espnet_model import AbsESPnetModel
+        >>> from espnet.models.abs_espnet_model import AbsESPnetModel
         >>> class Model(AbsESPnetModel):
         ...     def forward(self, input, output, opt=None):  pass
 
@@ -274,7 +274,7 @@ class AbsTask(ABC):
         >>> cls.check_task_requirements()
         If your model is defined as follows,
 
-        >>> from espnet3.models.abs_espnet_model import AbsESPnetModel
+        >>> from espnet.models.abs_espnet_model import AbsESPnetModel
         >>> class Model(AbsESPnetModel):
         ...     def forward(self, input, output, opt=None):  pass
 
@@ -1050,7 +1050,7 @@ class AbsTask(ABC):
             default=dict(),
             help="The keyword arguments for configuring weight decay in optimizer. "
             "e.g., 'bias_weight_decay': False will set zero weight decay for bias "
-            "params. See also espnet3.optimizers.optim_groups.configure_optimizer.",
+            "params. See also espnet.optimizers.optim_groups.configure_optimizer.",
         )
         for i in range(1, cls.num_optimizers + 1):
             suf = "" if i == 1 else str(i)

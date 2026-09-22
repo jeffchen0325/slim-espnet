@@ -119,7 +119,7 @@ def pyopenjtalk_g2p_prosody(text: str, drop_unvoiced_vowels: bool = True) -> Lis
         List[str]: List of phoneme + prosody symbols.
 
     Examples:
-        >>> from espnet3.tokenizer.phoneme_tokenizer import pyopenjtalk_g2p_prosody
+        >>> from espnet.tokenizer.phoneme_tokenizer import pyopenjtalk_g2p_prosody
         >>> pyopenjtalk_g2p_prosody("こんにちは。")
         ['^', 'k', 'o', '[', 'N', 'n', 'i', 'ch', 'i', 'w', 'a', '$']
 

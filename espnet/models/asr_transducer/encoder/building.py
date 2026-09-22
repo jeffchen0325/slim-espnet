@@ -62,7 +62,7 @@ def build_main_parameters(
         num_left_chunks: Number of left chunks the attention module can see.
                          (null or negative value means full context)
         **activation_parameters: Parameters of the activation functions.
-                                 (See espnet3/asr_transducer/activation.py)
+                                 (See espnet/asr_transducer/activation.py)
 
     Returns:
         : Main encoder parameters

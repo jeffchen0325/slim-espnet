@@ -27,7 +27,7 @@ class DatasetBuilder(ABC):
     unnecessarily when the expected outputs are already present.
 
     Notes:
-        ``espnet3.systems.base.system.BaseSystem.create_dataset()`` instantiates
+        ``espnet.systems.base.system.BaseSystem.create_dataset()`` instantiates
         a builder and calls these methods in order. Keep
         ``is_source_prepared`` and ``is_built`` as cheap filesystem checks, and
         reserve heavier work for ``prepare_source`` and ``build``.
@@ -128,7 +128,7 @@ class DatasetBuilder(ABC):
     def is_built(self, **kwargs) -> bool:
         """Check whether task-ready dataset artifacts already exist.
 
-        This method should report readiness of the outputs consumed by ESPnet3
+        This method should report readiness of the outputs consumed by espnet
         components, such as manifests, converted audio files, feature metadata,
         or recipe-specific index files.
 

@@ -2,7 +2,7 @@
 #  Apache 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
 # Based in FastSpeech2
 
-"""ProDiff related modules for espnet3."""
+"""ProDiff related modules for espnet."""
 
 import logging
 from typing import Dict, Optional, Sequence, Tuple

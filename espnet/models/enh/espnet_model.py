@@ -55,7 +55,7 @@ class ESPnetEnhancementModel(AbsESPnetModel):
             decoder: waveform decoder that converts the feature back to waveforms
             mask_module: mask module that converts the feature to masks
                 NOTE: Only used for compatibility with joint speaker diarization.
-                See test/espnet3/enh/test_espnet_enh_s2t_model.py for details.
+                See test/espnet/enh/test_espnet_enh_s2t_model.py for details.
             loss_wrappers: list of loss wrappers
                 Each loss wrapper contains a criterion for loss calculation and
                 the corresonding loss weight.
@@ -73,7 +73,7 @@ class ESPnetEnhancementModel(AbsESPnetModel):
                 NOTE: This should be used when training a speech separation model for
                 unknown number of speakers.
             ------------------------------------------------------------------
-            extract_feats_in_collect_stats: used in espnet3/tasks/abs_task.py for
+            extract_feats_in_collect_stats: used in espnet/tasks/abs_task.py for
                 determining whether or not to skip model building in collect_stats stage
                 (stage 5 in egs2/*/enh1/enh.sh).
             normalize_variance: whether to normalize the signal variance before model
@@ -103,7 +103,7 @@ class ESPnetEnhancementModel(AbsESPnetModel):
         self.separator = separator
         self.decoder = decoder
         self.mask_module = mask_module
-        # set num_spk to -1 if None for compatibility with `espnet3.enh.diffusion_enh`
+        # set num_spk to -1 if None for compatibility with `espnet.enh.diffusion_enh`
         self.num_spk = separator.num_spk if separator is not None else -1
         # If True, self.num_spk is regarded as the MAXIMUM possible number of speakers
         self.flexible_numspk = flexible_numspk
@@ -170,7 +170,7 @@ class ESPnetEnhancementModel(AbsESPnetModel):
             speech_mix_lengths: (Batch,), default None for chunk interator,
                             because the chunk-iterator does not have the
                             speech_lengths returned. see in
-                            espnet3/iterators/chunk_iter_factory.py
+                            espnet/iterators/chunk_iter_factory.py
             kwargs: "utt_id" is among the input.
         """
         # reference speech signal of each speaker

@@ -1,6 +1,6 @@
 """Inference output formatting for the SPGISpeech ASR recipe.
 
-`conf/inference.yaml` points `output_fn` here. ESPnet3 calls it once per sample
+`conf/inference.yaml` points `output_fn` here. espnet calls it once per sample
 and writes one SCP file per returned key under
 `${inference_dir}/<test_name>/`, so the keys below become `hyp.scp` and
 `ref.scp` -- the two files `conf/metrics.yaml` scores.
@@ -8,7 +8,7 @@ and writes one SCP file per returned key under
 
 
 def build_output(data, model_output, idx):
-    """Turn one Speech2Text result into the dict ESPnet3 writes to SCP.
+    """Turn one Speech2Text result into the dict espnet writes to SCP.
 
     Args:
         data: The raw dataset sample. `SPGISpeechDataset.__getitem__` returns

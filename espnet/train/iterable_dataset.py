@@ -222,7 +222,7 @@ class IterableESPnetDataset(IterableDataset):
                 data.update(from_non_iterable)
 
             # 3. [Option] Apply preprocessing
-            #   e.g. espnet3.train.preprocessor:CommonPreprocessor
+            #   e.g. espnet.train.preprocessor:CommonPreprocessor
             if self.preprocess is not None:
                 data = self.preprocess(self.preprocess_prefix + uid, data)
 

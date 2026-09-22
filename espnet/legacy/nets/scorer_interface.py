@@ -13,16 +13,16 @@ class ScorerInterface:
 
     Examples:
         Search heuristics:
-        * espnet3.legacy.nets.scorers.length_bonus.LengthBonus
+        * espnet.legacy.nets.scorers.length_bonus.LengthBonus
 
         Decoder networks of the sequence-to-sequence models:
-            * espnet3.legacy.nets.pytorch_backend.nets.transformer.decoder.Decoder
-            * espnet3.legacy.nets.pytorch_backend.nets.rnn.decoders.Decoder
+            * espnet.legacy.nets.pytorch_backend.nets.transformer.decoder.Decoder
+            * espnet.legacy.nets.pytorch_backend.nets.rnn.decoders.Decoder
 
         Neural language models:
-            * espnet3.legacy.nets.pytorch_backend.lm.transformer.TransformerLM
-            * espnet3.legacy.nets.pytorch_backend.lm.default.DefaultRNNLM
-            * espnet3.legacy.nets.pytorch_backend.lm.seq_rnn.SequentialRNNLM
+            * espnet.legacy.nets.pytorch_backend.lm.transformer.TransformerLM
+            * espnet.legacy.nets.pytorch_backend.lm.default.DefaultRNNLM
+            * espnet.legacy.nets.pytorch_backend.lm.seq_rnn.SequentialRNNLM
 
     """
 
@@ -137,7 +137,7 @@ class PartialScorerInterface(ScorerInterface):
 
     Examples:
          * Prefix search for connectionist-temporal-classification models
-             * :class:`espnet3.legacy.nets.scorers.ctc.CTCPrefixScorer`
+             * :class:`espnet.legacy.nets.scorers.ctc.CTCPrefixScorer`
 
     """
 

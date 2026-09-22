@@ -2,7 +2,7 @@
 # Copyright 2023 Renmin University of China (Yuning Wu)
 #  Apache 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
 
-"""XiaoiceSing2 related loss module for espnet3."""
+"""XiaoiceSing2 related loss module for espnet."""
 
 from typing import Tuple
 

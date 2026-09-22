@@ -17,7 +17,7 @@ from espnet.legacy.nets.pytorch_backend.transformer.subsampling import TooShortU
 from espnet.legacy.nets.scorer_interface import BatchScorerInterface
 from espnet.legacy.nets.scorers.uasr import UASRPrefixScorer
 
-# from espnet3.legacy.nets.scorers.uasr import UASRPrefixScorer
+# from espnet.legacy.nets.scorers.uasr import UASRPrefixScorer
 from espnet.legacy.utils.cli_utils import get_commandline_args
 from espnet.tasks.lm import LMTask
 from espnet.tasks.uasr import UASRTask
@@ -260,7 +260,7 @@ class Speech2Text:
 
         Args:
             model_tag (Optional[str]): Model tag of the pretrained models.
-                Currently, the tags of espnet3.model_zoo are supported.
+                Currently, the tags of espnet.model_zoo are supported.
 
         Returns:
             Speech2Text: Speech2Text instance.

@@ -3,12 +3,12 @@
 This module is the runtime entry point used after ``pack_model()`` has created
 an unpacked publication bundle. The public API is :class:`InferenceModel`,
 which loads ``conf/inference.yaml`` from that bundle, rebuilds the configured
-backend through :class:`espnet3.systems.base.inference_provider.InferenceProvider`,
+backend through :class:`espnet.systems.base.inference_provider.InferenceProvider`,
 and exposes a small direct-inference interface for single samples and batches.
 
 Typical call flow:
 
-- ``espnet3.publication.InferenceModel.from_packed(...)``
+- ``espnet.publication.InferenceModel.from_packed(...)``
 - read ``meta.yaml``
 - locate and resolve ``conf/inference.yaml``
 - optionally allow bundled recipe code when ``trust_user_code=True``
@@ -105,7 +105,7 @@ class InferenceModel:
     """User-facing inference wrapper for packaged ESPnet models.
 
     This class is the public runtime API for a bundle produced by
-    ``espnet3.utils.publication_utils.pack_model()``. It sits on the publication side of
+    ``espnet.utils.publication_utils.pack_model()``. It sits on the publication side of
     the pipeline: stage runners produce the packed directory, then external
     callers use :class:`InferenceModel` to reopen that directory and execute
     the bundled inference configuration without going back through
@@ -201,7 +201,7 @@ class InferenceModel:
 
         Args:
             pack_dir: Path to the output directory created by
-                ``espnet3.utils.publication_utils.pack_model()``. This directory must
+                ``espnet.utils.publication_utils.pack_model()``. This directory must
                 contain ``conf/inference.yaml`` and any files referenced by
                 that config.
             trust_user_code: Set to ``True`` to allow importing bundled recipe
@@ -261,7 +261,7 @@ class InferenceModel:
             raise ValueError(
                 f"Bundle was produced by a newer pack_model "
                 f"(schema_version={schema}) than this installation supports. "
-                f"Upgrade espnet3."
+                f"Upgrade espnet."
             )
 
         inference_config_rel = (meta.get("yaml_files") or {}).get("inference_config")
@@ -308,7 +308,7 @@ class InferenceModel:
         """Download a packaged model and build an inference model from it.
 
         This is the remote-loading companion to :meth:`from_packed`. It is
-        called when the caller has an ``espnet3.model_zoo`` tag rather than a
+        called when the caller has an ``espnet.model_zoo`` tag rather than a
         local packed directory. The downloader fetches and unpacks the model
         assets first, then this method locates the unpacked bundle root and
         delegates to :meth:`from_packed` for the actual config loading and
@@ -316,7 +316,7 @@ class InferenceModel:
 
         Args:
             model_tag: Pretrained model identifier understood by
-                ``espnet3.model_zoo``.
+                ``espnet.model_zoo``.
             trust_user_code: Forwarded to :meth:`from_packed`.
 
         Returns:

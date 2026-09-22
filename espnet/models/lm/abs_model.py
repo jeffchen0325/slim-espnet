@@ -13,7 +13,7 @@ class AbsLM(torch.nn.Module, BatchScorerInterface, ABC):
     We uses delegate pattern here:
     The instance of this class should be passed to "LanguageModel"
 
-    >>> from espnet3.models.lm.abs_model import AbsLM
+    >>> from espnet.models.lm.abs_model import AbsLM
     >>> lm = AbsLM()
     >>> model = LanguageESPnetModel(lm=lm)
 

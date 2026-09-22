@@ -22,7 +22,7 @@ def write_artifact(
     """Write a single inference artifact to disk and return its path.
 
     This function implements the artifact serialization rules used by
-    ``espnet3.systems.base.inference.infer()`` for non-scalar outputs.
+    ``espnet.systems.base.inference.infer()`` for non-scalar outputs.
 
     Default serialization rules:
 

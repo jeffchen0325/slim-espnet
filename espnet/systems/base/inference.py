@@ -1,4 +1,4 @@
-"""Inference entrypoint for ESPnet3 systems."""
+"""Inference entrypoint for espnet systems."""
 
 import logging
 import time
@@ -117,7 +117,7 @@ def infer(config: DictConfig):
           utt1 hello world
 
     Non-scalar values are serialized through
-    :func:`espnet3.utils.writer_utils.write_artifact`. That function documents
+    :func:`espnet.utils.writer_utils.write_artifact`. That function documents
     the detailed rules for JSON, NPY, pickle, WAV, and custom writer cases.
 
     Example WAV configuration:

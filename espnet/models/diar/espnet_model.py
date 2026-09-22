@@ -80,7 +80,7 @@ class ESPnetDiarizationModel(AbsESPnetModel):
                                      because the chunk-iterator does not
                                      have the speech_lengths returned.
                                      see in
-                                     espnet3/iterators/chunk_iter_factory.py
+                                     espnet/iterators/chunk_iter_factory.py
             spk_labels: (Batch, )
             kwargs: "utt_id" is among the input.
         """

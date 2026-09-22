@@ -32,7 +32,7 @@ class PITLossWrapper(AbsLossWrapper):
         ref_lens: torch.Tensor,
         others: Dict = None,
     ):
-        """PITLoss Wrapper function. Similar to espnet3/enh/loss/wrapper/pit_solver.py
+        """PITLoss Wrapper function. Similar to espnet/enh/loss/wrapper/pit_solver.py
 
         Args:
             inf: Iterable[torch.Tensor], (batch, num_inf, ...)

@@ -1,4 +1,4 @@
-"""espnet3 ASR Transducer model."""
+"""espnet ASR Transducer model."""
 
 import logging
 from typing import Dict, List, Optional, Tuple, Union
@@ -19,7 +19,7 @@ from espnet.models.abs_espnet_model import AbsESPnetModel
 
 
 class ESPnetASRTransducerModel(AbsESPnetModel):
-    """espnet3ASRTransducerModel module definition.
+    """espnetASRTransducerModel module definition.
 
     Args:
         vocab_size: Size of complete vocabulary (w/ SOS/EOS and blank included).

@@ -1,1 +1,1 @@
-"""Training components for ESPnet3."""
+"""Training components for espnet."""

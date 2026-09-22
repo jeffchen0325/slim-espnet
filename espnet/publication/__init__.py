@@ -1,4 +1,4 @@
-"""Publication-facing APIs for packaged ESPnet3 models."""
+"""Publication-facing APIs for packaged espnet models."""
 
 from espnet.publication.inference_model import InferenceModel
 

@@ -27,5 +27,5 @@
 ## [v202509] - 2025-09-08
 
 ### Added
-- 初始发布：完成 espnet2 → espnet3 全量迁移，支持 Conformer-V2
+- 初始发布：支持 Conformer-V2
 - 提供 AISHELL-1 / WenetSpeech baseline recipe

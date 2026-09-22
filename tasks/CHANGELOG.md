@@ -1,6 +1,6 @@
-# Changelog - ESPnet3 Template
+# Changelog - espnet Template
 
-> 本文件记录 `espnet3/template` 的所有版本变更。
+> 本文件记录 `espnet/template` 的所有版本变更。
 > 具体变更内容请参阅各子模块目录下的 `CHANGELOG.md`。
 > 格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/)，版本号遵循 CalVer (YYMM) 规范。
 

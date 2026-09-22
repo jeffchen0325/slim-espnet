@@ -56,7 +56,7 @@ def _parse_transcript_line(line: str) -> tuple[str, str, str]:
 
 
 class MiniAn4Builder(DatasetBuilder):
-    """Prepare and build Mini AN4 assets for ESPnet3 recipes."""
+    """Prepare and build Mini AN4 assets for espnet recipes."""
 
     def is_source_prepared(self, recipe_dir: str | Path, **_kwargs) -> bool:
         """Check whether raw AN4 source files are already available.

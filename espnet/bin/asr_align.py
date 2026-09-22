@@ -140,7 +140,7 @@ class CTCSegmentation:
         >>> import soundfile
         >>> speech, fs = soundfile.read("test_utils/ctc_align_test.wav")
         >>> # load an ASR model
-        >>> from espnet3.model_zoo.downloader import ModelDownloader
+        >>> from espnet.model_zoo.downloader import ModelDownloader
         >>> d = ModelDownloader()
         >>> wsjmodel = d.download_and_unpack( "kamo-naoyuki/wsj" )
         >>> # Apply CTC segmentation

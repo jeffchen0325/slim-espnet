@@ -41,7 +41,7 @@ from espnet.models.svs.xiaoice.loss import XiaoiceSing2Loss
 from espnet.torch_utils.device_funcs import force_gatherable
 from espnet.torch_utils.initialize import initialize
 
-# from espnet3.models.gan_svs.vits.pitch_predictor import Decoder
+# from espnet.models.gan_svs.vits.pitch_predictor import Decoder
 
 # class Discrete_Postnet(torch.nn.Module):
 #     def __init__(

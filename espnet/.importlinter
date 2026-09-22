@@ -2,27 +2,27 @@
 name = rule_0
 type = forbidden
 source_modules =
-    espnet3.fileio
-    espnet3.utils
-    espnet3.torch_utils
-    espnet3.tokenizers
-    espnet3.schedulers
-    espnet3.optimizers
-    espnet3.fst
+    espnet.fileio
+    espnet.utils
+    espnet.torch_utils
+    espnet.tokenizers
+    espnet.schedulers
+    espnet.optimizers
+    espnet.fst
 forbidden_modules =
-    espnet3.fileio
-    espnet3.utils
-    espnet3.torch_utils
-    espnet3.tokenizers
-    espnet3.schedulers
-    espnet3.optimizers
-    espnet3.fst
+    espnet.fileio
+    espnet.utils
+    espnet.torch_utils
+    espnet.tokenizers
+    espnet.schedulers
+    espnet.optimizers
+    espnet.fst
 
 [importlinter:contract:macro-architecture]
 name = rule_1
 type = layers
 layers =
-    espnet3.iterators
-    espnet3.samplers
-    espnet3.fileio
+    espnet.iterators
+    espnet.samplers
+    espnet.fileio
 

@@ -1,6 +1,6 @@
 """Utilities for resolving and instantiating dataset modules.
 
-This module standardizes how ESPnet3 resolves dataset sources used in configs
+This module standardizes how espnet resolves dataset sources used in configs
 such as:
 
 .. code-block:: yaml
@@ -101,7 +101,7 @@ def _load_local_dataset_module(recipe_dir: str | Path | None):
 
     # Use a unique synthetic module name to avoid collisions across recipes.
     sanitized = module_init.resolve().as_posix().replace("/", "_").replace(".", "_")
-    module_name = f"_espnet3_local_dataset_{sanitized}"
+    module_name = f"_espnet_local_dataset_{sanitized}"
     spec = util.spec_from_file_location(
         module_name,
         module_init,

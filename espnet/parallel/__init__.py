@@ -1,1 +1,1 @@
-"""Parallel package for the ESPnet3."""
+"""Parallel package for the espnet."""

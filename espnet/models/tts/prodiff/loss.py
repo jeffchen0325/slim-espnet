@@ -1,7 +1,7 @@
 # Copyright 2022 Hitachi LTD. (Nelson Yalta)
 #  Apache 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
 
-"""ProDiff related loss module for espnet3."""
+"""ProDiff related loss module for espnet."""
 
 from math import exp
 from typing import Tuple

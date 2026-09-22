@@ -72,7 +72,7 @@ class ESPnetDiffusionModel(ESPnetEnhancementModel):
             speech_mix_lengths: (Batch,), default None for chunk interator,
                             because the chunk-iterator does not have the
                             speech_lengths returned. see in
-                            espnet3/iterators/chunk_iter_factory.py
+                            espnet/iterators/chunk_iter_factory.py
             enroll_ref1: (Batch, samples_aux)
                                 enrollment (raw audio or embedding) for speaker 1
             enroll_ref2: (Batch, samples_aux)

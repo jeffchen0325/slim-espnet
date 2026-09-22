@@ -1,6 +1,6 @@
 """ASR Task.
 
-Note: This file is a direct copy of the corresponding espnet3 task class.
+Note: This file is a direct copy of the corresponding espnet task class.
 """
 
 import argparse

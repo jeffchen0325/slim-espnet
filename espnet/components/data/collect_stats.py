@@ -40,7 +40,7 @@ def collect_stats_batch(
     structured_items: List[Tuple[str, Any]] = []
     for i in idxs:
         item = dataset[i]
-        # We assume dataset should be DataOrganizer in espnet3.
+        # We assume dataset should be DataOrganizer in espnet.
         if (
             hasattr(dataset, "use_espnet_preprocessor")
             and dataset.use_espnet_preprocessor
@@ -415,7 +415,7 @@ def collect_stats(
     """Entry point for collecting dataset statistics used for feature normalization.
 
     Runs the runner-based collection once, optionally configuring parallel
-    execution via :func:`espnet3.parallel.set_parallel` when ``parallel_config``
+    execution via :func:`espnet.parallel.set_parallel` when ``parallel_config``
     is provided.
 
     Args:
@@ -439,7 +439,7 @@ def collect_stats(
     mode_config = getattr(dataloader_config, mode, None)
     if mode_config is not None and hasattr(mode_config, "multiple_iterator"):
         raise RuntimeError(
-            "ESPnet3 does not support multiple_iterator. "
+            "espnet does not support multiple_iterator. "
             "If you need sharding, select a shard explicitly "
             "(e.g., point the dataset/shape files to split.*) "
             "and run collect_stats on that shard."

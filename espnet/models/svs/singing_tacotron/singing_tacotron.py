@@ -2,7 +2,7 @@
 # Copyright 2023 Renmin University of China (Yuning Wu)
 #  Apache 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
 
-"""Singing Tacotron related modules for espnet3."""
+"""Singing Tacotron related modules for espnet."""
 
 import logging
 from typing import Dict, Optional, Sequence, Tuple

@@ -1,4 +1,4 @@
-"""Dataset classes for ESPnet3."""
+"""Dataset classes for espnet."""
 
 import copy
 from abc import ABC
@@ -373,7 +373,7 @@ class CombinedDataset:
 
         This is used when handling large datasets that are split into shards
         for efficiency and distributed processing (ESPnet multiple-iterator mode).
-        All datasets must be subclasses of `espnet3.data.dataset.ShardedDataset`,
+        All datasets must be subclasses of `espnet.data.dataset.ShardedDataset`,
         and implement a `shard()` method.
 
         Args:
@@ -388,7 +388,7 @@ class CombinedDataset:
         if not all(isinstance(dataset, ShardedDataset) for dataset in self.datasets):
             raise RuntimeError(
                 "All dataset should be the subclass of "
-                "espnet3.components.data.dataset.ShardedDataset."
+                "espnet.components.data.dataset.ShardedDataset."
             )
         sharded_datasets = [dataset.shard(shard_idx) for dataset in self.datasets]
         return CombinedDataset(

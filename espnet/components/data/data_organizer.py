@@ -1,4 +1,4 @@
-"""DataOrganizer class for managing datasets in ESPnet3."""
+"""DataOrganizer class for managing datasets in espnet."""
 
 import logging
 from dataclasses import dataclass
@@ -30,7 +30,7 @@ class DatasetConfig:
     Attributes:
         name (str): Name identifier for the dataset.
         data_src (Optional[str]): Optional dataset source reference resolved via
-            ``espnet3.components.data.dataset_module``.
+            ``espnet.components.data.dataset_module``.
         data_src_args (Optional[Dict[str, Any]]): Keyword arguments passed to the
             recipe ``Dataset`` class.
         transform (Optional[Dict[str, Any]]): A dictionary for Hydra instantiation of

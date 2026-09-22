@@ -60,7 +60,7 @@ inference_dir: ${exp_dir}/${self_name:}
 # location rather than requiring users to specify a second dataset path just
 # for inference.
 dataset:
-  _target_: espnet3.components.data.data_organizer.DataOrganizer
+  _target_: espnet.components.data.data_organizer.DataOrganizer
   _recursive_: false
   recipe_dir: ${recipe_dir}
   test:
@@ -163,6 +163,6 @@ output_fn:
 #               PROVIDER AND RUNNER SETTING              #
 ##########################################################
 provider:
-  _target_: espnet3.systems.base.inference_provider.InferenceProvider
+  _target_: espnet.systems.base.inference_provider.InferenceProvider
 runner:
-  _target_: espnet3.systems.base.inference_runner.InferenceRunner
+  _target_: espnet.systems.base.inference_runner.InferenceRunner

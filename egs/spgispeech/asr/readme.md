@@ -1,6 +1,6 @@
 # SPGISpeech ASR recipe
 
-Port of [`egs2/spgispeech/asr1`](../../../egs2/spgispeech/asr1) to ESPnet3.
+Port of [`egs2/spgispeech/asr1`](../../../egs2/spgispeech/asr1) to espnet.
 SPGISpeech is 5,000 h of transcribed financial-earnings-call audio
 (1,966,109 utterances, 5.01–15.00 s each).
 
@@ -75,11 +75,11 @@ These are deliberate; each is marked `[DEVIATION]` in the training config.
   This recipe runs egs2's `norm=""` branch. `create_dataset` builds all eight
   splits, so switching only requires appending `_unnorm` to the split names in
   the training config.
-- **No language model.** ESPnet3 has no LM stage, whereas egs2 trains one and
+- **No language model.** espnet has no LM stage, whereas egs2 trains one and
   shallow-fuses it at `lm_weight: 0.3`. The WER above is therefore LM-free and
   is not directly comparable to egs2's published number.
 - **`batch_bins` is not egs2's `35000000`.** The unit differs: egs2 bins on raw
-  samples as a global budget, ESPnet3 bins on `feats_shape` (frames x 80) per
+  samples as a global budget, espnet bins on `feats_shape` (frames x 80) per
   GPU. The derivation is written out in the training config.
 - **`num_workers: 4`** rather than espnet2's default of 1; a batch holds several
   hundred separate file reads, and one worker starves the GPUs.

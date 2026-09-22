@@ -37,7 +37,7 @@
 # of appending `_unnorm` to the four split names below. As shipped this config
 # runs egs2's `norm=""` branch: the same recipe over normalized text.
 
-task: espnet3.systems.asr.task.ASRTask
+task: espnet.systems.asr.task.ASRTask
 
 ##########################################################
 #                  SYSTEM AND PATH SETTING               #
@@ -160,7 +160,7 @@ model:
     stats_file: ${stats_dir}/train/feats_stats.npz
 
   # egs2: init: none  ->  espnet2 parses "none" as None, i.e. no re-init.
-  # Written as null here because espnet3 would pass the literal string "none"
+  # Written as null here because espnet would pass the literal string "none"
   # to initialize() and raise ValueError: Unknown initialization: none.
   init:
 
@@ -270,7 +270,7 @@ best_model_criterion:
   - 10
   - max
 
-# egs2 `patience: none` -> no early stopping, which is also espnet3's default
+# egs2 `patience: none` -> no early stopping, which is also espnet's default
 # (no EarlyStopping callback is configured below).
 
 ##########################################################
@@ -295,8 +295,8 @@ parallel:
 # so its batch_bins is a GLOBAL budget:
 #     35,000,000 / 16,000 = 2187.5 s of audio per optimizer step's batch.
 #
-# espnet3 bins on `feats_shape` = (frames, 80) and hands each rank WHOLE
-# batches (espnet3/components/data/dataloader.py: `batches[rank::world_size]`),
+# espnet bins on `feats_shape` = (frames, 80) and hands each rank WHOLE
+# batches (espnet/components/data/dataloader.py: `batches[rank::world_size]`),
 # so batch_bins here is PER GPU. With hop_length 256 one second of audio costs
 # 62.5 * 80 = 5,000 bins, so the same 2187.5 s is
 #     2187.5 * 5,000            = 10,937,500 bins globally
@@ -314,7 +314,7 @@ parallel:
 #
 # NOTE ON SHAPE FILES. egs2's asr.sh passes --train_shape_file twice
 # (speech_shape and text_shape.${token_type}) so the sampler bounds a batch on
-# both audio and text length, whereas espnet3's collect_stats emits only
+# both audio and text length, whereas espnet's collect_stats emits only
 # feats/feats_lengths. This config therefore bins on feats_shape alone, as
 # egs3's other recipes do. If you see OOMs driven by very long targets, add a
 # text_shape file here; its key set must match feats_shape exactly.

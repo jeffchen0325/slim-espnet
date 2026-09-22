@@ -1,4 +1,4 @@
-"""DataLoader builder for ESPnet3 trainer."""
+"""DataLoader builder for espnet trainer."""
 
 import copy
 import logging
@@ -40,7 +40,7 @@ def log_dataloader(logger: logging.Logger, loader, label: str) -> None:
 
 
 class DataLoaderBuilder:
-    """Builder class for constructing training and validation DataLoaders in ESPnet3.
+    """Builder class for constructing training and validation DataLoaders in espnet.
 
     This class provides a unified interface for setting up PyTorch or ESPnet-specific
     DataLoaders based on the configuration. It supports advanced features such as:
@@ -163,11 +163,11 @@ class DataLoaderBuilder:
             dataloader:
             train:
                 iter_factory:
-                _target_: espnet3.iterators.sequence_iter_factory.SequenceIterFactory
+                _target_: espnet.iterators.sequence_iter_factory.SequenceIterFactory
                 shuffle: true
                 collate_fn: ${dataloader.collate_fn}
                 batches:
-                    _target_: espnet3.samplers.build_batch_sampler.build_batch_sampler
+                    _target_: espnet.samplers.build_batch_sampler.build_batch_sampler
                     type: numel
                     shape_files:
                     batch_bins: 4000000
@@ -194,7 +194,7 @@ class DataLoaderBuilder:
         dataset = self._maybe_shard_dataset(self.dataset)
         if hasattr(config, "multiple_iterator"):
             raise RuntimeError(
-                "ESPnet3 does not support multiple_iterator. "
+                "espnet does not support multiple_iterator. "
                 "If you need sharding, select a shard explicitly "
                 "(e.g., point the dataset/shape files to split.*) "
                 "and use a standard iter_factory."
@@ -206,7 +206,7 @@ class DataLoaderBuilder:
                 target = config.iter_factory.get("_target_")
         if target is not None and "MultipleIterFactory" in target:
             raise RuntimeError(
-                "MultipleIterFactory is not supported in ESPnet3. "
+                "MultipleIterFactory is not supported in espnet. "
                 "Use a standard iter_factory (Sequence/Chunk/Category*) and "
                 "select a single shard explicitly if needed."
             )

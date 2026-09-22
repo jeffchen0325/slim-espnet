@@ -609,7 +609,7 @@ class ESPnetDataset(AbsDataset):
         # 2. [Option] Apply preprocessing
         if getattr(self, "install_speaker_prompt", None) is not None:
             self.install_speaker_prompt(uid, data)
-        #   e.g. espnet3.train.preprocessor:CommonPreprocessor
+        #   e.g. espnet.train.preprocessor:CommonPreprocessor
         if self.preprocess is not None:
             key_prefix = self.task + " " if hasattr(self, "task") else ""
             data = self.preprocess(key_prefix + uid, data)

@@ -1,4 +1,4 @@
-"""Recipe-local Gradio launcher for ESPnet3 demos."""
+"""Recipe-local Gradio launcher for espnet demos."""
 
 from __future__ import annotations
 
@@ -82,7 +82,7 @@ def build_demo(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Launch an ESPnet3 demo.")
+    parser = argparse.ArgumentParser(description="Launch an espnet demo.")
     parser.add_argument(
         "--demo-dir",
         type=Path,

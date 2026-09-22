@@ -1,1 +1,1 @@
-"""ESPnet3 components package."""
+"""espnet components package."""

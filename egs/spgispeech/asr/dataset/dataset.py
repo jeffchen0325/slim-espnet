@@ -212,16 +212,16 @@ class SPGISpeechDataset(TorchDataset):
             # This kills training on the FIRST batch if utt_id is added here,
             # and collect_stats goes through the same path and fails the same way.
             #
-            # espnet3 identifies samples by index, not by this field: it passes
+            # espnet identifies samples by index, not by this field: it passes
             # str(idx) to the preprocessor as the utterance id
-            # (espnet3/components/data/dataset.py:208), and collect_stats keys its
+            # (espnet/components/data/dataset.py:208), and collect_stats keys its
             # shape files by that integer (exp/stats/train/feats_shape starts
             # "0 938,80"). The CommonVoice recipe likewise returns speech/text only.
             #
             # The HF cache DOES carry a usable "utt_id" column. To surface it at
             # inference without breaking training, add a `transform` that drops it
             # to the dataset.train/valid entries only -- transforms run before the
-            # preprocessor (espnet3/components/data/dataset.py) -- and leave
+            # preprocessor (espnet/components/data/dataset.py) -- and leave
             # conf/inference.yaml's entries without one.
             return {
                 "speech": np.asarray(array, dtype=np.float32),

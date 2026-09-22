@@ -60,7 +60,7 @@ class ESPnetExtractionModel(AbsESPnetModel):
         if self.ref_channel is None:
             self.ref_channel = 0
 
-        # Used in espnet3/tasks/abs_task.py for determining whether or not to do
+        # Used in espnet/tasks/abs_task.py for determining whether or not to do
         # collect_feats during collect stats (stage 5).
         self.extract_feats_in_collect_stats = extract_feats_in_collect_stats
 
@@ -82,7 +82,7 @@ class ESPnetExtractionModel(AbsESPnetModel):
             speech_mix_lengths: (Batch,), default None for chunk interator,
                             because the chunk-iterator does not have the
                             speech_lengths returned. see in
-                            espnet3/iterators/chunk_iter_factory.py
+                            espnet/iterators/chunk_iter_factory.py
             enroll_ref1: (Batch, samples_aux)
                                 enrollment (raw audio or embedding) for speaker 1
             enroll_ref2: (Batch, samples_aux)

@@ -29,7 +29,7 @@ def inference(
     decode_config_path: Optional[str],
     **kwargs,
 ):
-    """Perform Qwen2-Audio inference using espnet3 framework"""
+    """Perform Qwen2-Audio inference using espnet framework"""
 
     # Initialize logging first
     logging.basicConfig(
@@ -73,7 +73,7 @@ def inference(
 def get_parser():
     """Build argument parser"""
     parser = config_argparse.ArgumentParser(
-        description="Qwen2-Audio inference using espnet3 framework",
+        description="Qwen2-Audio inference using espnet framework",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 

@@ -19,7 +19,7 @@ class AbsESPnetModel(torch.nn.Module, ABC):
     just only these three values, loss, stats, and weight.
 
     Example:
-        >>> from espnet3.tasks.abs_task import AbsTask
+        >>> from espnet.tasks.abs_task import AbsTask
         >>> class YourESPnetModel(AbsESPnetModel):
         ...     def forward(self, input, input_lengths):
         ...         ...

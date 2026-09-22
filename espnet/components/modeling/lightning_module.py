@@ -1,4 +1,4 @@
-"""ESPnet3 PyTorch LightningModule for training and data integration."""
+"""espnet PyTorch LightningModule for training and data integration."""
 
 import logging
 import re
@@ -26,9 +26,9 @@ logger = logging.getLogger("lightning")
 
 
 class ESPnetLightningModule(lightning.LightningModule):
-    """ESPnet3 LightningModule wrapper for model training and data integration.
+    """espnet LightningModule wrapper for model training and data integration.
 
-    This wrapper keeps the common ESPnet3 model contract unchanged:
+    This wrapper keeps the common espnet model contract unchanged:
 
     ```python
     loss, stats, weight = model(**batch)
@@ -523,7 +523,7 @@ class ESPnetLightningModule(lightning.LightningModule):
         Important rules:
         - Single-optimizer-path training must return a tensor loss directly.
         - Multiple-path training must return `OptimizationStep` or
-          `list[OptimizationStep]` as `loss` so that ESPnet3 knows which optimizer
+          `list[OptimizationStep]` as `loss` so that espnet knows which optimizer
           should be used to update parameters.
         - Optimizer and scheduler names must match exactly.
           Valid:
@@ -775,7 +775,7 @@ class ESPnetLightningModule(lightning.LightningModule):
         """Map configured optimizer names to instantiated optimizer objects.
 
         Lightning returns optimizers as a positional collection via
-        `self.optimizers(use_pl_optimizer=True)`, while ESPnet3's multiple-optimizer
+        `self.optimizers(use_pl_optimizer=True)`, while espnet's multiple-optimizer
         path routes updates by name (for example `"generator"` or
         `"discriminator"`). This helper bridges the two representations by
         rebuilding a `name -> optimizer` mapping using the configured optimizer order.
@@ -803,7 +803,7 @@ class ESPnetLightningModule(lightning.LightningModule):
     def _get_named_schedulers(self) -> Dict[str, object]:
         """Map configured scheduler names to instantiated scheduler objects.
 
-        Like optimizers, Lightning exposes schedulers positionally, while ESPnet3's
+        Like optimizers, Lightning exposes schedulers positionally, while espnet's
         multiple-optimizer training loop needs named access so that each optimizer
         step can trigger the scheduler with the same name. This helper rebuilds a
         `name -> scheduler` mapping from Lightning's scheduler collection.
@@ -974,7 +974,7 @@ class ESPnetLightningModule(lightning.LightningModule):
         """Step epoch-based schedulers after metrics have been aggregated.
 
         This hook primarily exists for the multiple-loss / multiple-optimizer
-        path, where ESPnet3 owns the optimizer and scheduler orchestration. The
+        path, where espnet owns the optimizer and scheduler orchestration. The
         single-optimizer path keeps Lightning automatic optimization enabled, so
         Lightning handles epoch-end scheduler stepping there.
         """
@@ -1019,18 +1019,18 @@ class ESPnetLightningModule(lightning.LightningModule):
 
         Lightning already saves and restores the instantiated optimizer and
         scheduler `state_dict()` objects, so this hook only stores the extra
-        runtime state introduced by ESPnet3's named multi-optimizer path:
+        runtime state introduced by espnet's named multi-optimizer path:
 
         - `accum_counter`
         - `update_step`
 
         Scheduler state is not saved here because Lightning's
         checkpoint already contains each scheduler's internal state. Additional
-        scheduler fields only need to be added here if ESPnet3 introduces custom
+        scheduler fields only need to be added here if espnet introduces custom
         scheduler-side runtime state that Lightning does not know about.
         """
         if getattr(self.config, "optimizers", None) is not None:
-            checkpoint["espnet3_optimizer_runtime_state"] = {
+            checkpoint["espnet_optimizer_runtime_state"] = {
                 name: {
                     "accum_counter": state.accum_counter,
                     "update_step": state.update_step,
@@ -1040,7 +1040,7 @@ class ESPnetLightningModule(lightning.LightningModule):
 
     def on_load_checkpoint(self, checkpoint: Dict[str, object]) -> None:
         """Restore custom per-optimizer runtime state from checkpoints."""
-        runtime_state = checkpoint.get("espnet3_optimizer_runtime_state")
+        runtime_state = checkpoint.get("espnet_optimizer_runtime_state")
         if not runtime_state:
             return
         self._optimizer_states = {

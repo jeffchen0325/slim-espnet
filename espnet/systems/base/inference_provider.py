@@ -1,4 +1,4 @@
-"""Inference environment providers for ESPnet3 systems."""
+"""Inference environment providers for espnet systems."""
 
 import logging
 import os

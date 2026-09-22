@@ -1,7 +1,7 @@
 # Copyright 2020 Nagoya University (Tomoki Hayashi)
 #  Apache 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
 
-"""Tacotron 2 related modules for espnet3."""
+"""Tacotron 2 related modules for espnet."""
 
 import logging
 from typing import Dict, Optional, Sequence, Tuple

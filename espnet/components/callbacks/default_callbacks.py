@@ -1,4 +1,4 @@
-"""Callbacks for ESPnet3 trainer."""
+"""Callbacks for espnet trainer."""
 
 import logging
 import time
@@ -179,7 +179,7 @@ class AverageCheckpointsCallback(Callback):
 class MetricsLogger(Callback):
     """Log compact train and validation metric summaries.
 
-    This callback owns the human-readable metric logging for the default ESPnet3
+    This callback owns the human-readable metric logging for the default espnet
     training loop. It handles three reporting points in one place:
 
     - interval-based training batch summaries

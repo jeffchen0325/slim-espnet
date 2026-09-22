@@ -1,1 +1,1 @@
-"""Interfaces for computing metrics for ESPnet3."""
+"""Interfaces for computing metrics for espnet."""

@@ -41,7 +41,7 @@ cache:
 # egs2 run.sh: test_sets="dev_4k val" (its `norm=""` branch -- see the
 # [DEVIATION] note in the training config about the `_unnorm` splits).
 #   dev_4k  4,000 utts   val  39,341 utts
-# `data_src` is omitted so ESPnet3 loads ${recipe_dir}/dataset/__init__.py, and
+# `data_src` is omitted so espnet loads ${recipe_dir}/dataset/__init__.py, and
 # data_src_args goes straight to SPGISpeechDataset(...) -- the same four
 # arguments the training config passes, so inference reads the same HF cache.
 #
@@ -77,7 +77,7 @@ dataset:
 # lm_file would just be ignored by Speech2Text. Expect WER above egs2's
 # published number for this reason ALONE, independent of training length.
 #
-# asr_train_config is espnet3's exp/<tag>/config.yaml, which is written in
+# asr_train_config is espnet's exp/<tag>/config.yaml, which is written in
 # espnet2 ASRTask layout (token_list / frontend / encoder / decoder /
 # normalize / model_conf at top level) and so is readable by Speech2Text as-is.
 # Its internal paths (token_list, bpemodel, normalize stats_file) are relative,

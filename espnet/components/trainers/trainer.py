@@ -1,4 +1,4 @@
-"""Trainer class for the espnet3 package."""
+"""Trainer class for the espnet package."""
 
 import copy
 import warnings
@@ -29,8 +29,8 @@ def _get_or_initialize(config, item_name: str = None, default=None) -> Any:
         return item
 
 
-class ESPnet3LightningTrainer:
-    """A wrapper around Lightning's Trainer to provide ESPnet3-specific integration.
+class espnetLightningTrainer:
+    """A wrapper around Lightning's Trainer to provide espnet-specific integration.
 
     This trainer ensures compatibility with ESPnet's dataloader, callbacks,
     and configuration system. It initializes the model, handles weight
@@ -39,7 +39,7 @@ class ESPnet3LightningTrainer:
 
     Attributes:
         config (Union[DictConfig, Namespace, Dict[str, Any]]): Training configuration.
-        model (ESPnetLightningModule): ESPnet3 LightningModule instance.
+        model (ESPnetLightningModule): espnet LightningModule instance.
         trainer (lightning.Trainer): Underlying PyTorch Lightning trainer object.
     """
 
@@ -170,7 +170,7 @@ class ESPnet3LightningTrainer:
         strategy_repr = str(strategy).lower()
         if "deepspeed" in strategy_name or "deepspeed" in strategy_repr:
             raise RuntimeError(
-                "ESPnet3 does not support DeepSpeed with multiple optimizers. "
+                "espnet does not support DeepSpeed with multiple optimizers. "
                 "Use a single optimizer or switch to a supported strategy such as "
                 "DDP/FSDP."
             )
@@ -199,7 +199,7 @@ class ESPnet3LightningTrainer:
     def _validate_strategy_config_compatibility(self) -> None:
         """Reject unsupported strategy configs for the multiple-optimizer path only.
 
-        This runs before Hydra instantiates the strategy so ESPnet3 can fail fast
+        This runs before Hydra instantiates the strategy so espnet can fail fast
         on unsupported multiple-optimizer combinations such as DeepSpeed.
         """
         # Named `optimizers` enables the manual multi-optimizer training path.
@@ -211,13 +211,13 @@ class ESPnet3LightningTrainer:
             target = str(getattr(strategy_cfg, "_target_", "")).lower()
             if "deepspeed" in target:
                 raise RuntimeError(
-                    "ESPnet3 does not support DeepSpeed with multiple optimizers. "
+                    "espnet does not support DeepSpeed with multiple optimizers. "
                     "Use a single optimizer or switch to a supported "
                     "strategy such as DDP/FSDP."
                 )
         elif isinstance(strategy_cfg, str) and "deepspeed" in strategy_cfg.lower():
             raise RuntimeError(
-                "ESPnet3 does not support DeepSpeed with multiple optimizers. "
+                "espnet does not support DeepSpeed with multiple optimizers. "
                 "Use a single optimizer or switch to a supported strategy such as "
                 "DDP/FSDP."
             )

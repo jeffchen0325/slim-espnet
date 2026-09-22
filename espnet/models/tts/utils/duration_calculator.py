@@ -3,7 +3,7 @@
 # Copyright 2020 Nagoya University (Tomoki Hayashi)
 #  Apache 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
 
-"""Duration calculator for espnet3."""
+"""Duration calculator for espnet."""
 
 from typing import Tuple
 

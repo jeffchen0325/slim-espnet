@@ -255,7 +255,7 @@ class GenerateText:
 
         Args:
             model_tag (Optional[str]): Model tag of the pretrained models.
-                Currently, the tags of espnet3.model_zoo are supported.
+                Currently, the tags of espnet.model_zoo are supported.
 
         Returns:
             GenerateText: GenerateText instance.

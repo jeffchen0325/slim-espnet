@@ -307,7 +307,7 @@ class Speech2Text:
 
         Args:
             model_tag: Model tag of the pretrained models.
-                Currently, the tags of espnet3.model_zoo are supported.
+                Currently, the tags of espnet.model_zoo are supported.
 
         Return:
             : Speech2Text instance.

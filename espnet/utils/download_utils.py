@@ -22,7 +22,7 @@ def setup_logger(
       - A file handler that writes to `download.log` in `log_dir`, if provided.
 
     Args:
-        name (str): Logger name (e.g., "espnet3.download").
+        name (str): Logger name (e.g., "espnet.download").
         log_dir (Path | None): Directory for the optional log file.
             When provided, `download.log` is created under this directory.
         level (int): Logging level (e.g., logging.INFO).

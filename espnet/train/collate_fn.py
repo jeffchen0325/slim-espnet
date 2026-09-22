@@ -374,9 +374,9 @@ def common_collate_fn(
     """Concatenate ndarray-list to an array and convert to torch.Tensor.
 
     Examples:
-        >>> from espnet3.samplers.constant_batch_sampler import ConstantBatchSampler,
-        >>> import espnet3.tasks.abs_task
-        >>> from espnet3.train.dataset import ESPnetDataset
+        >>> from espnet.samplers.constant_batch_sampler import ConstantBatchSampler,
+        >>> import espnet.tasks.abs_task
+        >>> from espnet.train.dataset import ESPnetDataset
         >>> sampler = ConstantBatchSampler(...)
         >>> dataset = ESPnetDataset(...)
         >>> keys = next(iter(sampler)

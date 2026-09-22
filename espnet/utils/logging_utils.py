@@ -1,4 +1,4 @@
-"""Logging helpers for espnet3 experiments."""
+"""Logging helpers for espnet experiments."""
 
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ DATE_FORMAT = "%Y-%m-%d %H:%M:%S %Z"
 # =============================================================================
 # Logging Record Setup
 # =============================================================================
-_LOG_STAGE = contextvars.ContextVar("espnet3_log_stage", default="main")
+_LOG_STAGE = contextvars.ContextVar("espnet_log_stage", default="main")
 _BASE_RECORD_FACTORY = logging.getLogRecordFactory()
 
 
@@ -87,7 +87,7 @@ def log_stage_metadata(
         ...     inference_config = None
         ...     metrics_config = None
         >>> log_stage_metadata(
-        ...     logging.getLogger("espnet3"),
+        ...     logging.getLogger("espnet"),
         ...     system=DummySystem(),
         ...     args=Namespace(
         ...         training_config="conf/training.yaml",
@@ -184,7 +184,7 @@ def configure_logging(
     level: int = logging.INFO,
     filename: str = "run.log",
 ) -> logging.Logger:
-    """Configure logging for an ESPnet3 run.
+    """Configure logging for an espnet run.
 
     This sets up:
       - A root logger with a stream handler (console).
@@ -196,7 +196,7 @@ def configure_logging(
     Example usage:
         ```python
         from pathlib import Path
-        from espnet3.utils.logging_utils import configure_logging
+        from espnet.utils.logging_utils import configure_logging
 
         logger = configure_logging(log_dir=Path("exp/run1"), level=logging.INFO)
         logger.info("hello")
@@ -221,7 +221,7 @@ def configure_logging(
         filename (str): Log file name when `log_dir` is provided.
 
     Returns:
-        logging.Logger: Logger instance named "espnet3".
+        logging.Logger: Logger instance named "espnet".
     """
     root = logging.getLogger()
     root.setLevel(level)
@@ -251,7 +251,7 @@ def configure_logging(
             root.addHandler(file_handler)
 
     logging.captureWarnings(True)
-    return logging.getLogger("espnet3")
+    return logging.getLogger("espnet")
 
 
 def set_stage_log_handler(
@@ -261,7 +261,7 @@ def set_stage_log_handler(
     """Attach a file handler for a stage log, replacing any prior stage handler.
 
     This function adds a new file handler to the root logger and removes any
-    previously installed stage handler (identified via ``_espnet3_stage_log``).
+    previously installed stage handler (identified via ``_espnet_stage_log``).
     If a log file already exists at the target path, it is rotated (e.g.,
     ``train.log`` -> ``train1.log``) before creating the new handler.
 
@@ -284,7 +284,7 @@ def set_stage_log_handler(
 
     root = logging.getLogger()
     for handler in list(root.handlers):
-        if getattr(handler, "_espnet3_stage_log", False):
+        if getattr(handler, "_espnet_stage_log", False):
             root.removeHandler(handler)
             handler.close()
 
@@ -295,7 +295,7 @@ def set_stage_log_handler(
 
     file_handler = logging.FileHandler(target)
     file_handler.setFormatter(formatter)
-    file_handler._espnet3_stage_log = True
+    file_handler._espnet_stage_log = True
     root.addHandler(file_handler)
 
     return target
@@ -436,12 +436,12 @@ def log_run_metadata(
     Example usage:
         ```python
         from pathlib import Path
-        from espnet3.utils.logging_utils import configure_logging, log_run_metadata
+        from espnet.utils.logging_utils import configure_logging, log_run_metadata
 
         logger = configure_logging(log_dir=Path("exp/run1"))
         log_run_metadata(
             logger,
-            argv=["espnet3-train", "--config", "conf/train.yaml"],
+            argv=["espnet-train", "--config", "conf/train.yaml"],
         configs={"train": Path("conf/train.yaml")},
         )
         ```
@@ -449,21 +449,21 @@ def log_run_metadata(
     Example log output (wrapped for readability):
         ```
         [hostname] 2026-02-11 03:57:16 EST (logging_utils.py:376) INFO: [train] \
-            === ESPnet3 run started: 2026-02-11T03:57:16.826337 ===
+            === espnet run started: 2026-02-11T03:57:16.826337 ===
         [hostname] 2026-02-11 03:57:16 EST (run.py:244) INFO: [train] \
-            === ESPnet3 run started: 2026-02-11T03:57:16.826430 ===
+            === espnet run started: 2026-02-11T03:57:16.826430 ===
         [hostname] 2026-02-11 03:57:16 EST (run.py:244) INFO: [train] \
-            Command: /path/to/espnet3/tools/.venv/bin/python run.py ...
+            Command: /path/to/espnet/tools/.venv/bin/python run.py ...
         [hostname] 2026-02-11 03:57:16 EST (run.py:244) INFO: [train] \
             Python: 3.10.18 (main, Aug 18 2025, 19:18:25) [Clang 20.1.4 ]
         [hostname] 2026-02-11 03:57:16 EST (run.py:244) INFO: [train] \
-            Working directory: /path/to/espnet3/egs3/librispeech_100/asr
+            Working directory: /path/to/espnet/egs3/librispeech_100/asr
         [hostname] 2026-02-11 03:57:16 EST (run.py:244) INFO:	[train] \
-            train config: /path/to/espnet3/egs3/librispeech_100/asr/conf/train.yaml
+            train config: /path/to/espnet/egs3/librispeech_100/asr/conf/train.yaml
         [hostname] 2026-02-11 03:57:16 EST (run.py:244) INFO:	[train] \
-            infer config: /path/to/espnet3/egs3/librispeech_100/asr/conf/inference.yaml
+            infer config: /path/to/espnet/egs3/librispeech_100/asr/conf/inference.yaml
         [hostname] 2026-02-11 03:57:16 EST (run.py:244) INFO:	[train] \
-            measure config: /path/to/espnet3/egs3/librispeech_100/asr/conf/measure.yaml
+            measure config: /path/to/espnet/egs3/librispeech_100/asr/conf/measure.yaml
         [hostname] 2026-02-11 03:57:17 EST (run.py:244) INFO:	[train] \
             Git: commit=..., short_commit=..., branch=master, worktree=clean
         ```
@@ -475,10 +475,10 @@ def log_run_metadata(
         write_requirements (bool): If True, export pip freeze output to
             requirements.txt alongside the log file.
     """
-    logger.info("=== ESPnet3 run started: %s ===", datetime.now().isoformat())
+    logger.info("=== espnet run started: %s ===", datetime.now().isoformat())
     logger.log(
         logging.INFO,
-        "=== ESPnet3 run started: %s ===",
+        "=== espnet run started: %s ===",
         datetime.now().isoformat(),
         stacklevel=2,
     )
@@ -602,7 +602,7 @@ def log_env_metadata(
     Example usage:
         ```python
         from pathlib import Path
-        from espnet3.utils.logging_utils import configure_logging, log_env_metadata
+        from espnet.utils.logging_utils import configure_logging, log_env_metadata
 
         logger = configure_logging(log_dir=Path("exp/run1"))
         log_env_metadata(logger)
@@ -899,7 +899,7 @@ def log_component(
 
     Example:
         ```python
-        from espnet3.utils.logging_utils import log_component
+        from espnet.utils.logging_utils import log_component
 
         # Custom class instance.
         class CustomThing:

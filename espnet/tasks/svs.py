@@ -29,9 +29,9 @@ from espnet.models.svs.naive_rnn.naive_rnn_dp import NaiveRNNDP
 from espnet.models.svs.singing_tacotron.singing_tacotron import singing_tacotron
 from espnet.models.svs.xiaoice.XiaoiceSing import XiaoiceSing
 
-# from espnet3.models.svs.encoder_decoder.transformer.transformer import Transformer
-# from espnet3.models.svs.mlp_singer.mlp_singer import MLPSinger
-# from espnet3.models.svs.glu_transformer.glu_transformer import GLU_Transformer
+# from espnet.models.svs.encoder_decoder.transformer.transformer import Transformer
+# from espnet.models.svs.mlp_singer.mlp_singer import MLPSinger
+# from espnet.models.svs.glu_transformer.glu_transformer import GLU_Transformer
 from espnet.tasks.abs_task import AbsTask
 from espnet.models.abs_espnet_model import AbsESPnetModel
 from espnet.train.class_choices import ClassChoices
@@ -46,8 +46,8 @@ from espnet.models.tts.feats_extract.log_mel_fbank import LogMelFbank
 from espnet.models.tts.feats_extract.log_spectrogram import LogSpectrogram
 from espnet.models.tts.feats_extract.ying import Ying
 
-# from espnet3.models.svs.xiaoice.XiaoiceSing import XiaoiceSing_noDP
-# from espnet3.models.svs.bytesing.bytesing import ByteSing
+# from espnet.models.svs.xiaoice.XiaoiceSing import XiaoiceSing_noDP
+# from espnet.models.svs.bytesing.bytesing import ByteSing
 from espnet.models.tts.utils import ParallelWaveGANPretrainedVocoder
 from espnet.utils.get_default_kwargs import get_default_kwargs
 from espnet.utils.griffin_lim import Spectrogram2Waveform

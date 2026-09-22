@@ -35,7 +35,7 @@ class Text2Speech:
     """Text2Speech class.
 
     Examples:
-        >>> from espnet3.bin.tts_inference import Text2Speech
+        >>> from espnet.bin.tts_inference import Text2Speech
         >>> # Case 1: Load the local model and use Griffin-Lim vocoder
         >>> text2speech = Text2Speech(
         >>>     train_config="/path/to/config.yml",
@@ -389,7 +389,7 @@ class Text2Speech:
 
         Args:
             model_tag (Optional[str]): Model tag of the pretrained models.
-                Currently, the tags of espnet3.model_zoo are supported.
+                Currently, the tags of espnet.model_zoo are supported.
             vocoder_tag (Optional[str]): Vocoder tag of the pretrained vocoders.
                 Currently, the tags of parallel_wavegan are supported, which should
                 start with the prefix "parallel_wavegan/".

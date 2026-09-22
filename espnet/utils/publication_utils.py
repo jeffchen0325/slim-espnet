@@ -1,4 +1,4 @@
-"""Publication helpers for ESPnet3."""
+"""Publication helpers for espnet."""
 
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ from huggingface_hub.errors import HfHubHTTPError
 from hydra.utils import instantiate
 from omegaconf import DictConfig, ListConfig, OmegaConf
 
-# import espnet3
+# import espnet
 from espnet.utils.build_model_summary import build_model_summary
 from espnet.utils.logging_utils import get_git_metadata
 from espnet.utils.task_utils import get_espnet_model
@@ -524,7 +524,7 @@ def _write_meta(
         "files": files,
         "yaml_files": yaml_files,
         "torch": str(torch.__version__),
-        "espnet": str(espnet3.__version__),
+        "espnet": str(espnet.__version__),
         "python": sys.version,
     }
     (out_dir / "meta.yaml").write_text(OmegaConf.to_yaml(meta), encoding="utf-8")
@@ -684,7 +684,7 @@ def upload_model(system) -> None:
     """Upload packed model artifacts to a Hugging Face model repo.
 
     Args:
-        system: ESPnet3 system instance with ``publication_config``.
+        system: espnet system instance with ``publication_config``.
 
     Raises:
         RuntimeError: If required config values are missing or upload fails.

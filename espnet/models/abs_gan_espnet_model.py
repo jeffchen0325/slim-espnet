@@ -21,7 +21,7 @@ class AbsGANESPnetModel(AbsESPnetModel, torch.nn.Module, ABC):
     "optim_idx" for generator must be 0 and that for discriminator must be 1.
 
     Example:
-        >>> from espnet3.tasks.abs_task import AbsTask
+        >>> from espnet.tasks.abs_task import AbsTask
         >>> class YourESPnetModel(AbsGANESPnetModel):
         ...     def forward(self, input, input_lengths, forward_generator=True):
         ...         ...

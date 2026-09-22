@@ -196,7 +196,7 @@ class TemporalConvNetInformed(TemporalConvNet):
             mask_nonlinear: use which non-linear function to generate mask
             i_adapt_layer: int, index of the adaptation layer
             adapt_layer_type: str, type of adaptation layer
-                see espnet3.enh.layers.adapt_layers for options
+                see espnet.enh.layers.adapt_layers for options
             adapt_enroll_dim: int, dimensionality of the speaker embedding
         """
         super().__init__(

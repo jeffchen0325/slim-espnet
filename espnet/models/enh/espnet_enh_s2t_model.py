@@ -66,7 +66,7 @@ class ESPnetEnhS2TModel(AbsESPnetModel):
                                       because the chunk-iterator does not
                                       have the speech_lengths returned.
                                       see in
-                                      espnet3/iterators/chunk_iter_factory.py
+                                      espnet/iterators/chunk_iter_factory.py
             For Enh+ASR task:
                 text_spk1: (Batch, Length)
                 text_spk2: (Batch, Length)

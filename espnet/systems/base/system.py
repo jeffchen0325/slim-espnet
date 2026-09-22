@@ -1,4 +1,4 @@
-"""Base system class and stage entrypoints for ESPnet3."""
+"""Base system class and stage entrypoints for espnet."""
 
 import logging
 import time
@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 class BaseSystem:
-    """Base class for all ESPnet3 systems.
+    """Base class for all espnet systems.
 
     Class Attributes:
         DATASET_BUILDER_CLASS_NAME: Name of the builder class expected in each
@@ -298,7 +298,7 @@ class BaseSystem:
     # Publication stages (optional overrides)
     # ---------------------------------------------------------
     def pack_model(self, *args, **kwargs):
-        """Pack model artifacts into an espnet3 bundle."""
+        """Pack model artifacts into an espnet bundle."""
         self._reject_stage_args("pack_model", args, kwargs)
         return _pack_model(
             training_config=self.training_config,

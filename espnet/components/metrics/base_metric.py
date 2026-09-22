@@ -1,4 +1,4 @@
-"""Base metric interfaces for ESPnet3."""
+"""Base metric interfaces for espnet."""
 
 from abc import ABC, abstractmethod
 from pathlib import Path
@@ -37,7 +37,7 @@ class BaseMetric(ABC):
 
                     metrics:
                       - metric:
-                          _target_: espnet3.systems.asr.metrics.wer.WER
+                          _target_: espnet.systems.asr.metrics.wer.WER
                           clean_types:
                         inputs:
                           ref: ref

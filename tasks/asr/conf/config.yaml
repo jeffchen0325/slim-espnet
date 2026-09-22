@@ -74,7 +74,7 @@ create_dataset:
 #
 # Example:
 # dataset:
-#   _target_: espnet3.components.data.data_organizer.DataOrganizer
+#   _target_: espnet.components.data.data_organizer.DataOrganizer
 #   recipe_dir: ${recipe_dir}
 #   train:
 #     - data_src: librispeech/asr
@@ -97,7 +97,7 @@ create_dataset:
 #   preprocessor:
 #     _target_: src.preprocess.build_preprocessor
 dataset:
-  _target_: espnet3.components.data.data_organizer.DataOrganizer
+  _target_: espnet.components.data.data_organizer.DataOrganizer
   recipe_dir: ${recipe_dir}
   train:
   valid:
@@ -107,7 +107,7 @@ dataset:
 ##########################################################
 #                   TOKENIZER SETTING                    #
 ##########################################################
-# Used by the `train_tokenizer` stage in `espnet3.systems.asr.system.ASRSystem`.
+# Used by the `train_tokenizer` stage in `espnet.systems.asr.system.ASRSystem`.
 # `text_builder.func` must return either:
 # - a path to a text file, or
 # - an iterable of training strings
@@ -118,8 +118,8 @@ tokenizer:
 ##########################################################
 # Training model definition.
 # If `task` is set, this block is passed to `get_espnet_model(task, model_conf)`.
-# Thus, you can reuse espnet3-style model configs here by setting `task` and
-# filling this block with the per-model config that espnet3 used.
+# Thus, you can reuse espnet-style model configs here by setting `task` and
+# filling this block with the per-model config that espnet used.
 # If `task` is not set, this block is instantiated directly via Hydra.
 model:
 
@@ -133,7 +133,7 @@ optimizer:
   weight_decay: 0.000001
 
 scheduler:
-  _target_: espnet3.schedulers.warmup_lr.WarmupLR
+  _target_: espnet.schedulers.warmup_lr.WarmupLR
   warmup_steps: 15000
 
 # Used only in the single optimizer path.
@@ -185,7 +185,7 @@ scheduler_monitor:         # e.g. `valid/loss` for monitored epoch schedulers
 ##########################################################
 #                OTHER TRAINING SETTING                  #
 ##########################################################
-# Checkpoint selection criteria passed to ESPnet3 callbacks.
+# Checkpoint selection criteria passed to espnet callbacks.
 # Each item is:
 #   - monitor key
 #   - number of best checkpoints to keep
@@ -215,7 +215,7 @@ parallel:
 ##########################################################
 dataloader:
   collate_fn:
-    _target_: espnet3.train.collate_fn.CommonCollateFn
+    _target_: espnet.train.collate_fn.CommonCollateFn
     int_pad_value: -1
   # Training dataloader / iterator settings.
   train:
@@ -225,7 +225,7 @@ dataloader:
     total_shards: 1
     dist_world_size: 1
     iter_factory:
-      _target_: espnet3.iterators.sequence_iter_factory.SequenceIterFactory
+      _target_: espnet.iterators.sequence_iter_factory.SequenceIterFactory
       shuffle: true
       collate_fn: ${dataloader.collate_fn}
       batches:
@@ -243,7 +243,7 @@ dataloader:
     total_shards: 1
     dist_world_size: 1
     iter_factory:
-      _target_: espnet3.iterators.sequence_iter_factory.SequenceIterFactory
+      _target_: espnet.iterators.sequence_iter_factory.SequenceIterFactory
       shuffle: false
       collate_fn: ${dataloader.collate_fn}
       batches:
