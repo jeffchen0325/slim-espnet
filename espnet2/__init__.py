@@ -1,4 +1,4 @@
-"""Initialize espnet2 package and set __version__."""
+"""Initialize espnet package and set __version__."""
 
 import os
 from importlib import metadata as _metadata
