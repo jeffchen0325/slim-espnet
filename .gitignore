@@ -4,30 +4,40 @@ __pycache__/
 *$py.class
 *.so
 *.egg-info/
+*.egg
 dist/
 build/
 .eggs/
-*.egg
 .venv/
 venv/
 env/
+.pytest_cache/
+.hypothesis/
+.coverage*
+htmlcov/
+coverage.xml*
 
-# === ESPnet Specific ===
-# 训练/推理产生的输出、日志、模型checkpoint
+# === ESPnet Core Outputs ===
 exp/
 dump/
-data/
+logs/
+hub/
+out/
 *.log
 *.pth
 *.pt
 *.bin
 *.safetensors
+core
+slurm-*.out
 
-# Kaldi/ESPnet 生成的临时文件
-.fst
-.HCLG.fst
+# === Kaldi / ASR Temp Files ===
+*.fst
 words.txt
 graph/
+dummy_token_list
+test_spm.vocab
+test_spm.model
 
 # === IDE & OS ===
 .idea/
@@ -37,3 +47,90 @@ graph/
 *~
 .DS_Store
 Thumbs.db
+*.nfs*
+
+# === Recipe Generated Data ===
+egs*/**/data*/
+!egs*/**/dataset/
+egs*/**/manifest*/
+egs*/**/db/
+egs*/**/downloads/
+egs*/**/dump/
+egs*/**/enhan/
+egs*/**/exp/
+egs*/**/fbank/
+egs*/**/mfcc/
+egs*/**/stft/
+egs*/**/tensorboard/
+egs*/**/wav*/
+egs*/**/score*/
+egs*/**/nltk*/
+egs*/**/.cache*/
+egs*/**/pretrained_models*/
+egs*/**/asset/
+egs*/**/checkpoint/
+egs*/**/flagged_data_points/
+egs*/**/hub/
+egs2/test/*
+egs*/fisher_callhome_spanish/*/local/mapping*
+
+# === Tools ===
+tools/bin/
+tools/include/
+tools/lib/
+tools/lib64/
+tools/bats-core/
+tools/kaldi*/
+tools/moses/
+tools/mwerSegmenter/
+tools/nkf/
+tools/venv/
+tools/sentencepiece/
+tools/swig/
+tools/warp-ctc/
+tools/warp-transducer/
+tools/s3prl/
+tools/sctk*/
+tools/sph2pipe*/
+tools/espeak-ng*/
+tools/MBROLA*/
+tools/festival*/
+tools/speech_tools*/
+tools/phonemizer*/
+tools/py3mmseg/
+tools/anaconda/
+tools/ice-g2p*/
+tools/fairseq*/
+tools/RawNet/
+tools/featbin*/
+tools/miniconda*/
+tools/Miniconda*/
+tools/Miniforge*/
+tools/ffmpeg-*/
+tools/versa/
+tools/ParallelWaveGAN/
+tools/open_jtalk*/
+tools/pyopenjtalk*/
+tools/tdmelodic_openjtalk*/
+tools/hts_engine_API*/
+tools/PESQ*/
+tools/*.done
+tools/*.done_start_time
+tools/*.tar.xz
+tools/._*
+tools/condarc
+tools/lightning_constraints.txt
+constraints.txt
+hf_cache/
+
+# === Docs & Misc ===
+doc/_build/
+doc/vuepress/src/.vuepress/.temp/
+doc/vuepress/src/.vuepress/.cache/
+.devcontainer/*.env
+tmp*
+out.txt
+empty.py
+pyproject.toml.tmp
+featbin
+test_utils/bats-*/
