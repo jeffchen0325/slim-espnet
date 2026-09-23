@@ -1,0 +1,41 @@
+# Third-Party Notices
+
+This project includes software from third-party projects.
+
+## ESPnet
+
+Project:
+https://github.com/espnet/espnet
+
+License:
+Apache License 2.0
+
+Copyright:
+ESPnet contributors
+
+
+## PyTorch
+
+Project:
+https://github.com/pytorch/pytorch
+
+License:
+BSD-style license
+
+
+## PyTorch Lightning
+
+Project:
+https://github.com/Lightning-AI/pytorch-lightning
+
+License:
+Apache License 2.0
+
+
+## Hydra
+
+Project:
+https://github.com/facebookresearch/hydra
+
+License:
+MIT Licenses
