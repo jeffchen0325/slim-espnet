@@ -54,7 +54,11 @@ egs*/**/data*/
 !egs*/**/dataset/
 egs*/**/manifest*/
 egs*/**/db/
-egs*/**/downloads/
+egs*/**/download*/
+egs*/**/*.tar.gz
+egs*/**/*.tar.bz2
+egs*/**/*.tar.xz
+egs*/**/*.zip
 egs*/**/dump/
 egs*/**/enhan/
 egs*/**/exp/
