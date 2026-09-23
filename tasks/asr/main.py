@@ -9,16 +9,16 @@ from dataclasses import dataclass, field
 from omegaconf import OmegaConf
 from pathlib import Path
 
-from espnet.utils.config_utils import (
+from espnet3.utils.config_utils import (
     load_and_merge_config,
 )
-from espnet.utils.logging_utils import configure_logging
-from espnet.utils.run_utils import (
+from espnet3.utils.logging_utils import configure_logging
+from espnet3.utils.run_utils import (
     apply_training_experiment_context,
     resolve_loaded_configs,
     validate_experiment_context,
 )
-from espnet.utils.stages_utils import (
+from espnet3.utils.stages_utils import (
     resolve_stages,
     run_stages,
 )

@@ -60,11 +60,10 @@ version = {file = "version.txt"}
 readme = {file = ["README.md"], content-type = "text/markdown"}
 
 [tool.setuptools.packages.find]
-include = ["egs", "egs.*", "espnet", "espnet.*", "tasks", "tasks.*"]
+include = ["egs*", "espnet*", "tasks", "tasks.*"]
 
 [tool.setuptools.package-data]
 tasks = ["tasks/**/*.yaml"]
-
 
 [project.optional-dependencies]
 # Training, with espnet2 (espnet2/bin/*_train.py, egs2 recipes) or espnet3

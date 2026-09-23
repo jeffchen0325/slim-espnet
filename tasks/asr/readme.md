@@ -1,4 +1,4 @@
-# espnet ASR recipe
+# ESPnet3 ASR recipe
 
 ## Quick start
 

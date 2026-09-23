@@ -92,7 +92,7 @@ pack:
     license: apache-2.0
     tags: |-
       - espnet
-      - espnet
+      - espnet3
       - gradio
       - speech-recognition
       - automatic-speech-recognition

@@ -7,7 +7,7 @@ language: ${lang}
 license: ${license}
 ---
 
-# espnet ${system} model
+# ESPnet3 ${system} model
 
 ${description}
 
@@ -29,7 +29,7 @@ ${model_detail_section}
 ## Usage
 
 ```python
-from espnet.publication import InferenceModel
+from espnet3.publication import InferenceModel
 
 ${usage_load_call}
 result = model(sample)

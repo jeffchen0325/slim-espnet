@@ -1,4 +1,4 @@
-from egs3.TEMPLATE.asr.run import (
+from tasks.asr.run import (
     DEFAULT_STAGES,
     build_parser,
     main,

@@ -1,1 +1,1 @@
-"""Template helpers for espnet ASR recipes."""
+"""Template helpers for ESPnet3 ASR recipes."""

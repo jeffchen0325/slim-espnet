@@ -10,7 +10,7 @@ _pkg_version_file = os.path.join(_here, "version.txt")
 __version__ = "0.0.0"
 
 try:
-    __version__ = _metadata.version("espnet")
+    __version__ = _metadata.version("slim-espnet")
 except Exception:
     if os.path.exists(_top_version_file):
         with open(_top_version_file, "r") as f:

@@ -59,7 +59,7 @@ pack_model:
   # Always include static model summary metrics in the README.
   # Set this true to also include `repr(model)`.
   include_model_detail: false
-  readme: # ${config_path:../src/hf_model_readme.md}
+  readme: ${config_path:../src/hf_model_readme.md}
   include:
     # Include recipe code when the packed model depends on local modules.
     - src
@@ -83,7 +83,7 @@ pack_model:
 # `upload_model` uploads `${pack_model.out_dir}` to this repo, creating it if
 # needed.
 upload_model:
-  hf_repo: # espnet/${set_corpus_and_system:}_${exp_tag}
+  hf_repo: espnet/${set_corpus_and_system:}_${exp_tag}
   private: false
   # update: false (default) raises an error if the repo already exists,
   # preventing accidental overwrites of a published model.

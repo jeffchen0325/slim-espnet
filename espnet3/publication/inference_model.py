@@ -23,7 +23,8 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 import yaml
-from espnet_model_zoo.downloader import ModelDownloader
+# from espnet_model_zoo.downloader import ModelDownloader
+from espnet3.model_zoo.downloader import ModelDownloader
 from hydra.utils import get_class
 from omegaconf import DictConfig, ListConfig, OmegaConf
 

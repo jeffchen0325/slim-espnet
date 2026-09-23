@@ -1,115 +1,313 @@
-slim-espnet
+# slim-espnet
 
-[![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](...)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.11-ee4c2c.svg)](...)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](...)
+[![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.11-ee4c2c.svg)](https://pytorch.org/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
-本项目基于 [ESPnet](https://espnet.github.io/espnet/)，旨在提供一个更轻量、更现代化的语音处理库。
+**slim-espnet** 是一个基于 [ESPnet](https://espnet.github.io/espnet/) 的轻量化语音处理框架。
 
-本项目基于 ESPnet (Apache 2.0)。完整第三方许可声明请参阅 Third-Party Notices。
+本项目目标是在保持 ESPnet 核心能力的基础上，移除历史包袱和不必要依赖，提供一个更加简洁、现代化、易维护的语音 AI 开发环境。
+
+> 本项目基于 ESPnet（Apache License 2.0）。
+>
+> 完整第三方许可声明请参阅 `Third-Party Notices`。
+
+---
 
 ## 简介
 
-本项目从官方 ESPnet 仓库中提取了 `egs3`、`espnet3` 和 `tools` 模块，并进行了独立打包。它移除了对旧版本代码的依赖，专注于提供简洁、高效的语音识别（ASR）、语音合成（TTS）等任务的训练和推理流程。
+本项目从官方 ESPnet 仓库中提取并重新组织以下模块：
+- `egs3`
+- `espnet2`
+- `espnet3`
+- `tools`
 
-本项目以 PyTorch Lightning 为核心，提供独立的数据处理封装。
+并进行独立打包，减少对旧版本代码和复杂依赖链的依赖。
 
-本项目采用 YAML + OmegaConf + Hydra 进行配置（包括但不限于 LM、LDM、Trainer、Callbacks 等）。
+主要面向以下任务：
+- 自动语音识别（ASR）
+- 语音合成（TTS）
+- 语音增强（Speech Enhancement）
+- 语音转换（Speech Conversion）
+- 其他语音生成相关任务
 
-本项目命令行工具基于 OmegaConf 实现。
+---
 
-本项目正在集成 `espnet_model_zoo` 与 `espnet-tts-frontend` 的轻量化依赖，以进一步简化模型下载与前端处理流程。
+## 主要特点
 
-本项目目标文件结构如下：
+- 🚀 **轻量化**
+  - 移除历史兼容代码
+  - 减少复杂依赖
+
+- 🔥 **现代 PyTorch 生态**
+  - 基于 PyTorch Lightning 管理训练流程
+  - 支持现代 GPU 环境
+
+- ⚙️ **统一配置系统**
+  - 使用 YAML + OmegaConf + Hydra 管理配置
+  - 支持：
+    - Trainer
+    - Callback
+    - Language Model
+    - Latent Diffusion Model
+    - 其他组件配置
+
+- 🧩 **模块化设计**
+  - 数据处理
+  - 模型定义
+  - 训练流程
+  - 推理流程
+  - 工具脚本
+
+均保持独立结构。
+
+- 📦 **简化模型与前处理依赖**
+
+正在集成：
+- `espnet_model_zoo`
+- `espnet-tts-frontend`
+
+---
+
+## 项目结构
+
+目标目录结构：
 ```text
 slim-espnet/
-├── egs/            # 各任务示例
-├── espnet/         # 核心实现
-├── tasks/          # 标准训练与推理流程
-├── tools/          # 工具脚本
-├── egs3/           # 兼容目录（计划移除）
-├── espnet2/        # 兼容目录（计划移除）
-├── espnet3/        # 兼容目录（计划移除）
+├── egs3/              # 各任务示例
+├── espnet2/           # 核心实现
+├── espnet3/           # 核心实现
+├── tasks/             # 标准训练与推理流程
+├── tools/             # 工具脚本
 └── README.md
 ```
 
-## 安装
+---
 
-1.  （可选）如果是 windows 系统，安装 WSL2 + Ubuntu-22.04
+# 安装
 
-    管理员身份打开 PowerShell，启用虚拟机平台和 WSL 功能：
-    ```bash
-    $ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-    $ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-    ```
-    安装成功后重启电脑，再次以管理员身份打开 PS，输入：
-    ```bash
-    $ wsl --install						    # 安装最新版本 WSL
-    $ wsl --list --online					# 列出可用的发行版版本
-    $ wsl --install -d Ubuntu-22.04 --location D:\WSL\Ubuntu-22.04		# 下载安装注册启动（需要较新的 WSL 版本支持 --location。）
-    ```
-    在 Windows 用户目录（C:\Users\<用户名>）下创建 .wslconfig 文件，添加网络配置（让 WSL 也可以用 windows 的代理）：
-    ```bash
-    [wsl2]
-    networkingMode=mirrored
-    dnsTunneling=true
-    ```
-    关掉 WSL 再重启即生效
+## 1. Windows 环境（可选）
 
-2.  Ubuntu 环境安装
+推荐使用：
+- Windows 11
+- WSL2
+- Ubuntu 22.04
 
-    (可选)建议在 Ubuntu 环境安装 ffmpeg cmake sox flac
-    ```bash
-    $ sudo apt update 
-    $ sudo apt install -y ffmpeg cmake sox flac
-    $ cmake --version && sox --version && flac --version
-    ```
-    安装 miniconda
-    ```bash
-    $ cd ~ 
-    $ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    $ bash Miniconda3-latest-Linux-x86_64.sh
-    $ source ~/.bashrc
-    ```
-3.  conda 激活虚拟环境
 
-    创建虚拟环境并激活
-    ```bash
-    $ conda create -n espnet python=3.12 -y
-    $ conda activate espnet
-    $ conda install -c conda-forge uv -y    # 安装 uv 用于后续包安装
-    ```
-    安装 PyTorch + CUDA（请根据 GPU 选择对应版本，例如 RTX 5060 Ti 至少需要 CUDA 12.8（SM120））
-    ```bash
-    $ uv pip install torch==2.11.0 torchaudio==2.11.0 --index-url https://download.pytorch.org/whl/cu128
-    ```
-4.  安装 slim-espnet
+管理员身份打开 PowerShell：
 
-    克隆仓库：
-    ```bash
-    $ cd ~
-    $ git clone https://github.com/jeffchen0325/slim-espnet.git
-    ```
-    安装 slim-espnet
-    ```bash
-    $ cd <slim-espnet root>
-    $ uv pip install -e .[all]    
-    ```
-    验证安装
-    ```bash
-    $ uv pip show slim-espnet
-    ```
-    或
-    ```bash
-    $ cd <slim-espnet root>/tools
-    $ python3 check_install.py
-    ```
-
-## 🚀 快速开始
-
-以下是一个简单的示例，展示如何运行一个基础的 ASR 实验：
-```bash
-$ bash ~/slim-espnet/tools/installers/install_warp-transducer.sh    # ASR模型依赖
-$ cd ~/slim-espnet/egs/mini_an4/asr
-$ python3 run.py dry_run=True
+启用虚拟机平台：
+```powershell
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 ```
+
+启用 WSL：
+```powershell
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+```
+
+重启系统后：
+```powershell
+wsl --install
+```
+
+查看可用发行版：
+```powershell
+wsl --list --online
+```
+
+安装 Ubuntu：
+```powershell
+wsl --install -d Ubuntu-22.04 --location D:\WSL\Ubuntu-22.04
+```
+
+---
+
+## WSL 网络配置（推荐）
+
+在 Windows 用户目录：
+```
+C:\Users\<用户名>\.wslconfig
+```
+
+创建配置：
+```ini
+[wsl2]
+
+networkingMode=mirrored
+dnsTunneling=true
+```
+
+关闭并重新启动 WSL：
+```powershell
+wsl --shutdown
+```
+
+---
+
+# Ubuntu 环境准备
+
+## 安装系统依赖
+
+推荐安装：
+```bash
+sudo apt update
+sudo apt install -y ffmpeg cmake sox flac
+```
+
+验证：
+```bash
+cmake --version
+sox --version
+flac --version
+```
+
+---
+
+# 安装 Miniconda
+
+下载：
+```bash
+cd ~
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+```
+
+安装：
+```bash
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+
+重新加载环境：
+```bash
+source ~/.bashrc
+```
+
+---
+
+# 创建 Python 环境
+
+创建环境：
+```bash
+conda create -n espnet python=3.12 -y
+```
+
+激活：
+```bash
+conda activate espnet
+```
+
+安装 uv：
+```bash
+conda install -c conda-forge uv -y
+```
+
+---
+
+# 安装 PyTorch
+
+根据 GPU 环境选择对应版本。
+
+例如：
+
+CUDA 12.8：
+```bash
+uv pip install torch==2.11.0 torchaudio==2.11.0 --index-url https://download.pytorch.org/whl/cu128
+```
+
+> 注意：
+>
+> 不同 GPU 架构需要匹配对应 CUDA 版本。
+>
+> 例如部分新架构 GPU 需要 CUDA 12.8 或更新版本支持。
+
+---
+
+# 安装 slim-espnet
+
+## 克隆仓库
+
+```bash
+cd ~
+git clone https://github.com/jeffchen0325/slim-espnet.git
+```
+
+进入目录：
+```bash
+cd slim-espnet
+```
+
+安装：
+```bash
+uv pip install -e ".[all]"
+```
+
+---
+
+# 验证安装
+
+查看安装信息：
+```bash
+uv pip show slim-espnet
+```
+
+或者：
+```bash
+cd tools
+python3 check_install.py
+```
+
+---
+
+# 快速开始
+
+以下示例运行一个基础 ASR 实验。
+
+## 安装 ASR 依赖
+
+```bash
+bash ~/slim-espnet/tools/installers/install_warp-transducer.sh
+```
+
+## 运行测试任务
+
+```bash
+cd ~/slim-espnet/egs3/test/asr
+python3 run.py dry_run=True
+```
+
+---
+
+# 开发计划
+
+- [ ] 完善 ESPnet 模型生态兼容
+- [ ] 集成轻量模型 Zoo
+- [ ] 简化 TTS Frontend
+- [ ] 提供更多端到端示例
+- [ ] 支持更轻量化部署流程
+
+---
+
+# License
+
+本项目基于：
+
+- ESPnet
+- Apache License 2.0
+
+详细许可信息请参阅：
+
+```
+Third-Party Notices
+```
+
+---
+
+# Acknowledgements
+
+感谢以下项目：
+- ESPnet
+- PyTorch
+- PyTorch Lightning
+- Hydra
+- OmegaConf
+- YAML
