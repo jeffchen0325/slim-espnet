@@ -279,8 +279,8 @@ python3 run.py dry_run=True
 
 # 开发计划
 
-- [ ] 完善 ESPnet 模型生态兼容
-- [ ] 集成轻量模型 Zoo
+- [x] 完成 ESPnet 模型生态简化
+- [x] 集成轻量模型 Zoo
 - [ ] 简化 TTS Frontend
 - [ ] 提供更多端到端示例
 - [ ] 支持更轻量化部署流程
