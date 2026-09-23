@@ -46,14 +46,14 @@ def build_parser(
 
     parser.add_argument(
         "--stages",
-        choices=list(stages) + ["all"],
+        choices=list(DEFAULT_STAGES) + ["all"],
         nargs="+",
         default=list(stages),
         help="Which stages to run. Multiple values allowed.",
     )
     parser.add_argument(
         "--training_config",
-        default=None,
+        default="conf/training.yaml",
         type=Path,
         help=(
             "Hydra config for training (passed to load_config_with_defaults). "
@@ -62,25 +62,25 @@ def build_parser(
     )
     parser.add_argument(
         "--inference_config",
-        default=None,
+        default="conf/inference.yaml",
         type=Path,
         help="Hydra config for infer stage.",
     )
     parser.add_argument(
         "--metrics_config",
-        default=None,
+        default="conf/metrics.yaml",
         type=Path,
         help="Hydra config for measure stage.",
     )
     parser.add_argument(
         "--publication_config",
-        default=None,
+        default="conf/publication.yaml",
         type=Path,
         help="Hydra config for pack/upload stages.",
     )
     parser.add_argument(
         "--demo_config",
-        default=None,
+        default="conf/demo.yaml",
         type=Path,
         help="Hydra config for pack_demo/upload_demo stages.",
     )
