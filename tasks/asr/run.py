@@ -216,6 +216,7 @@ def main(
             "Use --training_config/--inference_config/--metrics_config/"
             "--publication_config/--demo_config."
         )
+    
     run_stages(
         system=system,
         stages_to_run=stages_to_run,

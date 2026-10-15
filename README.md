@@ -77,7 +77,7 @@ slim-espnet/
 ├── compliance         # 版权相关s
 ├── egs3/              # 原始recipes
 ├── espnet2/           # 原始核心实现
-├── espnet3/           # 原始核心实现
+├── espnet3/           # 核心实现（少量重构）
 ├── recipes/           # 重构recipes
 ├── tasks/             # 重构标准训练与推理流程
 ├── tools/             # 原始工具脚本
