@@ -71,16 +71,19 @@
 
 ## 项目结构
 
-目标目录结构：
+当前项目目录结构：
 ```text
 slim-espnet/
-├── egs3/              # 各任务示例
-├── espnet2/           # 核心实现
-├── espnet3/           # 核心实现
-├── tasks/             # 标准训练与推理流程
-├── tools/             # 工具脚本
+├── compliance         # 版权相关s
+├── egs3/              # 原始recipes
+├── espnet2/           # 原始核心实现
+├── espnet3/           # 原始核心实现
+├── recipes/           # 重构recipes
+├── tasks/             # 重构标准训练与推理流程
+├── tools/             # 原始工具脚本
 └── README.md
 ```
+其中`egs3/`文件夹仅作兼容使用，本项目把`egs3/`文件夹拆分成`receipes`（对应所有原始数据集）和`tasks`（对应原始TEMPLATE）两个文件夹进行重构。
 
 ---
 

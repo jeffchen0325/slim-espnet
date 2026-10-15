@@ -40,7 +40,7 @@ dependencies = [
     "tqdm>=4.64",
     # "espnet_model_zoo",    # vendored in project
     "torch>=2.11.0,!=2.12.0,!=2.12.1,<2.15",
-    "torchaudio>=2.11.0,<2.12",
+    "torchaudio>=2.11.0,<2.15",
     "huggingface_hub",
 ]
 
@@ -60,10 +60,14 @@ version = {file = "version.txt"}
 readme = {file = ["README.md"], content-type = "text/markdown"}
 
 [tool.setuptools.packages.find]
-include = ["egs*", "espnet*", "tasks", "tasks.*"]
+include = ["egs3", "egs3.*", "espnet*", "recipes*", "tasks*"]
+exclude = [
+  "egs3.*.data", "egs3.*.downloads", "egs3.*.exp",
+  "recipes.*.data", "recipes.*.downloads", "recipes.*.exp"
+]
 
 [tool.setuptools.package-data]
-tasks = ["tasks/**/*.yaml"]
+tasks = ["**/*.yaml"]
 
 [project.optional-dependencies]
 # Training, with espnet2 (espnet2/bin/*_train.py, egs2 recipes) or espnet3

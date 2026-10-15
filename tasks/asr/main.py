@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 from omegaconf import OmegaConf
 from pathlib import Path
 
-from espnet3.utils.config_utils import (
+from espnet3.utils.config_utils_new import (
     load_and_merge_config,
 )
 from espnet3.utils.logging_utils import configure_logging
@@ -33,6 +33,8 @@ STAGE_CONFIGS = {
     "measure": "metrics_config",
     "pack_model": ("training_config", "publication_config"),
     "upload_model": "publication_config",
+    "pack_demo": "demo_config",
+    "upload_demo": "demo_config",
 }
 DEFAULT_STAGES: List[str] = list(STAGE_CONFIGS.keys())
 
@@ -41,11 +43,21 @@ DEFAULT_STAGES: List[str] = list(STAGE_CONFIGS.keys())
 class DefaultConfigs:
     #stages: List[str] = field(default_factory=lambda: ["all"])
     stages: List[str] = field(default_factory=lambda: [
-        "create_dataset", "train_tokenizer", "collect_stats", "train", "infer", "measure"])
+        "create_dataset", 
+        "train_tokenizer", 
+        "collect_stats", 
+        "train", 
+        "infer", 
+        "measure"
+        "pack_model", 
+        "upload_model", 
+        "pack_demo", 
+        "upload_demo",])
     training_config: Path = "conf/training_asr_transducer.yaml"
     inference_config: Path = "conf/inference.yaml"
     metrics_config: Path = "conf/metrics.yaml"
     publication_config: Path = "conf/publication.yaml"
+    demo_config: Path = "conf/demo.yaml"
     dry_run: bool = False
     extra_args: Dict[str, Any] = field(default_factory=dict)
 
@@ -97,14 +109,22 @@ def main(
         default_package=__package__,
         resolve=False,
     )
+    demo_config = load_and_merge_config(
+            args.demo_config,
+            config_name="demo.yaml",
+            default_package=__package__,
+            resolve=False,
+    )
     
     apply_training_experiment_context(
         training_config=training_config,
         inference_config=inference_config,
         metrics_config=metrics_config,
         publication_config=publication_config,
+        demo_config=demo_config,
         log=logger,
     )
+
     validate_experiment_context(
         training_config=training_config,
         inference_config=inference_config,
@@ -116,6 +136,7 @@ def main(
         inference_config,
         metrics_config,
         publication_config,
+        demo_config,
     )
 
     # Guardrail: ensure required configs exist for requested stages
@@ -124,6 +145,7 @@ def main(
         "inference_config": inference_config,
         "metrics_config": metrics_config,
         "publication_config": publication_config,
+        "demo_config": demo_config,
     }
 
     missing = [
@@ -152,6 +174,7 @@ def main(
         inference_config=inference_config,
         metrics_config=metrics_config,
         publication_config=publication_config,
+        demo_config=demo_config,
     )
 
     # -----------------------------------------
@@ -173,7 +196,7 @@ if __name__ == "__main__":
     # Here you should replace `YourSystemClass` with the actual system class
     # you want to use for your experiment.
     import sys
-    from espnet.systems.asr.system import ASRSystem
+    from espnet3.systems.asr.system import ASRSystem
 
     main(
         sys_args=sys.argv[1:],
