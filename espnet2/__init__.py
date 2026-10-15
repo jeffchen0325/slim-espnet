@@ -1,4 +1,4 @@
-"""Initialize espnet package and set __version__."""
+"""Initialize espnet2 package and set __version__."""
 
 import os
 from importlib import metadata as _metadata
@@ -10,7 +10,7 @@ _pkg_version_file = os.path.join(_here, "version.txt")
 __version__ = "0.0.0"
 
 try:
-    __version__ = _metadata.version("slim-espnet")
+    __version__ = _metadata.version("espnet")
 except Exception:
     if os.path.exists(_top_version_file):
         with open(_top_version_file, "r") as f:
