@@ -47,10 +47,6 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/jeffchen0325/slim-espnet"
 
-[project.scripts]
-espnet = "espnet2.bin.cli:main"
-espnet-mcp = "espnet2.bin.mcp_server:main"
-
 [build-system]
 requires = ["setuptools>=77.0.3,<82", "wheel", "setuptools-scm>=8.0,<9.0"]
 build-backend = "setuptools.build_meta"
@@ -60,7 +56,7 @@ version = {file = "version.txt"}
 readme = {file = ["README.md"], content-type = "text/markdown"}
 
 [tool.setuptools.packages.find]
-include = ["egs3", "egs3.*", "espnet*", "recipes*", "tasks*"]
+include = ["egs3", "egs3.*", "espnet*", "recipes*", "tasks*", "slim_espnet*"]
 exclude = [
   "egs3.*.data", "egs3.*.downloads", "egs3.*.exp",
   "recipes.*.data", "recipes.*.downloads", "recipes.*.exp"

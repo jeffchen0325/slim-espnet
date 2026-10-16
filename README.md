@@ -17,10 +17,10 @@
 ## 简介
 
 本项目从官方 ESPnet 仓库中提取并重新组织以下模块：
-- `egs3`
-- `espnet2`
-- `espnet3`
-- `tools`
+- `egs3`    --> `recipes` + `tasks`
+- `espnet2` --> keep the same
+- `espnet3` --> `slim_espnet`
+- `tools`   --> keep the same
 
 并进行独立打包，减少对旧版本代码和复杂依赖链的依赖。
 
@@ -77,13 +77,18 @@ slim-espnet/
 ├── compliance         # 版权相关s
 ├── egs3/              # 原始recipes
 ├── espnet2/           # 原始核心实现
-├── espnet3/           # 核心实现（少量重构）
+├── espnet3/           # 原始核心实现
 ├── recipes/           # 重构recipes
+├── slim_espnet/       # 重构核心实现
 ├── tasks/             # 重构标准训练与推理流程
-├── tools/             # 原始工具脚本
+├── tools/             # 原始工具脚本（少量重构）
 └── README.md
 ```
 其中`egs3/`文件夹仅作兼容使用，本项目把`egs3/`文件夹拆分成`receipes`（对应所有原始数据集）和`tasks`（对应原始TEMPLATE）两个文件夹进行重构。
+`slim_espnet/`对`espnet3/`进行重构。
+当前两种模式并存：
+1. `egs3/<corpus>/<system>/run.py`    --> `egs3/TEMPLATE/<system>/run.py` --> `espnet3/`      --> `espnet2/`
+2. `recipes/<corpus>/<system>/run.py` --> `tasks/<system>/main.py`        --> `slim_espnet/`  --> `espnet2/`
 
 ---
 

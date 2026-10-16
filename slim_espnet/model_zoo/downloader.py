@@ -16,10 +16,10 @@ import requests
 from tqdm import tqdm
 import yaml
 
-from espnet3.utils.pack_funcs import find_path_and_change_it_recursive
-from espnet3.utils.pack_funcs import get_dict_from_cache
-from espnet3.utils.pack_funcs import unpack
-
+from slim_espnet.utils.pack_funcs import (find_path_and_change_it_recursive,
+                                     get_dict_from_cache,
+                                     unpack
+)
 
 MODELS_URL = (
     "https://raw.githubusercontent.com/espnet/espnet_model_zoo/master/"

@@ -25,6 +25,7 @@ module_list = [
     ("espnet", None, None),
     ("espnet2", None, None),
     ("espnet3", None, None),
+    ("slim_espnet", None, None),
     ("numpy", None, None),
     ("fairseq", None, "installers/install_fairseq.sh"),
     ("phonemizer", None, "installers/install_phonemizer.sh"),

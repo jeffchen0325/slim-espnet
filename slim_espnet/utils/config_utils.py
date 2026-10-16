@@ -1,10 +1,159 @@
 """Configuration helpers and OmegaConf resolvers for ESPnet3."""
 
+import logging
 import re
 from importlib import resources
 from pathlib import Path
-from espnet3.utils.resolvers import RELATIVE_RESOLVER_PATTERN 
+
 from omegaconf import DictConfig, ListConfig, OmegaConf
+
+# Used to rewrite relative paths in resolver expressions such as
+# `${load_line:conf/tokens.txt}` or `${config_path:../src/file.md}` during
+# config loading.
+_RELATIVE_RESOLVER_PATTERN = re.compile(
+    r"\$\{(?P<resolver>load_line|config_path):(?P<path>[^,}]+)"
+)
+
+
+def load_line(path):
+    """Load lines from a text file and return as a list of strings.
+
+    This function is used as a custom resolver in OmegaConf,
+    allowing YAML files to reference external text line files
+    dynamically via `${load_line:some/file.txt}`.
+
+    This resolver is intended to load vocab file in configuration.
+
+    Args:
+        path (str or Path): Path to the file.
+
+    Returns:
+        List[str]: A list of stripped lines from the file.
+    """
+    try:
+        with open(path, "r") as f:
+            return ListConfig([line.strip() for line in f.readlines()])
+    except FileNotFoundError:
+        logging.error(f"File not found: {path}")
+        raise
+    except PermissionError:
+        logging.error(f"Permission denied when accessing file: {path}")
+        raise
+
+
+def self_name(path):
+    """Return the current config stem for `${self_name:}` interpolation.
+
+    This resolver supports config values such as `exp_tag: ${self_name:}`.
+    During config loading, `load_config_with_defaults()` rewrites that
+    interpolation to the stem of the YAML file currently being processed.
+
+    The resolver itself is intentionally a passthrough because OmegaConf only
+    passes explicit resolver arguments to callbacks. The actual config-name
+    injection happens earlier in `_normalize_relative_resolver_paths()`, which
+    replaces `${self_name:}` with the plain config stem before resolution.
+
+    Args:
+        path (str): Config stem passed explicitly to the resolver, such as
+            `training` or `inference`.
+
+    Returns:
+        str: The injected config stem unchanged.
+
+    Notes:
+        This resolver is intended for ESPnet config composition. It is
+        primarily consumed from YAML rather than called directly from Python.
+
+    Examples:
+        In a config file named `training.yaml`:
+
+            exp_tag: ${self_name:}
+
+        The expression is rewritten during loading to:
+
+            training
+    """
+    return path
+
+
+def config_path(path):
+    """Return an absolute path rewritten by ``_normalize_relative_resolver_paths``.
+
+    Used as ``${config_path:../src/file.md}`` in YAML configs. The relative
+    path is resolved to an absolute path at load time by
+    ``_normalize_relative_resolver_paths``, so this resolver simply returns
+    its argument unchanged.
+
+    Args:
+        path (str): Absolute path injected during config loading.
+
+    Returns:
+        str: The path unchanged.
+
+    Examples:
+        In a config file at ``conf/demo.yaml``:
+
+            pack:
+              readme: ${config_path:../src/hf_demo_readme.md}
+
+        Resolves to the absolute path of ``src/hf_demo_readme.md`` relative
+        to the directory containing ``conf/``.
+    """
+    return path
+
+
+def set_corpus_and_system(value: str) -> str:
+    """Passthrough for ``${set_corpus_and_system:}`` after load-time rewriting.
+
+    This resolver is used as ``${set_corpus_and_system:}`` in YAML configs.
+    ``_normalize_relative_resolver_paths`` rewrites it to
+    ``${set_corpus_and_system:<corpus>_<system>}`` (e.g.
+    ``${set_corpus_and_system:mini_an4_asr}``) by extracting the corpus and
+    system names from the ``egs3/<corpus>/<system>/`` portion of the config
+    file path. The resolver itself simply returns that injected value.
+
+    If OmegaConf ever resolves this expression before the rewrite has run
+    (which should not happen in normal usage), it raises ``RuntimeError`` with
+    a clear message.
+
+    Args:
+        value (str): The ``<corpus>_<system>`` string injected at load time.
+
+    Returns:
+        str: The injected value unchanged.
+
+    Raises:
+        RuntimeError: If called with an empty string, meaning the rewrite did
+            not run before OmegaConf resolution.
+
+    Examples:
+        In ``egs3/mini_an4/asr/conf/publication.yaml``:
+
+            upload_model:
+              hf_repo: espnet/${set_corpus_and_system:}_${exp_tag}
+
+        After loading via ``load_and_merge_config``, resolves to::
+
+            espnet/mini_an4_asr_<exp_tag>
+    """
+    if not value:
+        raise RuntimeError(
+            "${set_corpus_and_system:} was not rewritten at load time. "
+            "Load configs via load_and_merge_config with a recipe path "
+            "under egs3/<corpus>/<system>/..."
+        )
+    return value
+
+
+OMEGACONF_ESPNET3_RESOLVER = {
+    "load_line": load_line,
+    "self_name": self_name,
+    "config_path": config_path,
+    "set_corpus_and_system": set_corpus_and_system,
+}
+for name, resolver in OMEGACONF_ESPNET3_RESOLVER.items():
+    OmegaConf.register_new_resolver(name, resolver)
+    logging.info(f"Registered ESPnet-3 OmegaConf Resolver: {name}")
 
 
 def _process_dict_config_entry(
@@ -158,30 +307,30 @@ def load_default_config(
     """Load a packaged default config without resolving interpolations.
 
     This helper reads a default config bundled in an ESPnet recipe package.
-    The default package is typically a task package such as
-    `tasks.asr`, but any installed recipe package with a `conf/`
+    The default package is typically an `egs3` recipe package such as
+    `egs3.TEMPLATE.asr`, but any installed recipe package with a `conf/`
     directory can be used as the source of default values. The loaded config
     is intended to be merged later with a user-provided config via
     `load_and_merge_config()`.
 
     Example:
-        If `default_package` is `tasks.asr` and
+        If `default_package` is `egs3.TEMPLATE.asr` and
         `config_name` is `training.yaml`, this loads:
 
-            tasks/asr/conf/training.yaml
+            egs3/TEMPLATE/asr/conf/training.yaml
 
         If you want to base a new recipe on an existing one, you can also
         point `default_package` to that recipe package. For example, using
-        `recipes.librispeech.asr` with `training.yaml` would load:
+        `egs3.librispeech.asr` with `training.yaml` would load:
 
-            recipes/librispeech/asr/conf/training.yaml
+            egs3/librispeech/asr/conf/training.yaml
 
     Args:
         config_name (str): Config filename under `conf/`, such as
             `training.yaml`, `inference.yaml`, or `metrics.yaml`.
         default_package (str): Python package that contains the default
-            recipe resources. For example, `tasks.asr` points to files
-            under `tasks/asr/`. Other installed recipe packages can
+            recipe resources. For example, `egs3.TEMPLATE.asr` points to files
+            under `egs3/TEMPLATE/asr/`. Other installed recipe packages can
             also be used as long as they provide `conf/<config_name>`.
 
     Returns:
@@ -210,23 +359,23 @@ def load_and_merge_config(
     merged result. This allows user configs to reference values defined in the
     defaults, while also letting user-provided values override those defaults.
 
-    The default source is usually an `tasks.*` package, but any
+    The default source is usually an `egs3.TEMPLATE.*` package, but any
     installed recipe package can be used if it provides the same config file
     under its own `conf/` directory.
 
     Example:
         If a recipe config lives at:
 
-            recipes/mini_an4/asr/conf/training.yaml
+            egs3/mini_an4/asr/conf/training.yaml
 
         and `config_name` is `training.yaml`, this function can infer
-        `default_package="tasks.asr"` and merge:
+        `default_package="egs3.TEMPLATE.asr"` and merge:
 
-            tasks/asr/conf/training.yaml
+            egs3/TEMPLATE/asr/conf/training.yaml
 
         with:
 
-            recipes/mini_an4/asr/conf/training.yaml
+            egs3/mini_an4/asr/conf/training.yaml
 
     Args:
         config_path (Path | None): Path to the user config. If `None`, this
@@ -235,8 +384,8 @@ def load_and_merge_config(
             `training.yaml`, `inference.yaml`, or `metrics.yaml`.
         default_package (str | None): Python package that contains the default
             recipe resources. If omitted, it is inferred from `config_path`.
-            For example, a config under `recipes/<recipe>/asr/conf/` maps to
-            `tasks.asr`.
+            For example, a config under `egs3/<recipe>/asr/conf/` maps to
+            `egs3.TEMPLATE.asr`.
 
     Returns:
         OmegaConf.DictConfig | None: The merged config. Interpolations are
@@ -246,7 +395,7 @@ def load_and_merge_config(
     if config_path is None:
         return None
     if default_package is None:
-        default_package = _resolve_recipes_path(config_path, as_package=True)
+        default_package = _resolve_egs3_path(config_path, as_package=True)
     if default_package is None:
         raise ValueError(
             "default_package is required when it cannot be inferred from config_path"
@@ -284,10 +433,10 @@ def _ensure_target_convert_all(cfg) -> None:
                 _ensure_target_convert_all(node)
 
 
-def _resolve_recipes_path(path: Path, as_package: bool = False) -> str | None:
-    """Derive a string from an ``recipes/<corpus>/<system>/conf`` path.
+def _resolve_egs3_path(path: Path, as_package: bool = False) -> str | None:
+    """Derive a string from an ``egs3/<corpus>/<system>/conf`` path.
 
-    Anchors on the first ``conf`` component found after ``recipes/`` so it works
+    Anchors on the first ``conf`` component found after ``egs3/`` so it works
     for both a config file path (``…/conf/training.yaml``) and the ``conf/``
     directory itself.
 
@@ -295,28 +444,28 @@ def _resolve_recipes_path(path: Path, as_package: bool = False) -> str | None:
         path (Path): Config file path or the ``conf/`` directory.
         as_package (bool): When ``False`` (default) returns
             ``"<corpus>_<system>"`` (e.g. ``"mini_an4_asr"``). When ``True``
-            returns the task package import path
-            (e.g. ``"tasks.asr"``).
+            returns the TEMPLATE package import path
+            (e.g. ``"egs3.TEMPLATE.asr"``).
 
     Returns:
-        str | None: The derived string, or ``None`` when ``recipes/`` is not in
-        the path or there are not enough components between ``recipes/`` and
+        str | None: The derived string, or ``None`` when ``egs3/`` is not in
+        the path or there are not enough components between ``egs3/`` and
         ``conf/``.
     """
     parts = path.resolve().parts
     try:
-        recipe_idx = parts.index("recipes")
+        egs3_idx = parts.index("egs3")
     except ValueError:
         return None
     conf_idx = next(
-        (i for i in range(recipe_idx + 1, len(parts)) if parts[i] == "conf"),
+        (i for i in range(egs3_idx + 1, len(parts)) if parts[i] == "conf"),
         None,
     )
-    if conf_idx is None or conf_idx - recipe_idx < 3:
+    if conf_idx is None or conf_idx - egs3_idx < 3:
         return None
-    corpus, system = parts[recipe_idx + 1], parts[conf_idx - 1]
+    corpus, system = parts[egs3_idx + 1], parts[conf_idx - 1]
     if as_package:
-        return f"tasks.{system}"
+        return f"egs3.TEMPLATE.{system}"
     return f"{corpus}_{system}"
 
 
@@ -333,7 +482,7 @@ def _normalize_relative_resolver_paths(
             raw = raw.replace("${self_name:}", config_name)
             if "${set_corpus_and_system:}" in raw:
                 if _corpus_and_system is None:
-                    _corpus_and_system = _resolve_recipes_path(base_path)
+                    _corpus_and_system = _resolve_egs3_path(base_path)
                 if _corpus_and_system is not None:
                     raw = raw.replace(
                         "${set_corpus_and_system:}",
@@ -388,7 +537,7 @@ def _rewrite_relative_resolver_paths(value: str, base_path: Path) -> str:
             resolved_path = f"{quote}{resolved_path}{quote}"
         return f"${{{resolver}:{resolved_path}"
 
-    return RELATIVE_RESOLVER_PATTERN.sub(replace, value)
+    return _RELATIVE_RESOLVER_PATTERN.sub(replace, value)
 
 
 def _split_optional_quotes(raw_path: str) -> tuple[str, str]:

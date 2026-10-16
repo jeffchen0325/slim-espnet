@@ -9,9 +9,7 @@ from dataclasses import dataclass, field
 from omegaconf import OmegaConf
 from pathlib import Path
 
-from espnet3.utils.config_utils_new import (
-    load_and_merge_config,
-)
+from slim_espnet.utils.config_utils_new import load_and_merge_config
 from espnet3.utils.logging_utils import configure_logging
 from espnet3.utils.run_utils import (
     apply_training_experiment_context,

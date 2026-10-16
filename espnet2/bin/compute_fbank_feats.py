@@ -120,7 +120,7 @@ def kaldi_fbank_extractor(array, rate, args):
 
 def espnet_fbank_extractor(array, rate, args):
     # Imported lazily so users running the kaldi path don't need legacy espnet1.
-    from espnet.transform.spectrogram import logmelspectrogram
+    from slim_espnet.transform.spectrogram import logmelspectrogram
 
     lmspc = logmelspectrogram(
         x=array,

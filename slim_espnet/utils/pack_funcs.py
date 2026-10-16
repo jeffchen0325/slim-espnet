@@ -278,9 +278,9 @@ def pack(
     except ImportError:
         pass
     try:
-        import espnet
+        import slim_espnet
 
-        meta_objs.update(espnet=espnet.__version__)
+        meta_objs.update(espnet=slim_espnet.__version__)
     except ImportError:
         pass
 

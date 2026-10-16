@@ -16,8 +16,8 @@ import requests
 from typing import Collection
 from typing import Union
 
-from espnet.utils import config_argparse
-from espnet.utils.types import str2bool
+from slim_espnet.utils import config_argparse
+from slim_espnet.utils.types import str2bool
 
 
 class Zenodo:
