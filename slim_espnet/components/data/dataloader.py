@@ -1,4 +1,4 @@
-"""DataLoader builder for ESPnet3 trainer."""
+"""DataLoader builder for slim_espnet trainer."""
 
 import copy
 import logging
@@ -8,8 +8,8 @@ from hydra.utils import instantiate
 from omegaconf import DictConfig, OmegaConf
 
 from espnet2.samplers.build_batch_sampler import build_batch_sampler
-from espnet3.components.data.iterator import EpochSyncIterator
-from espnet3.utils.logging_utils import _dump_attrs, build_qualified_name
+from slim_espnet.components.data.iterator import EpochSyncIterator
+from slim_espnet.utils.logging_utils import _dump_attrs, build_qualified_name
 
 logger = logging.getLogger(__name__)
 _LOGGED_DISTRIBUTED_BATCHES: set[str] = set()
@@ -41,7 +41,7 @@ def log_dataloader(logger: logging.Logger, loader, label: str) -> None:
 
 
 class DataLoaderBuilder:
-    """Builder class for constructing training and validation DataLoaders in ESPnet3.
+    """Builder class for constructing training and validation DataLoaders in slim_espnet.
 
     This class provides a unified interface for setting up PyTorch or ESPnet-specific
     DataLoaders based on the configuration. It supports advanced features such as:
@@ -195,7 +195,7 @@ class DataLoaderBuilder:
         dataset = self._maybe_shard_dataset(self.dataset)
         if hasattr(config, "multiple_iterator"):
             raise RuntimeError(
-                "ESPnet3 does not support multiple_iterator. "
+                "slim_espnet does not support multiple_iterator. "
                 "If you need sharding, select a shard explicitly "
                 "(e.g., point the dataset/shape files to split.*) "
                 "and use a standard iter_factory."
@@ -207,7 +207,7 @@ class DataLoaderBuilder:
                 target = config.iter_factory.get("_target_")
         if target is not None and "MultipleIterFactory" in target:
             raise RuntimeError(
-                "MultipleIterFactory is not supported in ESPnet3. "
+                "MultipleIterFactory is not supported in slim_espnet. "
                 "Use a standard iter_factory (Sequence/Chunk/Category*) and "
                 "select a single shard explicitly if needed."
             )

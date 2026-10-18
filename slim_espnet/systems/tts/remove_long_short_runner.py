@@ -7,7 +7,7 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 
 import soundfile as sf
 
-from espnet3.parallel.base_runner import BaseRunner
+from slim_espnet.parallel.base_runner import BaseRunner
 
 logger = logging.getLogger(__name__)
 

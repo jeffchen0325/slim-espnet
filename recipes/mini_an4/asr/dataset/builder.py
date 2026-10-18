@@ -8,8 +8,8 @@ import subprocess
 from importlib import resources
 from pathlib import Path
 
-from espnet3.components.data.dataset_builder import DatasetBuilder
-from espnet3.utils.config_utils import load_config_with_defaults
+from slim_espnet.components.data.dataset_builder import DatasetBuilder
+from slim_espnet.utils.config_utils import load_config_with_defaults
 
 TRANSCRIPT_RE = re.compile(r"^(?P<words>.+?)\s+\((?P<src>[^)]+)\)\s*$")
 
@@ -56,7 +56,7 @@ def _parse_transcript_line(line: str) -> tuple[str, str, str]:
 
 
 class MiniAn4Builder(DatasetBuilder):
-    """Prepare and build Mini AN4 assets for ESPnet3 recipes."""
+    """Prepare and build Mini AN4 assets for slim_espnet recipes."""
 
     def is_source_prepared(self, recipe_dir: str | Path, **_kwargs) -> bool:
         """Check whether raw AN4 source files are already available.

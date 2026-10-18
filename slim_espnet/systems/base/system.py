@@ -1,4 +1,4 @@
-"""Base system class and stage entrypoints for ESPnet3."""
+"""Base system class and stage entrypoints for slim_espnet."""
 
 import logging
 import time
@@ -6,23 +6,23 @@ from pathlib import Path
 
 from omegaconf import DictConfig, OmegaConf
 
-from espnet3.components.data.dataset_module import (
+from slim_espnet.components.data.dataset_module import (
     load_dataset_module,
     parse_dataset_reference_config,
 )
-from espnet3.publication.demo.packing import pack_demo as _pack_demo
-from espnet3.publication.demo.packing import upload_demo as _upload_demo
-from espnet3.systems.base.inference import infer
-from espnet3.systems.base.metric import measure
-from espnet3.systems.base.training import collect_stats, train
-from espnet3.utils.publication_utils import pack_model as _pack_model
-from espnet3.utils.publication_utils import upload_model as _upload_model
+from slim_espnet.publication.demo.packing import pack_demo as _pack_demo
+from slim_espnet.publication.demo.packing import upload_demo as _upload_demo
+from slim_espnet.systems.base.inference import infer
+from slim_espnet.systems.base.metric import measure
+from slim_espnet.systems.base.training import collect_stats, train
+from slim_espnet.utils.publication_utils import pack_model as _pack_model
+from slim_espnet.utils.publication_utils import upload_model as _upload_model
 
 logger = logging.getLogger(__name__)
 
 
 class BaseSystem:
-    """Base class for all ESPnet3 systems.
+    """Base class for all slim_espnet systems.
 
     Class Attributes:
         DATASET_BUILDER_CLASS_NAME: Name of the builder class expected in each
@@ -332,7 +332,7 @@ class BaseSystem:
     # Publication stages (optional overrides)
     # ---------------------------------------------------------
     def pack_model(self, *args, **kwargs):
-        """Pack model artifacts into an espnet3 bundle."""
+        """Pack model artifacts into an slim_espnet bundle."""
         self._reject_stage_args("pack_model", args, kwargs)
         return _pack_model(
             training_config=self.training_config,

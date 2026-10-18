@@ -20,7 +20,7 @@ class UIAsset:
     ``ui.outputs[].type``. Each asset implementation is responsible for
     building the corresponding Gradio component.
 
-    ESPnet3 developers can add new built-in assets by subclassing
+    slim_espnet developers can add new built-in assets by subclassing
     :class:`UIAsset` and registering the subclass in
     :data:`DEFAULT_UI_ASSETS` in this module.
     """

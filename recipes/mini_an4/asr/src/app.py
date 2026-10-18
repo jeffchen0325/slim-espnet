@@ -1,4 +1,4 @@
-"""Recipe-local Gradio launcher for ESPnet3 demos."""
+"""Recipe-local Gradio launcher for slim_espnet demos."""
 
 from __future__ import annotations
 
@@ -8,8 +8,8 @@ from pathlib import Path
 
 import gradio as gr
 
-from espnet3.publication.demo.session import load_demo_session
-from espnet3.utils.logging_utils import configure_logging
+from slim_espnet.publication.demo.session import load_demo_session
+from slim_espnet.utils.logging_utils import configure_logging
 
 logger = logging.getLogger(__name__)
 
@@ -82,7 +82,7 @@ def build_demo(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Launch an ESPnet3 demo.")
+    parser = argparse.ArgumentParser(description="Launch an slim_espnet demo.")
     parser.add_argument(
         "--demo-dir",
         type=Path,

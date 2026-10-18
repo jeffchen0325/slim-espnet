@@ -1,4 +1,4 @@
-"""Dask-based parallel processing utilities for ESPnet3."""
+"""Dask-based parallel processing utilities for slim_espnet."""
 
 import copy
 import inspect
@@ -40,7 +40,7 @@ except ImportError:
         def __init__(self, *args, **kwargs):
             """Raise a helpful error when a Dask cluster type is unavailable."""
             raise RuntimeError(
-                "Dask is required for espnet3.parallel; please install dask "
+                "Dask is required for slim_espnet.parallel; please install dask "
                 "and dask_jobqueue to enable parallel features."
             )
 
@@ -76,7 +76,7 @@ def _ensure_dask():
     if not _DASK_AVAILABLE:
         raise RuntimeError(
             "Dask is not available. Install dask[distributed] and "
-            "dask_jobqueue to use espnet3.parallel."
+            "dask_jobqueue to use slim_espnet.parallel."
         )
 
 

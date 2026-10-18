@@ -1,4 +1,4 @@
-"""Initialize espnet package and set __version__."""
+"""Initialize slim-espnet package and set __version__."""
 
 import os
 from importlib import metadata as _metadata

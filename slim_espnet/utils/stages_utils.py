@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 from typing import Any, Iterable, List, Sequence, Tuple
 
-from espnet3.utils.logging_utils import (
+from slim_espnet.utils.logging_utils import (
     log_stage,
     log_stage_metadata,
     set_stage_log_handler,

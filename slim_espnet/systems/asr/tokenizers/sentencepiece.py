@@ -1,4 +1,4 @@
-"""SentencePiece tokenizer utilities for ESPnet3 ASR."""
+"""SentencePiece tokenizer utilities for slim_espnet ASR."""
 
 import os
 import shutil
@@ -166,7 +166,7 @@ def add_special_tokens(
 ):
     """Add special tokens to the tokenizer.
 
-    For detailed usage, please refer to the demo notebook for espnet3 with SLU task.
+    For detailed usage, please refer to the demo notebook for slim_espnet with SLU task.
 
     Args:
         tokenizer: Sentencepiece tokenizer.

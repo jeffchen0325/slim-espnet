@@ -1,5 +1,5 @@
-"""Publication-facing APIs for packaged ESPnet3 models."""
+"""Publication-facing APIs for packaged slim_espnet models."""
 
-from espnet3.publication.inference_model import InferenceModel
+from slim_espnet.publication.inference_model import InferenceModel
 
 __all__ = ["InferenceModel"]

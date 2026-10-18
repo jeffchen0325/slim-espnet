@@ -12,7 +12,7 @@ from huggingface_hub import HfApi
 from huggingface_hub.errors import HfHubHTTPError
 from omegaconf import DictConfig, ListConfig, OmegaConf
 
-from espnet3.utils.publication_utils import (
+from slim_espnet.utils.publication_utils import (
     _build_pack_ignore,
     _copy_path,
     _expand_pack_paths,
@@ -45,7 +45,7 @@ def pack_demo(system) -> Path:
     3. ``Path.cwd() / "demo"``
 
     Args:
-        system: An ESPnet3 system instance with ``demo_config`` set.
+        system: An slim_espnet system instance with ``demo_config`` set.
 
     Returns:
         Path to the packed demo directory.
@@ -110,7 +110,7 @@ def upload_demo(system) -> None:
     - ``create``: extra options forwarded to the HF ``create_repo`` call.
 
     Args:
-        system: An ESPnet3 system instance with ``demo_config`` set.
+        system: An slim_espnet system instance with ``demo_config`` set.
 
     Raises:
         RuntimeError: If ``demo_config``, ``upload_demo``, or ``hf_repo`` is
@@ -457,7 +457,7 @@ def _resolve_app_script(demo_config) -> Path:
         raise ValueError("demo_config.ui.app_script is required.")
 
     # --- resolve path (cwd-relative, then repo-root fallback) ---
-    # Allow paths relative to the repo root (e.g. espnet3/publication/demo/app.py)
+    # Allow paths relative to the repo root (e.g. slim_espnet/publication/demo/app.py)
     # so built-in launchers can be referenced without an absolute path.
     path = Path(explicit)
     if not path.is_absolute() and not path.exists():

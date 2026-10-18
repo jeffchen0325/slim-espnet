@@ -6,11 +6,11 @@ import lightning.pytorch as pl
 import torch
 import torch.distributed as dist
 
-from espnet3.components.callbacks.vendored_ema import EMA
+from slim_espnet.components.callbacks.vendored_ema import EMA
 
 
 class EMACallback(pl.Callback):
-    """ESPnet3's EMA callback system.
+    """slim_espnet's EMA callback system.
 
     - Updates once per true optimizer step (not per micro-step).
     - Swaps EMA weights in for validation/test, restores afterward.
@@ -23,7 +23,7 @@ class EMACallback(pl.Callback):
         Args:
             decay: EMA decay rate, forwarded to ``EMA`` as ``beta``.
             **ema_kwargs: Extra keyword arguments forwarded to ``EMA``
-                (``espnet3.components.callbacks.vendored_ema.EMA``).
+                (``slim_espnet.components.callbacks.vendored_ema.EMA``).
                 Note that ``model``, ``beta``, and ``include_online_model``
                 are already set by this callback. The remaining parameters:
                 ``ema_model`` (default: ``None``),

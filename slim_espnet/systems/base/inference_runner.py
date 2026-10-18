@@ -13,9 +13,9 @@ import numpy as np
 import torch
 from omegaconf import ListConfig
 
-from espnet3.parallel.base_runner import BaseRunner, concatenate_shard_files
-from espnet3.parallel.env_provider import EnvironmentProvider
-from espnet3.utils.writer_utils import write_artifact
+from slim_espnet.parallel.base_runner import BaseRunner, concatenate_shard_files
+from slim_espnet.parallel.env_provider import EnvironmentProvider
+from slim_espnet.utils.writer_utils import write_artifact
 
 logger = logging.getLogger(__name__)
 

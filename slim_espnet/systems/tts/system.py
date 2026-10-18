@@ -15,11 +15,11 @@ from omegaconf import OmegaConf
 
 from espnet2.text.build_tokenizer import build_tokenizer
 from espnet2.text.cleaner import TextCleaner
-from espnet3.parallel.parallel import set_parallel
-from espnet3.systems.base.system import BaseSystem
-from espnet3.systems.base.training import _build_trainer, _ensure_directories
-from espnet3.systems.tts.remove_long_short_provider import RemoveLongShortProvider
-from espnet3.systems.tts.remove_long_short_runner import RemoveLongShortRunner
+from slim_espnet.parallel.parallel import set_parallel
+from slim_espnet.systems.base.system import BaseSystem
+from slim_espnet.systems.base.training import _build_trainer, _ensure_directories
+from slim_espnet.systems.tts.remove_long_short_provider import RemoveLongShortProvider
+from slim_espnet.systems.tts.remove_long_short_runner import RemoveLongShortRunner
 
 logger = logging.getLogger(__name__)
 
@@ -459,7 +459,7 @@ class TTSSystem(BaseSystem):
 
         Notes:
             Do not delete this override in favour of
-            ``espnet3.systems.base.training.collect_stats``.
+            ``slim_espnet.systems.base.training.collect_stats``.
 
             The base implementation pops ``normalize`` and ``normalize_conf``
             out of ``config.model`` before building the trainer.  For a task

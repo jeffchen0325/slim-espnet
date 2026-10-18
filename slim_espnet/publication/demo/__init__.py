@@ -1,1 +1,1 @@
-"""Demo publication: packing, uploading, and serving ESPnet3 demos."""
+"""Demo publication: packing, uploading, and serving slim_espnet demos."""

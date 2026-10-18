@@ -12,7 +12,7 @@ import soundfile as sf
 from torch.utils.data import Dataset as TorchDataset
 
 from egs3.mini_an4.asr.dataset.builder import MiniAn4Builder
-from espnet3.utils.config_utils import load_config_with_defaults
+from slim_espnet.utils.config_utils import load_config_with_defaults
 
 # ---------------------------------------------------------------------------
 # Module-level config loading

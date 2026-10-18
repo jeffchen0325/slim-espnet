@@ -9,14 +9,14 @@ from dataclasses import dataclass, field
 from omegaconf import OmegaConf
 from pathlib import Path
 
-from slim_espnet.utils.config_utils_new import load_and_merge_config
-from espnet3.utils.logging_utils import configure_logging
-from espnet3.utils.run_utils import (
+from slim_espnet.utils.config_utils import load_and_merge_config
+from slim_espnet.utils.logging_utils import configure_logging
+from slim_espnet.utils.run_utils import (
     apply_training_experiment_context,
     resolve_loaded_configs,
     validate_experiment_context,
 )
-from espnet3.utils.stages_utils import (
+from slim_espnet.utils.stages_utils import (
     resolve_stages,
     run_stages,
 )
@@ -194,7 +194,7 @@ if __name__ == "__main__":
     # Here you should replace `YourSystemClass` with the actual system class
     # you want to use for your experiment.
     import sys
-    from espnet3.systems.asr.system import ASRSystem
+    from slim_espnet.systems.asr.system import ASRSystem
 
     main(
         sys_args=sys.argv[1:],

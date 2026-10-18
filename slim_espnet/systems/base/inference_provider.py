@@ -1,4 +1,4 @@
-"""Inference environment providers for ESPnet3 systems."""
+"""Inference environment providers for slim_espnet systems."""
 
 import logging
 import os
@@ -9,8 +9,8 @@ import torch
 from hydra.utils import instantiate
 from omegaconf import DictConfig, OmegaConf
 
-from espnet3.parallel.env_provider import EnvironmentProvider
-from espnet3.utils.logging_utils import log_instance_dict
+from slim_espnet.parallel.env_provider import EnvironmentProvider
+from slim_espnet.utils.logging_utils import log_instance_dict
 
 logger = logging.getLogger(__name__)
 _LOGGED_ENV = False

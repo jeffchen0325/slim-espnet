@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional
 
 from omegaconf import DictConfig
 
-from espnet3.parallel.env_provider import EnvironmentProvider
-from espnet3.utils.logging_utils import log_instance_dict
+from slim_espnet.parallel.env_provider import EnvironmentProvider
+from slim_espnet.utils.logging_utils import log_instance_dict
 
 logger = logging.getLogger(__name__)
 _LOGGED_ENV = False

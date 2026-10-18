@@ -359,23 +359,23 @@ def load_and_merge_config(
     merged result. This allows user configs to reference values defined in the
     defaults, while also letting user-provided values override those defaults.
 
-    The default source is usually an `egs3.TEMPLATE.*` package, but any
+    The default source is usually an `tasks.*` package, but any
     installed recipe package can be used if it provides the same config file
     under its own `conf/` directory.
 
     Example:
         If a recipe config lives at:
 
-            egs3/mini_an4/asr/conf/training.yaml
+            recipes/mini_an4/asr/conf/training.yaml
 
         and `config_name` is `training.yaml`, this function can infer
-        `default_package="egs3.TEMPLATE.asr"` and merge:
+        `default_package="tasks.asr"` and merge:
 
-            egs3/TEMPLATE/asr/conf/training.yaml
+            tasks/asr/conf/training.yaml
 
         with:
 
-            egs3/mini_an4/asr/conf/training.yaml
+            recipes/mini_an4/asr/conf/training.yaml
 
     Args:
         config_path (Path | None): Path to the user config. If `None`, this
@@ -384,8 +384,8 @@ def load_and_merge_config(
             `training.yaml`, `inference.yaml`, or `metrics.yaml`.
         default_package (str | None): Python package that contains the default
             recipe resources. If omitted, it is inferred from `config_path`.
-            For example, a config under `egs3/<recipe>/asr/conf/` maps to
-            `egs3.TEMPLATE.asr`.
+            For example, a config under `recipes/<recipe>/asr/conf/` maps to
+            `tasks.asr`.
 
     Returns:
         OmegaConf.DictConfig | None: The merged config. Interpolations are
@@ -395,7 +395,7 @@ def load_and_merge_config(
     if config_path is None:
         return None
     if default_package is None:
-        default_package = _resolve_egs3_path(config_path, as_package=True)
+        default_package = _resolve_recipes_path(config_path, as_package=True)
     if default_package is None:
         raise ValueError(
             "default_package is required when it cannot be inferred from config_path"
@@ -433,10 +433,10 @@ def _ensure_target_convert_all(cfg) -> None:
                 _ensure_target_convert_all(node)
 
 
-def _resolve_egs3_path(path: Path, as_package: bool = False) -> str | None:
-    """Derive a string from an ``egs3/<corpus>/<system>/conf`` path.
+def _resolve_recipes_path(path: Path, as_package: bool = False) -> str | None:
+    """Derive a string from an ``recipes/<corpus>/<system>/conf`` path.
 
-    Anchors on the first ``conf`` component found after ``egs3/`` so it works
+    Anchors on the first ``conf`` component found after ``recipes/`` so it works
     for both a config file path (``…/conf/training.yaml``) and the ``conf/``
     directory itself.
 
@@ -444,28 +444,28 @@ def _resolve_egs3_path(path: Path, as_package: bool = False) -> str | None:
         path (Path): Config file path or the ``conf/`` directory.
         as_package (bool): When ``False`` (default) returns
             ``"<corpus>_<system>"`` (e.g. ``"mini_an4_asr"``). When ``True``
-            returns the TEMPLATE package import path
-            (e.g. ``"egs3.TEMPLATE.asr"``).
+            returns the task package import path
+            (e.g. ``"tasks.asr"``).
 
     Returns:
-        str | None: The derived string, or ``None`` when ``egs3/`` is not in
-        the path or there are not enough components between ``egs3/`` and
+        str | None: The derived string, or ``None`` when ``recipes/`` is not in
+        the path or there are not enough components between ``recipes/`` and
         ``conf/``.
     """
     parts = path.resolve().parts
     try:
-        egs3_idx = parts.index("egs3")
+        recipe_idx = parts.index("recipes")
     except ValueError:
         return None
     conf_idx = next(
-        (i for i in range(egs3_idx + 1, len(parts)) if parts[i] == "conf"),
+        (i for i in range(recipe_idx + 1, len(parts)) if parts[i] == "conf"),
         None,
     )
-    if conf_idx is None or conf_idx - egs3_idx < 3:
+    if conf_idx is None or conf_idx - recipe_idx < 3:
         return None
-    corpus, system = parts[egs3_idx + 1], parts[conf_idx - 1]
+    corpus, system = parts[recipe_idx + 1], parts[conf_idx - 1]
     if as_package:
-        return f"egs3.TEMPLATE.{system}"
+        return f"tasks.{system}"
     return f"{corpus}_{system}"
 
 
@@ -482,7 +482,7 @@ def _normalize_relative_resolver_paths(
             raw = raw.replace("${self_name:}", config_name)
             if "${set_corpus_and_system:}" in raw:
                 if _corpus_and_system is None:
-                    _corpus_and_system = _resolve_egs3_path(base_path)
+                    _corpus_and_system = _resolve_recipes_path(base_path)
                 if _corpus_and_system is not None:
                     raw = raw.replace(
                         "${set_corpus_and_system:}",

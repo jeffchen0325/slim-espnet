@@ -1,6 +1,6 @@
 import sys
 from tasks.asr.main import main
-from espnet3.systems.asr.system import ASRSystem
+from slim_espnet.systems.asr.system import ASRSystem
 
 if __name__ == "__main__":
     main(

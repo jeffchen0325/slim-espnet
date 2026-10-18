@@ -11,7 +11,7 @@ except ImportError:
     jiwer = None
 
 from espnet2.text.cleaner import TextCleaner
-from espnet3.components.metrics.base_metric import BaseMetric
+from slim_espnet.components.metrics.base_metric import BaseMetric
 
 
 class CER(BaseMetric):

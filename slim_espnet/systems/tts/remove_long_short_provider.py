@@ -5,7 +5,7 @@ from typing import Any, Callable, Dict, List, Tuple
 
 from omegaconf import DictConfig
 
-from espnet3.parallel.env_provider import EnvironmentProvider
+from slim_espnet.parallel.env_provider import EnvironmentProvider
 
 logger = logging.getLogger(__name__)
 

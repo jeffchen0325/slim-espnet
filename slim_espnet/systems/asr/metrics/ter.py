@@ -12,7 +12,7 @@ except ImportError:
 
 from espnet2.text.cleaner import TextCleaner
 from espnet2.text.sentencepiece_tokenizer import SentencepiecesTokenizer
-from espnet3.components.metrics.base_metric import BaseMetric
+from slim_espnet.components.metrics.base_metric import BaseMetric
 
 
 class TER(BaseMetric):

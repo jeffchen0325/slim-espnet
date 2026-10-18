@@ -1,1 +1,1 @@
-"""ESPnet3 components package."""
+"""slim_espnet components package."""

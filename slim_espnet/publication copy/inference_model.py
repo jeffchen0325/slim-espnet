@@ -3,12 +3,12 @@
 This module is the runtime entry point used after ``pack_model()`` has created
 an unpacked publication bundle. The public API is :class:`InferenceModel`,
 which loads ``conf/inference.yaml`` from that bundle, rebuilds the configured
-backend through :class:`espnet3.systems.base.inference_provider.InferenceProvider`,
+backend through :class:`slim_espnet.systems.base.inference_provider.InferenceProvider`,
 and exposes a small direct-inference interface for single samples and batches.
 
 Typical call flow:
 
-- ``espnet3.publication.InferenceModel.from_packed(...)``
+- ``slim_espnet.publication.InferenceModel.from_packed(...)``
 - read ``meta.yaml``
 - locate and resolve ``conf/inference.yaml``
 - optionally allow bundled recipe code when ``trust_user_code=True``
@@ -27,10 +27,10 @@ from slim_espnet.model_zoo.downloader import ModelDownloader
 from hydra.utils import get_class
 from omegaconf import DictConfig, ListConfig, OmegaConf
 
-from espnet3.systems.base.inference_provider import InferenceProvider
-from espnet3.systems.base.inference_runner import InferenceRunner, _load_output_fn
-from espnet3.utils.config_utils import load_config_with_defaults
-from espnet3.utils.logging_utils import configure_logging
+from slim_espnet.systems.base.inference_provider import InferenceProvider
+from slim_espnet.systems.base.inference_runner import InferenceRunner, _load_output_fn
+from slim_espnet.utils.config_utils import load_config_with_defaults
+from slim_espnet.utils.logging_utils import configure_logging
 
 logger = configure_logging()
 
@@ -105,7 +105,7 @@ class InferenceModel:
     """User-facing inference wrapper for packaged ESPnet models.
 
     This class is the public runtime API for a bundle produced by
-    ``espnet3.utils.publication_utils.pack_model()``. It sits on the publication side of
+    ``slim_espnet.utils.publication_utils.pack_model()``. It sits on the publication side of
     the pipeline: stage runners produce the packed directory, then external
     callers use :class:`InferenceModel` to reopen that directory and execute
     the bundled inference configuration without going back through
@@ -201,7 +201,7 @@ class InferenceModel:
 
         Args:
             pack_dir: Path to the output directory created by
-                ``espnet3.utils.publication_utils.pack_model()``. This directory must
+                ``slim_espnet.utils.publication_utils.pack_model()``. This directory must
                 contain ``conf/inference.yaml`` and any files referenced by
                 that config.
             trust_user_code: Set to ``True`` to allow importing bundled recipe
@@ -261,7 +261,7 @@ class InferenceModel:
             raise ValueError(
                 f"Bundle was produced by a newer pack_model "
                 f"(schema_version={schema}) than this installation supports. "
-                f"Upgrade espnet3."
+                f"Upgrade slim_espnet."
             )
 
         inference_config_rel = (meta.get("yaml_files") or {}).get("inference_config")

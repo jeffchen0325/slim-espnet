@@ -1,4 +1,4 @@
-# ESPnet3 ASR recipe
+# slim_espnet ASR recipe
 
 ## Quick start
 

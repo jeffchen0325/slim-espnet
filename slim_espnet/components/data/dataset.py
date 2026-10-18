@@ -1,4 +1,4 @@
-"""Dataset classes for ESPnet3."""
+"""Dataset classes for slim_espnet."""
 
 import copy
 from abc import ABC
@@ -7,7 +7,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from torch.utils.data.dataset import Dataset
 
-from espnet3.utils.logging_utils import build_callable_name, build_qualified_name
+from slim_espnet.utils.logging_utils import build_callable_name, build_qualified_name
 
 
 def do_nothing(*x):
@@ -373,7 +373,7 @@ class CombinedDataset:
 
         This is used when handling large datasets that are split into shards
         for efficiency and distributed processing (ESPnet multiple-iterator mode).
-        All datasets must be subclasses of `espnet3.data.dataset.ShardedDataset`,
+        All datasets must be subclasses of `slim_espnet.data.dataset.ShardedDataset`,
         and implement a `shard()` method.
 
         Args:
@@ -388,7 +388,7 @@ class CombinedDataset:
         if not all(isinstance(dataset, ShardedDataset) for dataset in self.datasets):
             raise RuntimeError(
                 "All dataset should be the subclass of "
-                "espnet3.components.data.dataset.ShardedDataset."
+                "slim_espnet.components.data.dataset.ShardedDataset."
             )
         sharded_datasets = [dataset.shard(shard_idx) for dataset in self.datasets]
         return CombinedDataset(

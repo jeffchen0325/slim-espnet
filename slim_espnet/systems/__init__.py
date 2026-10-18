@@ -1,1 +1,1 @@
-"""System definitions and entrypoints for ESPnet3."""
+"""System definitions and entrypoints for slim_espnet."""

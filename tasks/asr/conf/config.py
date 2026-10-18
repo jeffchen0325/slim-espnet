@@ -30,12 +30,12 @@ class DatasetEntry:
 
 @dataclass
 class DatasetPreprocessorConfig:
-    _target_: str = "espnet3.components.data.data_organizer.DataOrganizer"
+    _target_: str = "slim_espnet.components.data.data_organizer.DataOrganizer"
 
 
 @dataclass
 class DatasetConfig:
-    _target_: str = "espnet3.components.data.data_organizer.DataOrganizer"
+    _target_: str = "slim_espnet.components.data.data_organizer.DataOrganizer"
     _recursive_: bool = False
     recipe_dir: str = "."
     train: Optional[List[DatasetEntry]] = None
@@ -176,12 +176,12 @@ class TrainingConfig:
 
 @dataclass
 class InferenceProviderConfig:
-    _target_: str = "espnet3.systems.base.inference_provider.InferenceProvider"
+    _target_: str = "slim_espnet.systems.base.inference_provider.InferenceProvider"
 
 
 @dataclass
 class InferenceRunnerConfig:
-    _target_: str = "espnet3.systems.base.inference_runner.InferenceRunner"
+    _target_: str = "slim_espnet.systems.base.inference_runner.InferenceRunner"
 
 
 @dataclass
@@ -223,8 +223,8 @@ class MetricEntry:
 class MetricsConfig:
     """评估指标专属配置"""
     metrics: List[MetricEntry] = field(default_factory=lambda: [
-        MetricEntry(metric=MetricDef(_target_="espnet3.systems.asr.metrics.wer.WER")),
-        MetricEntry(metric=MetricDef(_target_="espnet3.systems.asr.metrics.cer.CER")),
+        MetricEntry(metric=MetricDef(_target_="slim_espnet.systems.asr.metrics.wer.WER")),
+        MetricEntry(metric=MetricDef(_target_="slim_espnet.systems.asr.metrics.cer.CER")),
     ])
 
 
@@ -292,7 +292,7 @@ class ReadmeContext:
     app_file: str = "app.py"
     pinned: str = "false"
     license: str = "apache-2.0"
-    tags: str = "- espnet\n- espnet3\n- gradio\n- speech-recognition\n- automatic-speech-recognition"
+    tags: str = "- espnet\n- slim_espnet\n- gradio\n- speech-recognition\n- automatic-speech-recognition"
     hf_repo: str = "${upload_demo.hf_repo}"
     model_ref: str = "${model.dir_or_tag}"
 

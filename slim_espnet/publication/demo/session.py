@@ -9,12 +9,12 @@ from typing import Any
 
 from omegaconf import DictConfig, OmegaConf
 
-from espnet3.publication.demo.assets import (
+from slim_espnet.publication.demo.assets import (
     DEFAULT_UI_ASSETS,
     UIAssetRegistry,
 )
-from espnet3.publication.inference_model import InferenceModel
-from espnet3.utils.config_utils import load_config_with_defaults
+from slim_espnet.publication.inference_model import InferenceModel
+from slim_espnet.utils.config_utils import load_config_with_defaults
 
 logger = logging.getLogger(__name__)
 

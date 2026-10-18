@@ -1,4 +1,4 @@
-"""Inference entrypoint for ESPnet3 systems."""
+"""Inference entrypoint for slim_espnet systems."""
 
 import logging
 import time
@@ -7,8 +7,8 @@ from pathlib import Path
 from hydra.utils import instantiate
 from omegaconf import DictConfig, OmegaConf
 
-from espnet3.parallel.parallel import set_parallel
-from espnet3.systems.base.inference_runner import _load_output_fn
+from slim_espnet.parallel.parallel import set_parallel
+from slim_espnet.systems.base.inference_runner import _load_output_fn
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ def infer(config: DictConfig):
         <utt_id> <value_or_path>
 
     Primitive values are written directly into SCP files. When
-    :class:`espnet3.systems.base.inference_runner.InferenceRunner` is used,
+    :class:`slim_espnet.systems.base.inference_runner.InferenceRunner` is used,
     workers first write shard-local files under:
 
     .. code-block:: text

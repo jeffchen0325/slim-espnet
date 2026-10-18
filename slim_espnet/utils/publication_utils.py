@@ -1,4 +1,4 @@
-"""Publication helpers for ESPnet3."""
+"""Publication helpers for slim_espnet."""
 
 from __future__ import annotations
 
@@ -22,9 +22,9 @@ from hydra.utils import instantiate
 from omegaconf import DictConfig, ListConfig, OmegaConf
 
 import espnet2
-from espnet3.components.modeling.lightning_module import build_model_summary
-from espnet3.utils.logging_utils import get_git_metadata
-from espnet3.utils.task_utils import get_espnet_model
+from slim_espnet.components.modeling.lightning_module import build_model_summary
+from slim_espnet.utils.logging_utils import get_git_metadata
+from slim_espnet.utils.task_utils import get_espnet_model
 
 logger = logging.getLogger(__name__)
 
@@ -675,7 +675,7 @@ def upload_model(system) -> None:
     """Upload packed model artifacts to a Hugging Face model repo.
 
     Args:
-        system: ESPnet3 system instance with ``publication_config``.
+        system: slim_espnet system instance with ``publication_config``.
 
     Raises:
         RuntimeError: If required config values are missing or upload fails.

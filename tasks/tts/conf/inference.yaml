@@ -26,6 +26,6 @@ output_fn:
 output_artifacts:
 
 provider:
-  _target_: espnet3.systems.base.inference_provider.InferenceProvider
+  _target_: slim_espnet.systems.base.inference_provider.InferenceProvider
 runner:
-  _target_: espnet3.systems.base.inference_runner.InferenceRunner
+  _target_: slim_espnet.systems.base.inference_runner.InferenceRunner

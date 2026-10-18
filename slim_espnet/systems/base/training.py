@@ -1,4 +1,4 @@
-"""Training entrypoint for ESPnet3 systems."""
+"""Training entrypoint for slim_espnet systems."""
 
 from __future__ import annotations
 
@@ -12,10 +12,10 @@ import torch
 from hydra.utils import instantiate
 from omegaconf import DictConfig, OmegaConf
 
-from espnet3.components.modeling.lightning_module import ESPnetLightningModule
-from espnet3.components.trainers.trainer import ESPnet3LightningTrainer
-from espnet3.parallel.parallel import set_parallel
-from espnet3.utils.task_utils import get_espnet_model, save_espnet_config
+from slim_espnet.components.modeling.lightning_module import ESPnetLightningModule
+from slim_espnet.components.trainers.trainer import slim_espnetLightningTrainer
+from slim_espnet.parallel.parallel import set_parallel
+from slim_espnet.utils.task_utils import get_espnet_model, save_espnet_config
 
 logger = logging.getLogger(__name__)
 
@@ -28,10 +28,10 @@ def _instantiate_model(config: DictConfig) -> Any:
     return instantiate(config.model)
 
 
-def _build_trainer(config: DictConfig) -> ESPnet3LightningTrainer:
+def _build_trainer(config: DictConfig) -> slim_espnetLightningTrainer:
     model = _instantiate_model(config)
     lit_model = ESPnetLightningModule(model, config)
-    trainer = ESPnet3LightningTrainer(
+    trainer = slim_espnetLightningTrainer(
         model=lit_model,
         exp_dir=config.exp_dir,
         config=config.trainer,

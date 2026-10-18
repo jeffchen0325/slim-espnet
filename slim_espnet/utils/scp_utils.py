@@ -1,4 +1,4 @@
-"""SCP file helpers for ESPnet3 hypothesis/reference files."""
+"""SCP file helpers for slim_espnet hypothesis/reference files."""
 
 from pathlib import Path
 from typing import Dict, List, Union

@@ -1,4 +1,4 @@
-"""Callbacks for ESPnet3 trainer."""
+"""Callbacks for slim_espnet trainer."""
 
 import logging
 import time
@@ -16,7 +16,7 @@ from lightning.pytorch.callbacks import (
 from typeguard import typechecked
 
 from espnet2.torch_utils.safe_torch_load import safe_torch_load
-from espnet3.utils.logging_utils import log_component
+from slim_espnet.utils.logging_utils import log_component
 
 _LOGGED_CALLBACKS = False
 
@@ -169,7 +169,7 @@ class AverageCheckpointsCallback(Callback):
                         avg_state_dict[k] = avg_state_dict[k] / len(checkpoints)
 
                 # `pl_module.state_dict()` (via `ESPnetLightningModule`'s
-                # override, see `espnet3/components/modeling/
+                # override, see `slim_espnet/components/modeling/
                 # lightning_module.py`) reflects the actual model's own key
                 # naming. Use it as ground truth rather than guessing from a
                 # hardcoded `model.` prefix, so a real submodule that happens
@@ -203,7 +203,7 @@ class AverageCheckpointsCallback(Callback):
 class MetricsLogger(Callback):
     """Log compact train and validation metric summaries.
 
-    This callback owns the human-readable metric logging for the default ESPnet3
+    This callback owns the human-readable metric logging for the default slim_espnet
     training loop. It handles three reporting points in one place:
 
     - interval-based training batch summaries

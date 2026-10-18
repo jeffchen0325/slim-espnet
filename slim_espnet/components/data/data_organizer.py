@@ -1,4 +1,4 @@
-"""DataOrganizer class for managing datasets in ESPnet3."""
+"""DataOrganizer class for managing datasets in slim_espnet."""
 
 import copy
 import logging
@@ -9,13 +9,13 @@ from hydra.utils import instantiate
 from omegaconf import DictConfig, OmegaConf
 
 from espnet2.train.preprocessor import AbsPreprocessor
-from espnet3.components.data.dataset import (
+from slim_espnet.components.data.dataset import (
     CombinedDataset,
     DatasetWithTransform,
     do_nothing,
 )
-from espnet3.components.data.dataset_module import instantiate_dataset_reference
-from espnet3.utils.logging_utils import build_callable_name, build_qualified_name
+from slim_espnet.components.data.dataset_module import instantiate_dataset_reference
+from slim_espnet.utils.logging_utils import build_callable_name, build_qualified_name
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ class DatasetConfig:
     Attributes:
         name (str): Name identifier for the dataset.
         data_src (Optional[str]): Optional dataset source reference resolved via
-            ``espnet3.components.data.dataset_module``.
+            ``slim_espnet.components.data.dataset_module``.
         data_src_args (Optional[Dict[str, Any]]): Keyword arguments passed to the
             recipe ``Dataset`` class.
         transform (Optional[Dict[str, Any]]): A dictionary for Hydra instantiation of
