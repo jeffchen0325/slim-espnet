@@ -8,7 +8,7 @@
 ##########################################################
 #                  SYSTEM AND PATH SETTING               #
 ##########################################################
-task: slim_espnet.systems.asr.task.ASRTask
+task: slim_espnet.systems.asr.asr_task.ASRTask
 
 ##########################################################
 #                    DATASET DEFINITION                  #

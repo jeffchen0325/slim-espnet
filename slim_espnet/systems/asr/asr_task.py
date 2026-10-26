@@ -81,7 +81,7 @@ from espnet2.asr_transducer.joint_network import JointNetwork
 from espnet2.layers.abs_normalize import AbsNormalize
 from espnet2.layers.global_mvn import GlobalMVN
 from espnet2.layers.utterance_mvn import UtteranceMVN
-from espnet2.tasks.abs_task import AbsTask
+from slim_espnet.systems.base.abs_task import AbsTask
 from espnet2.text.phoneme_tokenizer import g2p_choices
 from espnet2.torch_utils.initialize import initialize
 from espnet2.train.abs_espnet_model import AbsESPnetModel

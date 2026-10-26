@@ -126,6 +126,12 @@ class MiniAn4Builder(DatasetBuilder):
         )
         _normalize_downloads_layout(dataset_root)
 
+        if not self.is_source_prepared(recipe_dir=recipe_dir):
+            raise RuntimeError(
+                f"Extraction succeeded but an4/etc or an4/wav not found under {dataset_root}. "
+                f"The archive may be corrupted or have an unexpected structure."
+            )
+
     def is_built(self, recipe_dir: str | Path, **_kwargs) -> bool:
         """Check whether task-ready manifest files are already built.
 
@@ -233,3 +239,9 @@ class MiniAn4Builder(DatasetBuilder):
             with path.open("w", encoding="utf-8") as fh:
                 for utt_id, wav, text in entries:
                     fh.write(f"{utt_id}\t{wav}\t{text}\n")
+
+        if not self.is_built(recipe_dir=recipe_dir):
+            raise RuntimeError(
+                f"Build completed but manifest validation failed under {data}. "
+                f"Expected files: {list(_CFG['manifest_paths'].values())}"
+            )

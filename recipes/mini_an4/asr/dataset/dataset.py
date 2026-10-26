@@ -11,7 +11,7 @@ import numpy as np
 import soundfile as sf
 from torch.utils.data import Dataset as TorchDataset
 
-from egs3.mini_an4.asr.dataset.builder import MiniAn4Builder
+from .builder import MiniAn4Builder
 from slim_espnet.utils.config_utils import load_config_with_defaults
 
 # ---------------------------------------------------------------------------

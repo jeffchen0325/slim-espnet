@@ -59,10 +59,11 @@ def collect_stats(config: DictConfig) -> None:
 
     torch.set_float32_matmul_precision("high")
 
-    if "normalize" in config.model:
-        config.model.pop("normalize")
-    if "normalize_conf" in config.model:
-        config.model.pop("normalize_conf")
+    # remove below codes
+    #if "normalize" in config.model:
+    #    config.model.pop("normalize")
+    #if "normalize_conf" in config.model:
+    #    config.model.pop("normalize_conf")
 
     trainer = _build_trainer(config)
     trainer.collect_stats()

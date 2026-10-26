@@ -230,21 +230,21 @@ class BaseSystem:
             "%s.create_dataset(): starting dataset creation process",
             self.__class__.__name__,
         )
+
         start = time.perf_counter()
+
         dataset_config = getattr(self.training_config, "dataset", None)
+        if dataset_config is None:
+            raise RuntimeError(
+                "training_config.dataset must be set for create_dataset stage."
+            )   
         recipe_dir = getattr(self.training_config, "recipe_dir", None)
         create_dataset_config = getattr(
             self.training_config, "create_dataset", OmegaConf.create({})
         )
         default_builder_kwargs = dict(create_dataset_config)
-
+        
         prepared_any = False
-
-        if dataset_config is None:
-            raise RuntimeError(
-                "training_config.dataset must be set for create_dataset stage."
-            )
-
         prepared_refs: set[str] = set()
         for split_name in ("train", "valid", "test"):
             entries = getattr(dataset_config, split_name, None)

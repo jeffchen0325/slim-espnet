@@ -76,7 +76,8 @@ tasks = ["**/*.yaml"]
 # espnet3 import theirs at module level and are training entry points.
 train = [
   "lightning",
-  "tensorboard>=1.14",
+  "tensorboard>=2.20",
+  "protobuf>=6.31.1", 
   "torch_optimizer",
   "matplotlib",
   "nltk>=3.4.5",

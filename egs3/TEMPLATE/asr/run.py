@@ -53,7 +53,7 @@ def build_parser(
     )
     parser.add_argument(
         "--training_config",
-        default="conf/training.yaml",
+        default="conf/training_asr_transducer.yaml",
         type=Path,
         help=(
             "Hydra config for training (passed to load_config_with_defaults). "

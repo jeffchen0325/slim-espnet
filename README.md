@@ -74,7 +74,7 @@
 当前项目目录结构：
 ```text
 slim-espnet/
-├── compliance         # 版权相关s
+├── compliance/        # 版权相关
 ├── egs3/              # 原始recipes
 ├── espnet2/           # 原始核心实现
 ├── espnet3/           # 原始核心实现
@@ -82,6 +82,7 @@ slim-espnet/
 ├── slim_espnet/       # 重构核心实现
 ├── tasks/             # 重构标准训练与推理流程
 ├── tools/             # 原始工具脚本（少量重构）
+├── pyproject.toml
 └── README.md
 ```
 其中`egs3/`文件夹仅作兼容使用，本项目把`egs3/`文件夹拆分成`receipes`（对应所有原始数据集）和`tasks`（对应原始TEMPLATE）两个文件夹进行重构。
